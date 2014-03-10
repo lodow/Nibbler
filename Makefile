@@ -18,15 +18,19 @@ NAME		=	nibler
 
 OBJDIR		=	obj/
 SRCDIR		=	src/
+INCDIR		=	inc/
 
-CFLAGS		+=	-Wall -Wextra
+CFLAGS		+=	-I$(INCDIR)
+CFLAGS		+=	-Wall -Wextra -Winit-self
+CFLAGS		+=	-Wunused-function -pipe -Winit-self
 
-LDFLAGS		+=
+LDFLAGS		+=	-Wl,-O1
 
 OBJ		=	$(patsubst %.cpp,${OBJDIR}%.o, $(SRC))
 
 dummy		:=	$(shell test -d $(OBJDIR) || mkdir -p $(OBJDIR))
 dummy		:=	$(shell test -d $(SRCDIR) || mkdir -p $(SRCDIR))
+dummy		:=	$(shell test -d $(INCDIR) || mkdir -p $(INCDIR))
 
 $(OBJDIR)%.o:		$(patsubst %.cpp,${SRCDIR}%.cpp, %.cpp)
 			@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
