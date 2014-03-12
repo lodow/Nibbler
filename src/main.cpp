@@ -1,14 +1,12 @@
 #include <iostream>
 #include <string>
-#include "cpu.hpp"
-#include "Chipset.hpp"
 #include "Fault.hpp"
 
 int main(int argc, char **argv)
 {
-  Chipset chip;
+  /* Chipset chip;
 
-  try
+   try
     {
       if (argc == 1)
         chip.parser();
@@ -18,6 +16,6 @@ int main(int argc, char **argv)
   catch (std::exception& e)
     {
       std::cerr << e.what() << std::endl;
-    }
+      }*/
   return 0;
 }
