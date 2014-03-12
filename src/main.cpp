@@ -1,6 +1,4 @@
 #include <iostream>
-#include <dlfcn.h>
-#include "Fault.hpp"
 #include "Nibbler.hpp"
 
 int main(int argc, char **argv)
@@ -16,12 +14,13 @@ int main(int argc, char **argv)
   dlhandle = dlopen(argv[1], RTLD_LAZY);
   if (dlhandle == NULL)
     {
-      std::cout << "Error opening '" << argv[1] << "'" << std::endl;
+      std::cerr << "Error opening '" << argv[1] << "'" << std::endl;
+      std::cerr << dlerror() << std::endl;
       return(1);
     }
   try
     {
-      //      nib.setLib(dlhandle);
+      nib.setLib(dlhandle);
       nib.run();
     }
   catch (std::exception& e)

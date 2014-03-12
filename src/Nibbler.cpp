@@ -5,7 +5,7 @@
 ** Login   <maxime@epitech.net>
 **
 ** Started on  Wed Mar 12 15:36:57 2014 Maxime
-** Last update Wed Mar 12 16:07:28 2014 Maxime
+** Last update Wed Mar 12 16:31:45 2014 Maxime
 */
 
 #include "Nibbler.hpp"
@@ -35,12 +35,16 @@ Nibbler::~Nibbler()
   delete[] _map;
 }
 
-/*void	Nibbler::setLib(void *lib)
+void	Nibbler::setLib(void *lib)
 {
-
-}*/
+  _external_creator = reinterpret_cast<IGraphique* (*)()>(dlsym(lib, "create_assistant"));
+  if (_external_creator == NULL)
+    throw nFault("Error with the shared lib\n");
+}
 
 void	Nibbler::run()
 {
+  IGraphique* gui = _external_creator();
 
+  gui->createWindows(_x, _y);
 }
