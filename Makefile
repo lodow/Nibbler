@@ -5,12 +5,13 @@
 ## Login   <maxime@epitech.net>
 ##
 ## Started on  Wed Mar 12 15:15:11 2014 Maxime
-## Last update Wed Mar 12 15:25:09 2014 Maxime
+## Last update Wed Mar 12 15:57:19 2014 Maxime
 ##
 
 NAME_EXE 	=	nibbler
 SRC_EXE 	=	src/main.cpp \
-			src/Fault.cpp
+			src/Fault.cpp \
+			src/Nibbler.cpp
 
 OBJ_EXE 	=	$(SRC_EXE:.cpp=.o)
 
@@ -20,7 +21,7 @@ SRC_LIB 	=	src_sdl/Graphique.cpp
 OBJ_LIB 	=	$(SRC_LIB:.cpp=.o)
 
 LDFLAGS 	+=	-ldl
-CXXFLAGS 	+=	-fPIC
+CXXFLAGS 	+=	-fPIC -W -Wall -Wextra -Werror
 
 CXX 		=	g++
 
