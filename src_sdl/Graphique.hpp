@@ -5,16 +5,16 @@
 ** Login   <maxime@epitech.net>
 **
 ** Started on  Wed Mar 12 15:18:50 2014 Maxime
-** Last update Wed Mar 12 16:28:59 2014 Maxime
+** Last update Tue Mar 18 22:34:17 2014 Maxime
 */
 
 #ifndef GRAPHIQUE_HPP_
 #define GRAPHIQUE_HPP_
 
 #include <iostream>
-#include "../src/IGraphique.hpp"
+#include "../src/IGui.hpp"
 
-class Graphique : public IGraphique
+class Graphique : public IGui
 {
 public :
   Graphique();

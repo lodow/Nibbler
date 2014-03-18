@@ -5,7 +5,7 @@
 ** Login   <maxime@epitech.net>
 **
 ** Started on  Wed Mar 12 15:36:57 2014 Maxime
-** Last update Wed Mar 12 16:31:45 2014 Maxime
+** Last update Tue Mar 18 22:25:24 2014 Maxime
 */
 
 #include "Nibbler.hpp"
@@ -37,7 +37,7 @@ Nibbler::~Nibbler()
 
 void	Nibbler::setLib(void *lib)
 {
-  _external_creator = reinterpret_cast<IGraphique* (*)()>(dlsym(lib, "create_assistant"));
+  _external_creator = reinterpret_cast<IGui* (*)()>(dlsym(lib, "create_assistant"));
   if (_external_creator == NULL)
     throw nFault("Error with the shared lib\n");
 }
