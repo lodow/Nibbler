@@ -13,6 +13,9 @@ public:
   const Point2d<T>& getPos() const {return _pos;};
   const Point2d<T>& getSize() const {return _size;};
 
+  Point2d<T>& getmPos() {return _pos;};
+  Point2d<T>& getmSize() {return _size;};
+
   bool operator==(const Box<T>& b) const;
 
 private:

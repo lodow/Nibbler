@@ -1,12 +1,14 @@
 #include "Nibbler.hpp"
 
 Nibbler::Nibbler(int width, int height)
-  : _width(width), _height(height), _game(Point2d<int>(width / 2, height / 2))
+  : _width(width), _height(height),
+    _game(Point2d<int>(width / 2, height / 2), Point2d<int>(width, height))
 {
 }
 
 Nibbler::Nibbler()
-  : _width(800), _height(600), _game(Point2d<int>(_width / 2, _height / 2))
+  : _width(800), _height(600),
+    _game(Point2d<int>(_width / 2, _height / 2), Point2d<int>(_width, _height))
 {
 }
 

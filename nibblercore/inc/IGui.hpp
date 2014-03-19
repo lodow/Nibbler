@@ -16,7 +16,7 @@
 #include <string>
 
 typedef enum {HEAD_SNAKE, QUEU_SNAKE, WALL, EMPTY} blockType;
-typedef enum {TOP, BUTTON, LEFT, RIGHT, ESCAPE, F5} eventType;
+typedef enum {UPKEY, DOWNKEY, LEFTKEY, RIGHTKEY, ESCAPEKEY, F5KEY} eventType;
 
 class IGui
 {
