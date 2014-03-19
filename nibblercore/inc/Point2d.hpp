@@ -28,6 +28,9 @@ public:
   T x() const {return _x;};
   T y() const {return _y;};
 
+  T w() const {return _x;};
+  T h() const {return _y;};
+
 private:
   T _x;
   T _y;

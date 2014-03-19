@@ -1,7 +1,10 @@
 #ifndef HANDLESNAKE_HPP_INCLUDED
 #define HANDLESNAKE_HPP_INCLUDED
 
+#include "Snake.hpp"
 #include "Point2d.hpp"
+#include "Box.hpp"
+#include "IGui.hpp"
 
 class HandleSnake
 {
@@ -11,7 +14,7 @@ public:
 
   void changeDirection(int dir);
   void update();
-  void drawn() const;
+  void drawn(IGui* lib) const;
 
   int getSize() const;
   void addMember();
@@ -20,6 +23,7 @@ public:
 
 private:
   int _dir;
+  SnakePart _snake;
   Point2d<int> _apple;
   int _score;
   bool _lost;

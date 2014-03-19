@@ -15,7 +15,7 @@
 #include <sstream>
 #include <string>
 
-typedef enum {SNAKE, HEAD_SNAKE, QUEU_SNAKE, OBJECT, EMPTY} blockType;
+typedef enum {HEAD_SNAKE, QUEU_SNAKE, WALL, EMPTY} blockType;
 typedef enum {TOP, BUTTON, LEFT, RIGHT, ESCAPE, F5} eventType;
 
 class IGui
@@ -25,8 +25,7 @@ public :
 public :
   virtual void	createWindows(int x, int y) = 0;
   virtual void	drawSquare(int x, int y, blockType type) = 0;
-  virtual void	gameOver() = 0;
-  virtual void	affTexte(int x, int y, std::stringstream const  &text, int lenght) = 0;
+  virtual void	affText(int x, int y, const std::stringstream& text, int lenght) = 0;
   virtual bool	getEvent(eventType event);
 };
 
