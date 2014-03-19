@@ -12,7 +12,7 @@
 #define GRAPHIQUE_HPP_
 
 #include <iostream>
-#include "../src/IGui.hpp"
+#include "IGui.hpp"
 
 class Graphique : public IGui
 {

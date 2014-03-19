@@ -1,42 +1,37 @@
 ##
-## Makefile for nibbler in /home/maxime/projet/actu/cpp_nibbler
+## Makefile for Make in /home/moriss
 ##
-## Made by Maxime
-## Login   <maxime@epitech.net>
+## Made by hugues morisset
+## Login   <moriss_h@epitech.net>
 ##
-## Started on  Wed Mar 12 15:15:11 2014 Maxime
-## Last update Wed Mar 12 16:56:30 2014 Maxime
+## Started on  Mon Oct 22 09:20:28 2012 hugues morisset
+## Last update Sun Mar  9 23:19:26 2014 Hugues
 ##
 
-NAME_EXE 	=	nibbler
-SRC_EXE 	=	src/main.cpp \
-			src/Fault.cpp \
-			src/Nibbler.cpp
+NAME	=	nibbler/libs
 
-OBJ_EXE 	=	$(SRC_EXE:.cpp=.o)
+PATHS	=	nibbler \
+		lib_mlx \
+		lib_opengl \
+		lib_sdl
 
+$(NAME):
+	@for dir in $(PATHS); do \
+	echo "--- $$dir ---"; make --no-print-directory -C $$dir all; \
+	done
 
-NAME_LIB 	=	libsdl.so
-SRC_LIB 	=	src_sdl/Graphique.cpp
-OBJ_LIB 	=	$(SRC_LIB:.cpp=.o)
-
-LDFLAGS 	+=	-ldl
-CXXFLAGS 	+=	-fPIC -W -Wall -Wextra -Werror
-
-CXX 		=	g++
-
-all: 			$(NAME_LIB) $(NAME_EXE)
-
-$(NAME_EXE): 		$(OBJ_EXE)
-			$(CXX) -o $(NAME_EXE) $(OBJ_EXE) $(LDFLAGS)
-
-$(NAME_LIB): 		$(OBJ_LIB)
-			$(CXX) -shared -o $(NAME_LIB) $(OBJ_LIB)
+all: $(NAME)
 
 clean:
-			rm -f $(OBJ_LIB) $(OBJ_EXE)
+	@for dir in $(PATHS); do \
+	echo "--- $$dir ---"; make --no-print-directory -C $$dir clean; \
+	done
 
-fclean: 		clean
-			rm -f $(NAME_EXE) $(NAME_LIB)
+fclean:
+	@for dir in $(PATHS); do \
+	echo "--- $$dir ---"; make --no-print-directory -C $$dir fclean; \
+	done
 
-re: 			fclean all
+re: fclean all
+
+.PHONY:	all clean fclean re
