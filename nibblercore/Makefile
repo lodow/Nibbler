@@ -10,7 +10,8 @@
 
 SRC		=	main.cpp \
 			Fault.cpp \
-			Nibbler.cpp
+			Nibbler.cpp \
+			Point2d.cpp
 
 CC		=	g++
 
