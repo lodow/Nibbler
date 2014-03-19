@@ -61,5 +61,39 @@ Point2d<T>& Point2d<T>::operator-(const Point2d& p) const
   return (*n);
 }
 
+template<typename T>
+Point2d<T>& Point2d<T>::operator*=(const Point2d& p)
+{
+  _x *= p._x;
+  _y *= p._y;
+  return (*this);
+}
+
+template<typename T>
+Point2d<T>& Point2d<T>::operator*(const Point2d& p) const
+{
+  Point2d* n = new Point2d(*this);
+  *n *= p;
+  return (*n);
+}
+
+template<typename T>
+Point2d<T>& Point2d<T>::operator/=(const Point2d& p)
+{
+  if (p._x == 0 || p._y == 0)
+    throw nFault("Zero division");
+  _x /= p._x;
+  _y /= p._y;
+  return (*this);
+}
+
+template<typename T>
+Point2d<T>& Point2d<T>::operator/(const Point2d& p) const
+{
+  Point2d* n = new Point2d(*this);
+  *n /= p;
+  return (*n);
+}
+
 template class Point2d<int>;
 template class Point2d<double>;
