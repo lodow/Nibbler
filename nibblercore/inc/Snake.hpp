@@ -12,7 +12,7 @@ public:
   const Box<int>& getBox() const {return _box;};
   void setBox(const Box<int>& b) {_box = b;};
 
-  void addPart(); //add a part to the sanke
+  void addPart();
 
   bool collisionItself() const;
   SnakePart* getNext() const {return _next;};
