@@ -1,40 +1,17 @@
-/*
-** Nibbler.cpp for nibbler in /home/maxime/projet/actu/cpp_nibbler
-**
-** Made by Maxime
-** Login   <maxime@epitech.net>
-**
-** Started on  Wed Mar 12 15:36:57 2014 Maxime
-** Last update Tue Mar 18 22:25:24 2014 Maxime
-*/
-
 #include "Nibbler.hpp"
 
-Nibbler::Nibbler(int x, int y)
-  : _game(Point2d<int>(x, y))
+Nibbler::Nibbler(int width, int height)
+  : _width(width), _height(height), _game(Point2d<int>(width / 2, height / 2))
 {
-  _y = y;
-  _x = x;
-  _map = new char* [_y];
-  for (int i = 0; i < _y; i++)
-    _map[i] = new char[_x];
 }
 
 Nibbler::Nibbler()
-  : _game(Point2d<int>(80, 80))
+  : _width(800), _height(600), _game(Point2d<int>(_width / 2, _height / 2))
 {
-  _x = 80;
-  _y = 80;
-  _map = new char* [_y];
-  for (int i = 0; i < _y; i++)
-    _map[i] = new char[_x];
 }
 
 Nibbler::~Nibbler()
 {
-  for (int i = 0; i < _y; i++)
-    delete[] _map[i];
-  delete[] _map;
 }
 
 void	Nibbler::setLib(void *lib)
@@ -48,5 +25,5 @@ void	Nibbler::run()
 {
   IGui* gui = _external_creator();
 
-  gui->createWindows(_x, _y);
+  gui->createWindows(_width, _height);
 }

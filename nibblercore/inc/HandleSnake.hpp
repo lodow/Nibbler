@@ -25,5 +25,4 @@ private:
   bool _lost;
 };
 
-
 #endif // HANDLESNAKE_HPP_INCLUDED

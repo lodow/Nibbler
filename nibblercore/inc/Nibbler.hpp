@@ -20,7 +20,7 @@
 class Nibbler
 {
 public :
-  Nibbler(int x, int y);
+  Nibbler(int width, int height);
   Nibbler();
   ~Nibbler();
 public :
@@ -28,9 +28,8 @@ public :
   void	setLib(void *lib);
 private :
   IGui* (*_external_creator)();
-  int _y;
-  int _x;
-  char	**_map;
+  int _width;
+  int _height;
   HandleSnake _game;
 };
 

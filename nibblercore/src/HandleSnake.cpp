@@ -4,7 +4,6 @@ HandleSnake::HandleSnake(const Point2d<int>& start)
 {
 }
 
-
 HandleSnake::~HandleSnake()
 {
 
@@ -18,6 +17,7 @@ void HandleSnake::changeDirection(int dir)
 int HandleSnake::getSize() const
 {
 
+  return (0);
 }
 
 void HandleSnake::update()

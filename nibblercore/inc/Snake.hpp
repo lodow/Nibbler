@@ -1,0 +1,6 @@
+#ifndef SNAKE_HPP_INCLUDED
+#define SNAKE_HPP_INCLUDED
+
+
+
+#endif // SNAKE_HPP_INCLUDED

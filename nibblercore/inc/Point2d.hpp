@@ -7,7 +7,7 @@ template<typename T>
 class Point2d
 {
 public:
-  Point2d(T x, T y);
+  Point2d(T x = 0, T y = 0);
   Point2d(const Point2d& p);
   ~Point2d();
 
@@ -25,10 +25,12 @@ public:
   Point2d<T>& operator/(const Point2d& p) const;
   Point2d<T>& operator/=(const Point2d& p);
 
+  T x() const {return _x;};
+  T y() const {return _y;};
+
 private:
   T _x;
   T _y;
 };
-
 
 #endif // POINT2D_HPP_INCLUDED
