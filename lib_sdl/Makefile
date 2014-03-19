@@ -14,13 +14,13 @@ CC		=	g++
 
 RM		=	rm -f
 
-NAME		=	lib_nibbler_sdl.so"
+NAME		=	lib_nibbler_sdl.so
 
 OBJDIR		=	obj/
 SRCDIR		=	src/
 INCDIR		=	inc/
 
-CFLAGS		+=	-I$(INCDIR) -I../nibbler/inc/
+CFLAGS		+=	-I$(INCDIR) -I../nibblercore/inc/
 CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 CFLAGS		+=	-fPIC
@@ -49,6 +49,7 @@ $(NAME):	$(OBJ)
 		@$(CC) $(LDFLAGS) -o $(NAME) $(OBJ)
 
 all:	$(NAME)
+	@cp -f $(NAME) ../$(NAME)
 
 clean:
 	@echo -e "Removing object !" | sed 's/^-e //' \

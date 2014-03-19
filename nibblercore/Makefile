@@ -50,6 +50,7 @@ $(NAME):	$(OBJ)
 		@$(CC) $(LDFLAGS) -o $(NAME) $(OBJ)
 
 all:	$(NAME)
+	@cp -f $(NAME) ../$(NAME)
 
 clean:
 	@echo -e "Removing object !" | sed 's/^-e //' \
@@ -67,4 +68,3 @@ help:
 	@echo -e "\033[37mTarget available: all, ${NAME}, clean, fclean\033[00m" | sed 's/^-e //'
 
 .PHONY:	all clean fclean re help
-
