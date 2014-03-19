@@ -27,7 +27,7 @@ void Graphique::createWindows(int x, int y)
 
 extern "C"
 {
-  IGraphique* create_assistant()
+  IGui* create_assistant()
   {
     return new Graphique();
   }

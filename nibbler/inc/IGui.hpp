@@ -18,7 +18,6 @@
 typedef enum {SNAKE, HEAD_SNAKE, QUEU_SNAKE, OBJECT, EMPTY} blockType;
 typedef enum {TOP, BUTTON, LEFT, RIGHT, ESCAPE, F5} eventType;
 
-
 class IGui
 {
 public :

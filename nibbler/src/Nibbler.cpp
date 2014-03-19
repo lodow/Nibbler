@@ -44,7 +44,7 @@ void	Nibbler::setLib(void *lib)
 
 void	Nibbler::run()
 {
-  IGraphique* gui = _external_creator();
+  IGui* gui = _external_creator();
 
   gui->createWindows(_x, _y);
 }
