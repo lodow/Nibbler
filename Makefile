@@ -10,12 +10,12 @@
 
 NAME	=	nibbler/libs
 
-PATHS	=	nibblercore \
+SUBDIRS	=	nibblercore \
 		lib_mlx \
 		lib_opengl \
 		lib_sdl
 		
-TOCLEAN	=	nibbler \
+RULES	=	nibbler \
 		lib_nibbler_sdl.so \
 		lib_nibbler_opengl.so \
 		lib_nibbler_mlx.so
@@ -23,23 +23,23 @@ TOCLEAN	=	nibbler \
 RM	=	rm -f
 
 $(NAME):
-	@for dir in $(PATHS); do \
+	@for dir in $(SUBDIRS); do \
 	echo "--- $$dir ---"; make --no-print-directory -C $$dir all; \
 	done
 
 all: $(NAME)
 
 clean:
-	@for dir in $(PATHS); do \
+	@for dir in $(SUBDIRS); do \
 	echo "--- $$dir ---"; make --no-print-directory -C $$dir clean; \
 	done
 
 fclean:
-	$(RM) $(TOCLEAN)
-	@for dir in $(PATHS); do \
+	$(RM) $(RULES)
+	@for dir in $(SUBDIRS); do \
 	echo "--- $$dir ---"; make --no-print-directory -C $$dir fclean; \
 	done
 
 re: fclean all
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re $(SUBDIRS)

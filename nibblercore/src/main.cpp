@@ -6,7 +6,7 @@ int main(int argc, char **argv)
   Nibbler nib;
   void *dlhandle;
 
-  if (argc != 2)
+  if (argc != 4)
     {
       std::cout << "Usage : ./nibbler <libXXX.so>" << std::endl;
       return (1);

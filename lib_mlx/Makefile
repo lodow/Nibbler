@@ -47,9 +47,9 @@ $(NAME):	$(OBJ)
 		@echo -e "Linking $@ { $(LDFLAGS) }" | sed 's/^-e //' \
 		| sed 's/[-a-zA-Z]\+/\x1B[34m&\x1B[0m/g'
 		@$(CC) $(LDFLAGS) -o $(NAME) $(OBJ)
+		cp -f $(NAME) ../$(NAME)
 
 all:	$(NAME)
-	@cp -f $(NAME) ../$(NAME)
 
 clean:
 	@echo -e "Removing object !" | sed 's/^-e //' \
