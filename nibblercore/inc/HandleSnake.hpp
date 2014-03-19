@@ -6,23 +6,23 @@
 class HandleSnake
 {
 public:
-  HandleSnake();
+  HandleSnake(const Point2d<int>& start);
   ~HandleSnake();
 
-  void change_dir(int dir); //to change the direction of the snake
+  void changeDirection(int dir);
   void update();
-  void drawn();
+  void drawn() const;
 
-  int sget_size(int game_size);
+  int getSize() const;
+  void addMember();
+
+  bool isOver() const {return (_lost);};
 
 private:
-  pos m_screen; //the screen widht and height
-  snake* m_head; //a pointer on the head of the snake
-  int m_dir; //the direction of the snake
-  pos m_pos_apple; //the pos of the apple
-  int m_score;
-  bool m_lost; //if we ha ve lost
-  int m_size; //the size of the snake
+  int _dir;
+  Point2d<int> _apple;
+  int _score;
+  bool _lost;
 };
 
 

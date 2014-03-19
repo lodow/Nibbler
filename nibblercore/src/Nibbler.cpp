@@ -11,26 +11,28 @@
 #include "Nibbler.hpp"
 
 Nibbler::Nibbler(int x, int y)
+  : _game(Point2d<int>(x, y))
 {
   _y = y;
   _x = x;
   _map = new char* [_y];
-  for (int i=0; i < _y; i++)
+  for (int i = 0; i < _y; i++)
     _map[i] = new char[_x];
 }
 
 Nibbler::Nibbler()
+  : _game(Point2d<int>(80, 80))
 {
   _x = 80;
   _y = 80;
   _map = new char* [_y];
-  for (int i=0; i < _y; i++)
+  for (int i = 0; i < _y; i++)
     _map[i] = new char[_x];
 }
 
 Nibbler::~Nibbler()
 {
-  for (int i=0; i < _y; i++)
+  for (int i = 0; i < _y; i++)
     delete[] _map[i];
   delete[] _map;
 }

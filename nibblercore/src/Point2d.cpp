@@ -1,6 +1,5 @@
 #include "Point2d.hpp"
 
-
 template<typename T>
 Point2d<T>::Point2d(T x, T y)
   : _x(x), _y(y)

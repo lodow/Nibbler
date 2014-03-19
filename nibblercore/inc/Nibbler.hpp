@@ -12,8 +12,10 @@
 #define NIBBLER_H_
 
 #include <dlfcn.h>
+
 #include "Fault.hpp"
 #include "IGui.hpp"
+#include "HandleSnake.hpp"
 
 class Nibbler
 {
@@ -29,6 +31,7 @@ private :
   int _y;
   int _x;
   char	**_map;
+  HandleSnake _game;
 };
 
 #endif

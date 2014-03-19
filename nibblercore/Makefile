@@ -11,7 +11,8 @@
 SRC		=	main.cpp \
 			Fault.cpp \
 			Nibbler.cpp \
-			Point2d.cpp
+			Point2d.cpp \
+			HandleSnake.cpp
 
 CC		=	g++
 
