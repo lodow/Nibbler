@@ -1,13 +1,3 @@
-/*
-** IGraphique.hpp for nibbler in /home/maxime/projet/actu/cpp_nibbler
-**
-** Made by Maxime
-** Login   <maxime@epitech.net>
-**
-** Started on  Wed Mar 12 16:15:15 2014 Maxime
-** Last update Tue Mar 18 22:34:22 2014 Maxime
-*/
-
 #ifndef IGUI_HPP_
 #define IGUI_HPP_
 
@@ -22,11 +12,11 @@ class IGui
 {
 public :
   virtual ~IGui() {};
-public :
+
   virtual void	createWindows(int x, int y) = 0;
   virtual void	drawSquare(int x, int y, blockType type) = 0;
   virtual void	affText(int x, int y, const std::stringstream& text) = 0;
-  virtual bool	getEvent(eventType event);
+  virtual bool	getEvent(eventType event) = 0;
 };
 
 #endif

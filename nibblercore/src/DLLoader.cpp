@@ -68,4 +68,3 @@ void* DLLoader<T>::loadSym(const std::string& symbolname)
 }
 
 template class DLLoader<IGui*>;
-

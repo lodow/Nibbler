@@ -9,7 +9,7 @@
 ##
 
 SRC		=	Graphique.cpp \
-			instance.cpp
+			instance.cpp \
 
 CC		=	g++
 
