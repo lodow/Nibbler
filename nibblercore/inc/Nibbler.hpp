@@ -1,8 +1,11 @@
 #ifndef NIBBLER_H_
 #define NIBBLER_H_
 
-#include <dlfcn.h>
+#include <vector>
+#include <string>
+#include <sstream>
 
+#include "DLLoader.hpp"
 #include "Fault.hpp"
 #include "IGui.hpp"
 #include "HandleSnake.hpp"
@@ -10,16 +13,12 @@
 class Nibbler
 {
 public :
-  Nibbler(int width, int height);
-  Nibbler();
+  Nibbler(const std::vector<std::string>& av);
   ~Nibbler();
-public :
-  void	run();
-  void	setLib(void *lib);
+
 private :
-  IGui* (*_external_creator)();
-  int _width;
-  int _height;
+  Point2d<int> _win;
+  DLLoader<IGui*>* _lib;
   HandleSnake _game;
 };
 
