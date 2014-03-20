@@ -8,7 +8,8 @@
 ## Last update Mon Mar 10 23:34:15 2014 Hugues
 ##
 
-SRC		=	Graphique.cpp
+SRC		=	Graphique.cpp \
+			instance.cpp
 
 CC		=	g++
 

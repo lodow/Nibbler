@@ -1,13 +1,3 @@
-/*
-** Graphique.cpp for pi in /home/maxime/projet/actu/cpp_nibbler/src_sdl
-**
-** Made by Maxime
-** Login   <maxime@epitech.net>
-**
-** Started on  Wed Mar 12 15:17:33 2014 Maxime
-** Last update Wed Mar 12 16:27:13 2014 Maxime
-*/
-
 #include "Graphique.hpp"
 
 Graphique::Graphique()
@@ -25,10 +15,22 @@ void Graphique::createWindows(int x, int y)
   std::cout << "Mmmh, Tu veux créer une fenetre de " << x << " par " << y << " ?\nBen non !\n";
 }
 
-extern "C"
+void Graphique::drawSquare(int x, int y, blockType type)
 {
- /* IGui* create_assistant()
-  {
-    return new Graphique();
-  }*/
+  (void)x;
+  (void)y;
+  (void)type;
+}
+
+void Graphique::affText(int x, int y, const std::stringstream& text)
+{
+  (void)x;
+  (void)y;
+  (void)text;
+}
+
+bool Graphique::getEvent(eventType event)
+{
+  (void)event;
+  return (false);
 }

@@ -20,7 +20,10 @@ public :
   Graphique();
   ~Graphique();
 public :
-  void	createWindows(int x, int y);
+  virtual void	createWindows(int x, int y);
+  virtual void	drawSquare(int x, int y, blockType type);
+  virtual void	affText(int x, int y, const std::stringstream& text);
+  virtual bool	getEvent(eventType event);
 };
 
 #endif

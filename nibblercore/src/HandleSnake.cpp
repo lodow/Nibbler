@@ -63,6 +63,7 @@ void HandleSnake::update()
 
 void HandleSnake::drawn(IGui* lib) const
 {
+  (void)lib;
   //draw stuff
 }
 
