@@ -28,16 +28,16 @@ void HandleSnake::update()
   switch(_dir)
     {
     case UP:
-      head.getmPos.mx() = (head.getmPos.my() - _gamesize);
+      head.getPos().y() = (head.getPos().y() - _gamesize);
       break;
     case DOWN:
-      snake_pos.y = (snake_pos.y + m_size);
+      head.getPos().y() = (head.getPos().y() + _gamesize);
       break;
     case LEFT:
-      snake_pos.x = (snake_pos.x - m_size) % ((m_screen.x) - 1);
+      head.getPos().x() = (head.getPos().x() - _gamesize);
       break;
     case RIGHT:
-      snake_pos.x = (snake_pos.x + m_size) % ((m_screen.x) - 1);
+      head.getPos().x() = (head.getPos().x() + _gamesize);
       break;
     default :
       break;

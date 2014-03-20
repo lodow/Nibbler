@@ -28,8 +28,8 @@ public:
   T x() const {return _x;};
   T y() const {return _y;};
 
-  T& mx() {return _x;};
-  T& my() {return _y;};
+  T& x() {return _x;};
+  T& y() {return _y;};
 
   T w() const {return _x;};
   T h() const {return _y;};
