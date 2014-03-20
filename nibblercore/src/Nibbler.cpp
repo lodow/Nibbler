@@ -28,10 +28,15 @@ Nibbler::Nibbler(const std::vector<std::string>& av)
 
 void Nibbler::run()
 {
+  IGui* gui;
+
+  if ((gui = _lib->getInstance()) == NULL)
+    throw nFault("Can't load instance on library", false);
+  gui->createWindows(_win.w(), _win.h());
   while (!_game->isOver())
     {
       _game->update();
-      _game->drawn(_lib->getInstance());
+      _game->drawn(gui);
     }
 }
 

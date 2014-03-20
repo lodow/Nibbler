@@ -27,9 +27,11 @@ template<typename T>
 T DLLoader<T>::getInstance()
 {
   void* sym;
+  T (*func)();
 
   sym = loadSym(_symbolname);
-  return (NULL);
+  func = reinterpret_cast<T (*)()>(sym);
+  return (func());
 }
 
 template<typename T>
