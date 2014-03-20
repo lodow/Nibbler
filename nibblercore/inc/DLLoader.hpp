@@ -1,7 +1,7 @@
 #ifndef DLLOADER_HPP_INCLUDED
 #define DLLOADER_HPP_INCLUDED
 
-#include <string>T
+#include <string>
 #include <dlfcn.h>
 
 #include "Fault.hpp"
@@ -13,7 +13,7 @@ public:
   DLLoader(const std::string& lib);
   ~DLLoader();
 
-  T* getInstance();
+  T getInstance();
 
 private:
   void loadLib();

@@ -25,6 +25,9 @@ public:
   Point2d<T>& operator/(const Point2d& p) const;
   Point2d<T>& operator/=(const Point2d& p);
 
+  Point2d<T>& operator/(T p) const;
+  Point2d<T>& operator/=(T p);
+
   T x() const {return _x;};
   T y() const {return _y;};
 

@@ -14,7 +14,7 @@ DLLoader<T>::~DLLoader()
 }
 
 template<typename T>
-T* DLLoader<T>::getInstance()
+T DLLoader<T>::getInstance()
 {
   if (!_loaded)
     loadLib();

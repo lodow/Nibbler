@@ -11,7 +11,7 @@
 class Fault: public std::exception
 {
 public:
-  Fault(std::string const& err = "", std::string const& file = "", std::string const& func = "") throw();
+  Fault(std::string const& err = "", std::string const& file = "", std::string const& func = "", bool full = true) throw();
 
   virtual const char* what() const throw();
   virtual ~Fault() throw() {};
@@ -20,6 +20,6 @@ private:
   std::string m_err;
 };
 
-#define nFault(x) Fault((x), (AT_HERE), std::string(__FUNCTION__));
+#define nFault(x, y) Fault((x), (AT_HERE), std::string(__FUNCTION__), (y));
 
 #endif // FAULT_H

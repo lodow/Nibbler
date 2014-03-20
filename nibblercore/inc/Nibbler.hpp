@@ -16,10 +16,12 @@ public :
   Nibbler(const std::vector<std::string>& av);
   ~Nibbler();
 
+  void run();
+
 private :
   Point2d<int> _win;
   DLLoader<IGui*>* _lib;
-  HandleSnake _game;
+  HandleSnake* _game;
 };
 
 #endif

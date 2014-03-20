@@ -80,7 +80,7 @@ template<typename T>
 Point2d<T>& Point2d<T>::operator/=(const Point2d& p)
 {
   if (p._x == 0 || p._y == 0)
-    throw nFault("Zero division");
+    throw nFault("Zero division", true);
   _x /= p._x;
   _y /= p._y;
   return (*this);
@@ -88,6 +88,24 @@ Point2d<T>& Point2d<T>::operator/=(const Point2d& p)
 
 template<typename T>
 Point2d<T>& Point2d<T>::operator/(const Point2d& p) const
+{
+  Point2d* n = new Point2d(*this);
+  *n /= p;
+  return (*n);
+}
+
+template<typename T>
+Point2d<T>& Point2d<T>::operator/=(T p)
+{
+  if (p == 0)
+    throw nFault("Zero division", true);
+  _x /= p;
+  _y /= p;
+  return (*this);
+}
+
+template<typename T>
+Point2d<T>& Point2d<T>::operator/(T p) const
 {
   Point2d* n = new Point2d(*this);
   *n /= p;
