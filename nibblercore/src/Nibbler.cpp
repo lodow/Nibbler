@@ -38,6 +38,7 @@ void Nibbler::run()
       _game->update();
       _game->drawn(gui);
     }
+  delete gui;
 }
 
 Nibbler::~Nibbler()

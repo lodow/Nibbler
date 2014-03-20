@@ -4,7 +4,7 @@
 template<typename T>
 DLLoader<T>::DLLoader(const std::string& lib)
 {
-  _libname = lib;
+  _libname = std::string("./") + lib;
   _handle = NULL;
   _loaded = false;
   _symbolname = "instance";
@@ -19,7 +19,7 @@ DLLoader<T>::~DLLoader()
     if (dlclose(_handle))
       {
         err = dlerror();
-        throw nFault(std::string("Can't close library ") + _libname + ", error: " + err, false);
+        throw nFault(std::string("Can't close library: ") + err, false);
       }
 }
 
@@ -43,7 +43,7 @@ void DLLoader<T>::loadLib()
   if (_handle == NULL)
     {
       err = dlerror();
-      throw nFault(std::string("Can't load library ") + _libname + ", error: " + err, false);
+      throw nFault(std::string("Can't load library: ") + err, false);
     }
   _loaded = true;
 }
@@ -59,7 +59,7 @@ void* DLLoader<T>::loadSym(const std::string& symbolname)
   dlerror();
   sym = dlsym(_handle, symbolname.c_str());
   if (sym == NULL && (err = dlerror()) == NULL)
-    throw nFault(std::string("Can't get symbol: ") + symbolname + ", error: " + err, false);
+    throw nFault(std::string("Can't get symbol: ") + err, false);
   return (sym);
 }
 
