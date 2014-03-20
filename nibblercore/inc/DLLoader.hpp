@@ -16,10 +16,13 @@ public:
   T getInstance();
 
 private:
+  void* loadSym(const std::string& sym);
   void loadLib();
 
   std::string _libname;
+  std::string _symbolname;
   bool _loaded;
+  void* _handle;
 };
 
 #endif // DLLOADER_HPP_INCLUDED
