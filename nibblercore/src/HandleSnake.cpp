@@ -3,6 +3,8 @@
 HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win)
   : _win(win), _gamesize(10), _snake(Box<int>(start, Point2d<int>(_gamesize, _gamesize)))
 {
+  _lost = false;
+  createApple();
 }
 
 HandleSnake::~HandleSnake()
@@ -42,52 +44,34 @@ void HandleSnake::update()
     default :
       break;
     }
-  //if we are out of screen
-  if(snake_pos.x <= 1)
+  if((head.getPos().x() < 0 || head.getPos().x() > _win.w())
+      || (head.getPos().x() < 0 || head.getPos().x() > _win.w()))
+    _lost = true;
+
+  _snake.setBox(head);
+
+  if(_snake.collisionItself())
+    _lost = true;
+
+  if (_snake.getBox() == _apple)
     {
-      snake_pos.x = m_screen.x;
+      _score += 1;
+      _snake.addPart();
+      createApple();
     }
-
-  if(snake_pos.y <= 1)
-    {
-      snake_pos.y = m_screen.y;
-    }
-
-
-  //we return the new position of the head
-  m_head->set_pos(snake_pos);
-
-//we verifie collisoon:
-  if(m_head->collisions_itself(m_size)) //itself colision
-    {
-      m_lost = true;  //Lost game
-    }
-
-  //obstacle collison
-//we verifie that we are not on the apple:
-
-
-  if(CollisionAABB(convert_to_AABB(m_pos_apple.x, m_pos_apple.y, m_size, m_size),
-                   convert_to_AABB(snake_pos.x, snake_pos.y, m_size, m_size)))
-    {
-      m_score++;
-      //we add a part
-      m_head->add_part();
-      //we add a new apple :
-      m_pos_apple.x = rand() % ((m_screen.x) - 1);
-      m_pos_apple.y = rand() % ((m_screen.y) - 1);
-
-      //verifie that the apple is not in a wall :
-    }
-
-  //do moving stuff
-  //first we update the snake position
-  //check out of screen
-  //we verifie collisoon:
-  //we verifie that we are not on the apple:
 }
 
 void HandleSnake::drawn(IGui* lib) const
 {
   //draw stuff
 }
+
+void HandleSnake::createApple()
+{
+  Point2d<int> apple;
+
+  apple.x() = (rand() / _gamesize) % _win.w();
+  apple.y() = (rand() / _gamesize) % _win.h();
+  _apple = apple;
+}
+

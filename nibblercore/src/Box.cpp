@@ -23,5 +23,18 @@ bool Box<T>::operator==(const Box<T>& box2) const
   return true;
 }
 
+template<typename T>
+bool Box<T>::operator==(const Point2d<T>& point) const
+{
+  Box<T> box2(point, _size);
+
+  if((box2._pos.x() >= _pos.x() + _size.w())
+      || (box2._pos.x() + box2._size.w() <= _pos.x())
+      || (box2._pos.y() >= _pos.y() + _size.h())
+      || (box2._pos.y() + box2._size.h() <= _pos.y()))
+    return false;
+  return true;
+}
+
 template class Box<int>;
 template class Box<double>;

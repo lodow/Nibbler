@@ -1,6 +1,8 @@
 #ifndef HANDLESNAKE_HPP_INCLUDED
 #define HANDLESNAKE_HPP_INCLUDED
 
+#include <cstdlib>
+
 #include "Snake.hpp"
 #include "Point2d.hpp"
 #include "Box.hpp"
@@ -24,6 +26,8 @@ public:
   bool isOver() const {return (_lost);};
 
 private:
+  void createApple();
+
   Point2d<int> _win;
   int _gamesize;
   Direction _dir;
