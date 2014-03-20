@@ -7,8 +7,11 @@ template<typename T>
 class Box
 {
 public:
-  Box(const Point2d<T>& pos, const Point2d<T>& size);
+  Box(const Point2d<T>& pos = Point2d<T>(0, 0), const Point2d<T>& size = Point2d<T>(0, 0));
   ~Box();
+
+  Box(const Box& b);
+  Box& operator=(const Box& b);
 
   const Point2d<T>& getPos() const {return _pos;};
   const Point2d<T>& getSize() const {return _size;};

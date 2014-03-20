@@ -14,7 +14,7 @@ public :
   virtual ~IGui() {};
 
   virtual void	createWindows(int x, int y) = 0;
-  virtual void	drawSquare(int x, int y, blockType type) = 0;
+  virtual void	drawSquare(int x, int y, int w, int h, blockType type) = 0;
   virtual void	affText(int x, int y, const std::stringstream& text) = 0;
   virtual bool	getEvent(eventType event) = 0;
 };

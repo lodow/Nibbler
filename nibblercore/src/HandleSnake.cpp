@@ -63,8 +63,18 @@ void HandleSnake::update()
 
 void HandleSnake::drawn(IGui* lib) const
 {
-  (void)lib;
-  //draw stuff
+  const SnakePart* tmp;
+  Box<int> tmpb;
+
+  // clear screen
+  tmp = &_snake;
+  while (tmp)
+    {
+      tmpb = tmp->getBox();
+      lib->drawSquare(tmpb.getPos().x(), tmpb.getPos().y(), tmpb.getPos().w(), tmpb.getPos().h(), QUEU_SNAKE);
+      tmp = tmp->getNext();
+    }
+  // draw screen
 }
 
 void HandleSnake::createApple()

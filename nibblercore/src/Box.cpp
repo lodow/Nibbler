@@ -13,6 +13,21 @@ Box<T>::~Box()
 }
 
 template<typename T>
+Box<T>::Box(const Box<T>& b)
+{
+  _pos = b._pos;
+  _size = b._size;
+}
+
+template<typename T>
+Box<T>& Box<T>::operator=(const Box<T>& b)
+{
+  _pos = b._pos;
+  _size = b._size;
+  return (*this);
+}
+
+template<typename T>
 bool Box<T>::operator==(const Box<T>& box2) const
 {
   if((box2._pos.x() >= _pos.x() + _size.w())

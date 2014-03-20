@@ -15,10 +15,12 @@ void Graphique::createWindows(int x, int y)
   std::cout << "Mmmh, Tu veux créer une fenetre de " << x << " par " << y << " ?\nBen non !\n";
 }
 
-void Graphique::drawSquare(int x, int y, blockType type)
+void Graphique::drawSquare(int x, int y, int w, int h, blockType type)
 {
   (void)x;
   (void)y;
+  (void)w;
+  (void)h;
   (void)type;
 }
 
