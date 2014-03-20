@@ -10,6 +10,7 @@
 
 SRC		=	main.cpp \
 			Fault.cpp \
+			DLLoader.cpp \
 			Nibbler.cpp \
 			Point2d.cpp \
 			Box.cpp \

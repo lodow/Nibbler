@@ -1,13 +1,3 @@
-/*
-** Nibbler.hpp for nibbler in /home/maxime/projet/actu/cpp_nibbler
-**
-** Made by Maxime
-** Login   <maxime@epitech.net>
-**
-** Started on  Wed Mar 12 15:37:01 2014 Maxime
-** Last update Tue Mar 18 22:24:06 2014 Maxime
-*/
-
 #ifndef NIBBLER_H_
 #define NIBBLER_H_
 

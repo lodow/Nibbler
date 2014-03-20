@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 
   if (argc != 4)
     {
-      std::cout << "Usage : ./nibbler <libXXX.so>" << std::endl;
+      std::cout << "Usage : ./nibbler <width> <height> <libXXX.so>" << std::endl;
       return (1);
     }
   dlhandle = dlopen(argv[1], RTLD_LAZY);
