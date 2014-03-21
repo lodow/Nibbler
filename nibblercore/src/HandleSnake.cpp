@@ -1,7 +1,8 @@
 #include "HandleSnake.hpp"
 
-HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win)
-  : _win(win), _gamesize(10), _snake(Box<int>(start, Point2d<int>(_gamesize, _gamesize)))
+HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize)
+  : _win(win), _gamesize(gamesize),
+    _snake(Box<int>(start, win / gamesize))
 {
   _lost = false;
   createApple();
@@ -17,12 +18,6 @@ void HandleSnake::changeDirection(Direction dir)
   _dir = dir;
 }
 
-int HandleSnake::getSize() const
-{
-// not implemented
-  return (0);
-}
-
 void HandleSnake::update()
 {
   Box<int> head = _snake.getBox();
@@ -30,16 +25,16 @@ void HandleSnake::update()
   switch(_dir)
     {
     case UP:
-      head.getPos().y() = (head.getPos().y() - _gamesize);
+      head.getPos().y() = (head.getPos().y() - _gamesize.y());
       break;
     case DOWN:
-      head.getPos().y() = (head.getPos().y() + _gamesize);
+      head.getPos().y() = (head.getPos().y() + _gamesize.y());
       break;
     case LEFT:
-      head.getPos().x() = (head.getPos().x() - _gamesize);
+      head.getPos().x() = (head.getPos().x() - _gamesize.x());
       break;
     case RIGHT:
-      head.getPos().x() = (head.getPos().x() + _gamesize);
+      head.getPos().x() = (head.getPos().x() + _gamesize.x());
       break;
     default :
       break;
@@ -66,7 +61,6 @@ void HandleSnake::drawn(IGui* lib) const
   const SnakePart* tmp;
   Box<int> tmpb;
 
-  // clear screen
   tmp = &_snake;
   while (tmp)
     {
@@ -74,15 +68,13 @@ void HandleSnake::drawn(IGui* lib) const
       lib->drawSquare(tmpb.getPos().x(), tmpb.getPos().y(), tmpb.getPos().w(), tmpb.getPos().h(), QUEU_SNAKE);
       tmp = tmp->getNext();
     }
-  // draw screen
 }
 
 void HandleSnake::createApple()
 {
   Point2d<int> apple;
 
-  apple.x() = (rand() / _gamesize) % _win.w();
-  apple.y() = (rand() / _gamesize) % _win.h();
+  apple.x() = (rand() % _win.w()) / _gamesize.x();
+  apple.y() = (rand() % _win.h()) / _gamesize.y();
   _apple = apple;
 }
-
