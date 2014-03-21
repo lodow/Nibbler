@@ -38,7 +38,7 @@ void Nibbler::run()
   while (!_game->isOver())
     {
       //getevent
-      //updatewinsize ??
+      //updatewinsize ?? _game->updateWinSize();
       //_game->changeDirection(X);
       _game->update();
       // clear screen

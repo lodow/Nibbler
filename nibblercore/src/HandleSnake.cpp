@@ -78,3 +78,9 @@ void HandleSnake::createApple()
   apple.y() = (rand() % _win.h()) / _gamesize.y();
   _apple = apple;
 }
+
+void HandleSnake::updateWinSize(const Point2d<int>& win)
+{
+  _win = win;
+  //update sizeof snakeparts
+}
