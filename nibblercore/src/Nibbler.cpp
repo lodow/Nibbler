@@ -1,7 +1,7 @@
 #include "Nibbler.hpp"
 
 Nibbler::Nibbler(const std::vector<std::string>& av)
-  : _win(800, 600)
+  : _win(800, 600), _time(60.0)
 {
   std::stringstream ss;
   std::string lib;
@@ -37,15 +37,18 @@ void Nibbler::run()
   _game->changeDirection(UP);
   while (!_game->isOver())
     {
+      _time.startFrame();
       //getevent
       //change lib ?
+      //exit
       //updatewinsize ?? _game->updateWinSize();
       //_game->changeDirection(X);
       _game->update();
-      // clear screen
+      gui->clearScreen();
       _game->drawn(gui);
-      // draw screen
-      //sleep
+      gui->drawScreen();
+      _time.endFrame();
+      _time.alignOnFps();
     }
   delete gui;
 }
@@ -55,4 +58,3 @@ Nibbler::~Nibbler()
   delete _lib;
   delete _game;
 }
-
