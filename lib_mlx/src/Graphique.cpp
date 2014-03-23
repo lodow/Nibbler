@@ -9,6 +9,7 @@ Graphique::Graphique()
   if (_mlx == NULL)
     throw nFault("Can't init mlx", true);
   _win = NULL;
+  _screen = NULL;
 }
 
 Graphique::~Graphique()
@@ -20,6 +21,9 @@ Graphique::~Graphique()
 
 void Graphique::createWindows(const Point2d<int>& size)
 {
+  int bpp;
+  int endian;
+
   _winsize = size;
   _win = mlx_new_window(_mlx, size.x(), size.y(), const_cast<char*>("Nibbler"));
   if (_win == NULL)
@@ -27,9 +31,9 @@ void Graphique::createWindows(const Point2d<int>& size)
   _screen = mlx_new_image(_mlx, size.x(), size.y());
   if (_screen == NULL)
     throw nFault("mlx: Failed to create a new image", true);
-  _screenbuffer = mlx_new_image(_mlx, size.x(), size.y());
-  if (_screenbuffer == NULL)
-    throw nFault("mlx: Failed to create a new image", true);
+  _screenptr = reinterpret_cast<int*>(mlx_get_data_addr(_screen, &bpp, &_linesize, &endian));
+  if (!_screenptr || bpp != 32 || endian)
+    throw nFault("mlx: Doesn't handle those type of X buffers", true);
 }
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
@@ -60,3 +64,12 @@ bool Graphique::getEvent(eventType event)
   return (false);
 }
 
+void Graphique::putPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b)
+{
+  unsigned int color;
+
+  color = r << 16 | g << 8 | b;
+  color = mlx_get_color_value(_mlx, color);
+  _linesize = _linesize / (32 / 8);
+  _screenptr[y * _linesize + x] = color;
+}

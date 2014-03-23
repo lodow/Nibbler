@@ -20,12 +20,15 @@ public:
   virtual void	clearScreen();
   virtual void	drawScreen();
 
+  void putPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b);
+
 private:
   Point2d<int>	_winsize;
   void*	_mlx;
   void*	_win;
   void*	_screen;
-  void*	_screenbuffer;
+  int*	_screenptr;
+  int	_linesize;
 };
 
 #endif
