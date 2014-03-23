@@ -29,6 +29,7 @@ CFLAGS		+=	-Wunused-function -pipe -Winit-self
 
 LDFLAGS		+=	-L../nibutils/ -lnibutils -ldl
 LDFLAGS		+=	-Wl,-O1
+LDFLAGS		+=	-export-dynamic
 
 OBJ		=	$(patsubst %.cpp,${OBJDIR}%.o, $(SRC))
 
