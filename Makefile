@@ -13,12 +13,10 @@ NAME	=	nibbler/libs
 SUBDIRS	=	nibutils \
 			nibblercore \
 			lib_mlx \
-			lib_opengl \
 			lib_sdl
 
 RULES	=	nibbler \
 			lib_nibbler_sdl.so \
-			lib_nibbler_opengl.so \
 			lib_nibbler_mlx.so
 
 RM	=	rm -f

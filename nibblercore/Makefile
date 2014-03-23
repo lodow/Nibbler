@@ -9,11 +9,7 @@
 ##
 
 SRC		=	main.cpp \
-			Fault.cpp \
-			DLLoader.cpp \
 			Nibbler.cpp \
-			Point2d.cpp \
-			Box.cpp \
 			HandleSnake.cpp \
 			Snake.cpp
 
@@ -27,12 +23,12 @@ OBJDIR		=	obj/
 SRCDIR		=	src/
 INCDIR		=	inc/
 
-CFLAGS		+=	-I$(INCDIR)
+CFLAGS		+=	-I$(INCDIR) -I../nibutils/inc/
 CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 
+LDFLAGS		+=	-L../nibutils/ -lnibutils -ldl
 LDFLAGS		+=	-Wl,-O1
-LDFLAGS		+=	-ldl
 
 OBJ		=	$(patsubst %.cpp,${OBJDIR}%.o, $(SRC))
 
@@ -52,7 +48,7 @@ $(OBJDIR)%.o:		$(patsubst %.cpp,${SRCDIR}%.cpp, %.cpp)
 $(NAME):	$(OBJ)
 		@echo -e "Linking $@ { $(LDFLAGS) }" | sed 's/^-e //' \
 		| sed 's/[-a-zA-Z]\+/\x1B[34m&\x1B[0m/g'
-		@$(CC) $(LDFLAGS) -o $(NAME) $(OBJ)
+		@$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
 		cp -f $(NAME) ../$(NAME)
 
 all:	$(NAME)
