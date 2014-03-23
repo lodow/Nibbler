@@ -13,13 +13,15 @@ typedef enum {UPKEY, DOWNKEY, LEFTKEY, RIGHTKEY, ESCAPEKEY, F5KEY} eventType;
 
 class IGui
 {
-public :
+public:
   virtual ~IGui() {};
 
   virtual void	createWindows(const Point2d<int>& size) = 0;
   virtual void	drawSquare(const Box<int>& square, blockType type) = 0;
   virtual void	affText(const Point2d<int>& pos, const std::stringstream& text) = 0;
   virtual bool	getEvent(eventType event) = 0;
+  virtual void	clearScreen() = 0;
+  virtual void	drawScreen() = 0;
 };
 
 #endif

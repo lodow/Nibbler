@@ -21,6 +21,16 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
   (void)type;
 }
 
+void Graphique::clearScreen()
+{
+
+}
+
+void Graphique::drawScreen()
+{
+
+}
+
 void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 {
   (void)pos;
