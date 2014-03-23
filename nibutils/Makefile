@@ -8,14 +8,16 @@
 ## Last update Mon Mar 10 23:34:15 2014 Hugues
 ##
 
-SRC		=	Graphique.cpp \
-			instance.cpp
+SRC		=	Fault.cpp \
+			DLLoader.cpp \
+			Point2d.cpp \
+			Box.cpp \
 
 CC		=	g++
 
 RM		=	rm -f
 
-NAME		=	lib_nibbler_mlx.so
+NAME		=	libnibutils.a
 
 OBJDIR		=	obj/
 SRCDIR		=	src/
@@ -24,10 +26,7 @@ INCDIR		=	inc/
 CFLAGS		+=	-I$(INCDIR) -I../nibblercore/inc/
 CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
-CFLAGS		+=	-fPIC
-
-LDFLAGS		+=	-Wl,-O1
-LDFLAGS		+=	-shared
+CFLAGS		+=	-static
 
 OBJ		=	$(patsubst %.cpp,${OBJDIR}%.o, $(SRC))
 
@@ -45,10 +44,10 @@ $(OBJDIR)%.o:		$(patsubst %.cpp,${SRCDIR}%.cpp, %.cpp)
 			@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJ)
-		@echo -e "Linking $@ { $(LDFLAGS) }" | sed 's/^-e //' \
+		@echo -e "Archiving $@" | sed 's/^-e //' \
 		| sed 's/[-a-zA-Z]\+/\x1B[34m&\x1B[0m/g'
-		@$(CC) $(LDFLAGS) -o $(NAME) $(OBJ)
-		cp -f $(NAME) ../$(NAME)
+		@ar rcs ${NAME} ${OBJ}
+		@ranlib ${NAME}
 
 all:	$(NAME)
 

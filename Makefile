@@ -10,16 +10,17 @@
 
 NAME	=	nibbler/libs
 
-SUBDIRS	=	nibblercore \
-		lib_mlx \
-		lib_opengl \
-		lib_sdl
-		
+SUBDIRS	=	nibutils \
+			nibblercore \
+			lib_mlx \
+			lib_opengl \
+			lib_sdl
+
 RULES	=	nibbler \
-		lib_nibbler_sdl.so \
-		lib_nibbler_opengl.so \
-		lib_nibbler_mlx.so
-		
+			lib_nibbler_sdl.so \
+			lib_nibbler_opengl.so \
+			lib_nibbler_mlx.so
+
 RM	=	rm -f
 
 $(NAME):
