@@ -23,6 +23,7 @@ void Graphique::createWindows(const Point2d<int>& size)
 {
   int bpp;
   int endian;
+  int linesize;
 
   _winsize = size;
   _win = mlx_new_window(_mlx, size.x(), size.y(), const_cast<char*>("Nibbler"));
@@ -31,25 +32,30 @@ void Graphique::createWindows(const Point2d<int>& size)
   _screen = mlx_new_image(_mlx, size.x(), size.y());
   if (_screen == NULL)
     throw nFault("mlx: Failed to create a new image", true);
-  _screenptr = reinterpret_cast<int*>(mlx_get_data_addr(_screen, &bpp, &_linesize, &endian));
+  _screenptr = reinterpret_cast<int*>(mlx_get_data_addr(_screen, &bpp, &linesize, &endian));
   if (!_screenptr || bpp != 32 || endian)
     throw nFault("mlx: Doesn't handle those type of X buffers", true);
+  _linesize = linesize / (32 / 8);
 }
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
-  (void)square;
   (void)type;
+  for (int j = square.getPos().y(); j < square.getSize().h(); j++)
+    for (int i = square.getPos().x(); i < square.getSize().w(); i++)
+      putPixel(i, j, 255, 0, 0);
 }
 
 void Graphique::clearScreen()
 {
-
+  for (int j = 0; j < _winsize.h(); j++)
+    for (int i = 0; i < _winsize.w(); i++)
+      putPixel(i, j, 0, 128, 0);
 }
 
 void Graphique::drawScreen()
 {
-
+  mlx_put_image_to_window(_mlx, _win, _screen, 0, 0);
 }
 
 void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
@@ -70,6 +76,5 @@ void Graphique::putPixel(int x, int y, unsigned char r, unsigned char g, unsigne
 
   color = r << 16 | g << 8 | b;
   color = mlx_get_color_value(_mlx, color);
-  _linesize = _linesize / (32 / 8);
   _screenptr[y * _linesize + x] = color;
 }
