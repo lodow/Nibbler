@@ -2,6 +2,7 @@
 #define GRAPHIQUE_HPP_
 
 #include <iostream>
+#include <cstdlib>
 
 #include "IGui.hpp"
 #include "Fault.hpp"

@@ -1,6 +1,6 @@
 #include "Graphique.hpp"
 
-#include <mlx.h>
+#include "mlx.h"
 #include <cstdlib>
 
 Graphique::Graphique()

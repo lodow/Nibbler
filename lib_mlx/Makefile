@@ -26,10 +26,10 @@ CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 CFLAGS		+=	-fPIC
 
+LDFLAGS		+=	-L. -Wl,-whole-archive -lmlx -Wl,-no-whole-archive
+LDFLAGS		+=	-L/usr/lib64/X11 -lXext -lX11
 LDFLAGS		+=	-Wl,-O1
 LDFLAGS		+=	-shared
-LDFLAGS		+=	-L/usr/lib64 -lmlx_${HOSTTYPE}
-LDFLAGS		+=	-L/usr/lib64/X11 -lXext -lX11
 
 OBJ		=	$(patsubst %.cpp,${OBJDIR}%.o, $(SRC))
 
