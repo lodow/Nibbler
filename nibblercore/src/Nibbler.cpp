@@ -33,7 +33,7 @@ void Nibbler::run()
 
   if ((gui = _lib->getInstance()) == NULL)
     std::cout << _win.w() << " " << _win.h() << std::endl;
-  gui->createWindows(_win.w(), _win.h());
+  gui->createWindows(_win);
   _game->changeDirection(UP);
   while (!_game->isOver())
     {

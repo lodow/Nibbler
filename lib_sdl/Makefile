@@ -26,7 +26,6 @@ CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 CFLAGS		+=	-fPIC
 
-LDFLAGS		+=	-L../nibutils/ -lnibutils
 LDFLAGS		+=	-Wl,-O1
 LDFLAGS		+=	-shared
 

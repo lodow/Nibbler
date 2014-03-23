@@ -10,24 +10,20 @@ Graphique::~Graphique()
 
 }
 
-void Graphique::createWindows(int x, int y)
+void Graphique::createWindows(const Point2d<int>& size)
 {
-  std::cout << "Mmmh, Tu veux créer une fenetre de " << x << " par " << y << " ?\nBen non !\n";
+  std::cout << "Mmmh, Tu veux créer une fenetre de " << size.x() << " par " << size.y() << " ?\nBen non !\n";
 }
 
-void Graphique::drawSquare(int x, int y, int w, int h, blockType type)
+void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
-  (void)x;
-  (void)y;
-  (void)w;
-  (void)h;
+  (void)square;
   (void)type;
 }
 
-void Graphique::affText(int x, int y, const std::stringstream& text)
+void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 {
-  (void)x;
-  (void)y;
+  (void)pos;
   (void)text;
 }
 

@@ -65,7 +65,7 @@ void HandleSnake::drawn(IGui* lib) const
   while (tmp)
     {
       tmpb = tmp->getBox();
-      lib->drawSquare(tmpb.getPos().x(), tmpb.getPos().y(), tmpb.getPos().w(), tmpb.getPos().h(), QUEU_SNAKE);
+      lib->drawSquare(tmpb, QUEU_SNAKE);
       tmp = tmp->getNext();
     }
 }
