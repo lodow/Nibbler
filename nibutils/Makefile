@@ -12,7 +12,8 @@ SRC		=	Fault.cpp \
 			DLLoader.cpp \
 			Point2d.cpp \
 			Box.cpp \
-			TimeHandling.cpp
+			TimeHandling.cpp \
+			EventHandling.cpp
 
 CC		=	g++
 

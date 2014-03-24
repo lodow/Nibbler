@@ -1,7 +1,37 @@
 #include "Graphique.hpp"
 
-#include "mlx.h"
 #include <cstdlib>
+
+#include "mlx_int.h"
+#include "mlx.h"
+
+int mlx_keypressed_hook(void *tmp, int (*funct)(), void *param)
+{
+  t_win_list *win = static_cast<t_win_list*>(tmp);
+
+  win->hooks[KeyPress].hook = funct;
+  win->hooks[KeyPress].param = param;
+  win->hooks[KeyPress].mask = KeyPressMask;
+  return (0);
+}
+
+int pressed_key(int key, void *arg)
+{
+  std::map<unsigned int, bool>* mkey;
+
+  mkey = static_cast<std::map<unsigned int, bool>* >(arg);
+  (*mkey)[key] = true;
+  return (0);
+}
+
+int realesed_key(int key, void *arg)
+{
+  std::map<unsigned int, bool>* mkey;
+
+  mkey = static_cast<std::map<unsigned int, bool>* >(arg);
+  (*mkey)[key] = false;
+  return (0);
+}
 
 Graphique::Graphique()
 {
@@ -36,6 +66,8 @@ void Graphique::createWindows(const Point2d<int>& size)
   if (!_screenptr || bpp != 32 || endian)
     throw nFault("mlx: Doesn't handle those type of X buffers", true);
   _linesize = linesize / (32 / 8);
+  mlx_key_hook(_win, reinterpret_cast<int (*)()>(&realesed_key), &_keys);
+  mlx_keypressed_hook(_win, reinterpret_cast<int (*)()>(&pressed_key), &_keys);
 }
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
@@ -66,10 +98,8 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
   (void)text;
 }
 
-bool Graphique::getEvent(eventType event)
+void Graphique::updateEvent(EventHandler& eventHandler)
 {
-  (void)event;
-  return (false);
 }
 
 void Graphique::putPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b)
@@ -80,3 +110,4 @@ void Graphique::putPixel(int x, int y, unsigned char r, unsigned char g, unsigne
   color = mlx_get_color_value(_mlx, color);
   _screenptr[y * _linesize + x] = color;
 }
+

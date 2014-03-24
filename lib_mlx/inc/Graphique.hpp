@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <map>
 
 #include "IGui.hpp"
 #include "Fault.hpp"
@@ -16,7 +17,7 @@ public:
   virtual void	createWindows(const Point2d<int>& size);
   virtual void	drawSquare(const Box<int>& square, blockType type);
   virtual void	affText(const Point2d<int>& pos, const std::stringstream& text);
-  virtual bool	getEvent(eventType event);
+  virtual void	updateEvent(EventHandler& eventHandler);
   virtual void	clearScreen();
   virtual void	drawScreen();
 
@@ -24,6 +25,7 @@ public:
 
 private:
   Point2d<int>	_winsize;
+  std::map<unsigned int, bool> _keys;
   void*	_mlx;
   void*	_win;
   void*	_screen;

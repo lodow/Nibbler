@@ -1,9 +1,9 @@
 /*
-** mlx_int.h for mlx in 
-** 
+** mlx_int.h for mlx in
+**
 ** Made by Charlie Root
 ** Login   <ol@epitech.net>
-** 
+**
 ** Started on  Mon Jul 31 16:45:48 2000 Charlie Root
 ** Last update Fri Jan 28 17:04:58 2005 Olivier Crouzet
 */
@@ -120,7 +120,6 @@ int	mlx_int_rgb_conversion();
 int	mlx_int_deal_shm();
 void	*mlx_int_new_xshm_image();
 char    **mlx_int_str_to_wordtab();
-void	*mlx_new_image();
 int	shm_att_pb();
 
 }

@@ -9,6 +9,7 @@
 #include "Fault.hpp"
 #include "IGui.hpp"
 #include "TimeHandling.hpp"
+#include "EventHandling.hpp"
 #include "HandleSnake.hpp"
 
 class Nibbler
@@ -20,10 +21,12 @@ public:
   void run();
 
 private:
+  bool _exit;
   Point2d<int> _win;
+  Point2d<int> _gamesize;
   TimeHandler _time;
+  EventHandler _events;
   DLLoader<IGui*>* _lib;
-  HandleSnake* _game;
 };
 
 #endif

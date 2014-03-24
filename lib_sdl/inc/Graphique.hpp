@@ -13,7 +13,7 @@ public:
   virtual void	createWindows(const Point2d<int>& size);
   virtual void	drawSquare(const Box<int>& square, blockType type);
   virtual void	affText(const Point2d<int>& pos, const std::stringstream& text);
-  virtual bool	getEvent(eventType event);
+  virtual void	updateEvent(EventHandler& eventHandler);
   virtual void	clearScreen();
   virtual void	drawScreen();
 };
