@@ -39,8 +39,9 @@ void HandleSnake::update()
     default :
       break;
     }
+
   if((head.getPos().x() < 0 || head.getPos().x() > _win.w())
-      || (head.getPos().x() < 0 || head.getPos().x() > _win.w()))
+      || (head.getPos().y() < 0 || head.getPos().y() > _win.w()))
     _lost = true;
 
   _snake.setBox(head);
@@ -84,3 +85,4 @@ void HandleSnake::updateWinSize(const Point2d<int>& win)
   _win = win;
   //update sizeof snakeparts
 }
+

@@ -1,7 +1,7 @@
 #include "Nibbler.hpp"
 
 Nibbler::Nibbler(const std::vector<std::string>& av)
-  : _win(800, 600), _time(20.0)
+  : _win(800, 600), _time(15.0)
 {
   std::stringstream ss;
   std::string lib;
@@ -24,7 +24,7 @@ Nibbler::Nibbler(const std::vector<std::string>& av)
     throw nFault(av[2] + ": incorrect value", false);
   lib = av[3];
   _lib = new DLLoader<IGui*>(lib);
-  _game = new HandleSnake(gamesize / 2, _win, gamesize);
+  _game = new HandleSnake(Point2d<int>(400, 300), _win, gamesize);
 }
 
 void Nibbler::run()
@@ -35,7 +35,7 @@ void Nibbler::run()
     std::cout << _win.w() << " " << _win.h() << std::endl;
   gui->createWindows(_win);
   _game->changeDirection(UP);
-  while (!_game->isOver())
+  while (!_game->isOver() || 1)
     {
       _time.startFrame();
       //getevent

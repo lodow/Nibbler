@@ -37,14 +37,11 @@ float TimeHandler::getElapsedTime() const
 void TimeHandler::alignOnFps()
 {
   float elapsed;
-  struct timespec req;
 
   elapsed = getElapsedTime();
-  if (elapsed < 1 / _targetFps)
+  if (elapsed < 1.0 / _targetFps)
     {
-      req.tv_sec = 0;
-      req.tv_nsec = elapsed * 1000000000.0;
-      nanosleep(&req, NULL);
+      usleep(((1.0 / _targetFps) - elapsed) * 1000000);
       _fps = _targetFps;
     }
   else

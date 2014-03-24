@@ -2,6 +2,7 @@
 #define TIMEHANDLING_HPP_INCLUDED
 
 #include <ctime>
+#include <unistd.h>
 
 class TimeHandler
 {
