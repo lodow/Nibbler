@@ -5,6 +5,7 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
     _snake(Box<int>(start, win / gamesize))
 {
   _lost = false;
+  srand(time(NULL));
   createApple();
 }
 
@@ -63,10 +64,13 @@ void HandleSnake::drawn(IGui* lib) const
   Box<int> tmpb;
 
   tmp = &_snake;
+  tmpb = tmp->getBox();
+  tmpb.getPos() = _apple;
+  lib->drawSquare(tmpb, APPLE);
   while (tmp)
     {
       tmpb = tmp->getBox();
-      lib->drawSquare(tmpb, QUEU_SNAKE);
+      lib->drawSquare(tmpb, SNAKE);
       tmp = tmp->getNext();
     }
 }
@@ -75,8 +79,8 @@ void HandleSnake::createApple()
 {
   Point2d<int> apple;
 
-  apple.x() = (rand() % _win.w()) / _gamesize.x();
-  apple.y() = (rand() % _win.h()) / _gamesize.y();
+  apple.x() = (rand() / _win.w() * _gamesize.x()) % _win.w();
+  apple.y() = (rand() / _win.h() * _gamesize.y()) % _win.h();
   _apple = apple;
 }
 

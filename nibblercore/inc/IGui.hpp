@@ -8,7 +8,7 @@
 #include "Box.hpp"
 #include "Point2d.hpp"
 
-typedef enum {HEAD_SNAKE, QUEU_SNAKE, WALL, EMPTY} blockType;
+typedef enum {APPLE, SNAKE, WALL, EMPTY} blockType;
 typedef enum {UPKEY, DOWNKEY, LEFTKEY, RIGHTKEY, ESCAPEKEY, F5KEY} eventType;
 
 class IGui
