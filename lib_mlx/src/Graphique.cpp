@@ -100,6 +100,7 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 
 void Graphique::updateEvent(EventHandler& eventHandler)
 {
+  mlx_event(_mlx);
 }
 
 void Graphique::putPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b)

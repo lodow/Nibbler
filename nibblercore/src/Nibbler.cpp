@@ -40,7 +40,7 @@ void Nibbler::run()
     {
       game = new HandleSnake(Point2d<int>(400, 300), _win, _gamesize);
       game->changeDirection(UP);
-      while ((!game->isOver() && !_exit) || 1)
+      while ((!game->isOver() && !_exit))
         {
           _time.startFrame();
           gui->updateEvent(_events);
