@@ -41,9 +41,12 @@ void Graphique::createWindows(const Point2d<int>& size)
 void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
   (void)type;
-  for (int j = square.getPos().y(); j < square.getSize().h(); j++)
-    for (int i = square.getPos().x(); i < square.getSize().w(); i++)
-      putPixel(i, j, 255, 0, 0);
+  std::cout << "box: x: " << square.getPos().x() << " y: " << square.getPos().y() << " w: " << square.getSize().h() << " h: " << square.getSize().h() << std::endl;
+  if ((square.getPos().x() >= 0 && square.getPos().x() + square.getSize().w() < _winsize.x())
+      && (square.getPos().y() >= 0 && square.getPos().y() + square.getSize().h() < _winsize.y()))
+    for (int j = square.getPos().y(); j < square.getSize().h(); j++)
+      for (int i = square.getPos().x(); i < square.getSize().w(); i++)
+        putPixel(i, j, 255, 0, 0);
 }
 
 void Graphique::clearScreen()

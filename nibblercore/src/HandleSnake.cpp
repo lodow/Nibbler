@@ -25,16 +25,16 @@ void HandleSnake::update()
   switch(_dir)
     {
     case UP:
-      head.getPos().y() = (head.getPos().y() - _gamesize.y());
+      head.getPos().y() = (head.getPos().y() - head.getSize().h());
       break;
     case DOWN:
-      head.getPos().y() = (head.getPos().y() + _gamesize.y());
+      head.getPos().y() = (head.getPos().y() + head.getSize().h());
       break;
     case LEFT:
-      head.getPos().x() = (head.getPos().x() - _gamesize.x());
+      head.getPos().x() = (head.getPos().x() - head.getSize().w());
       break;
     case RIGHT:
-      head.getPos().x() = (head.getPos().x() + _gamesize.x());
+      head.getPos().x() = (head.getPos().x() + head.getSize().w());
       break;
     default :
       break;

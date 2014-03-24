@@ -1,7 +1,7 @@
 #include "Nibbler.hpp"
 
 Nibbler::Nibbler(const std::vector<std::string>& av)
-  : _win(800, 600), _time(60.0)
+  : _win(800, 600), _time(20.0)
 {
   std::stringstream ss;
   std::string lib;
