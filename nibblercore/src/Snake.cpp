@@ -12,6 +12,13 @@ SnakePart::~SnakePart()
     delete _next;
 }
 
+void SnakePart::setBox(const Box<int>& b)
+{
+  if (_next)
+    _next->setBox(_box);
+  _box = b;
+}
+
 void SnakePart::addPart()
 {
   if(_next != NULL)

@@ -10,7 +10,7 @@ public:
   ~SnakePart();
 
   const Box<int>& getBox() const {return _box;};
-  void setBox(const Box<int>& b) {_box = b;};
+  void setBox(const Box<int>& b);
 
   void addPart();
 
