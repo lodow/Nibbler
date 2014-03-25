@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 
+#include "EventHandling.hpp"
 #include "mlx_int.h"
 #include "mlx.h"
 
@@ -18,16 +19,40 @@ int mlx_keypressed_hook(void *tmp, int (*funct)(), void *param)
 int pressed_key(int key, void *arg)
 {
   EventHandler* handler;
+  char fkey;
 
   handler = static_cast<EventHandler*>(arg);
+  if (key == 65307)
+    fkey = 27;
+  else if (key == 65362 || key == 122)
+    fkey = 'z';
+  else if (key == 65364 || key == 115)
+    fkey = 's';
+  else if (key == 65363 || key == 100)
+    fkey = 'd';
+  else if (key == 65361 || key == 113)
+    fkey = 'q';
+  handler->addEvent(new Event(true, fkey));
   return (0);
 }
 
 int realesed_key(int key, void *arg)
 {
   EventHandler* handler;
+  char fkey;
 
   handler = static_cast<EventHandler*>(arg);
+  if (key == 65307)
+    fkey = 27;
+  else if (key == 65362 || key == 122)
+    fkey = 'z';
+  else if (key == 65364 || key == 115)
+    fkey = 's';
+  else if (key == 65363 || key == 100)
+    fkey = 'd';
+  else if (key == 65361 || key == 113)
+    fkey = 'q';
+  handler->addEvent(new Event(false, fkey));
   return (0);
 }
 

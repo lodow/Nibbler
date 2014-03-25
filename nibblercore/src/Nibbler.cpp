@@ -15,13 +15,13 @@ Nibbler::Nibbler(const std::vector<std::string>& av)
   ss.str(av[1]);
   ss >> tmp;
   gamesize.x() = tmp;
-  if (tmp < 4 || tmp > 100)
+  if (tmp < 4 || tmp > 300)
     throw nFault(av[1] + ": incorrect value", false);
   ss.clear();
   ss.str(av[2]);
   ss >> tmp;
   gamesize.y() = tmp;
-  if (tmp < 4 || tmp > 100)
+  if (tmp < 4 || tmp > 300)
     throw nFault(av[2] + ": incorrect value", false);
   lib = av[3];
   _gamesize = gamesize;
