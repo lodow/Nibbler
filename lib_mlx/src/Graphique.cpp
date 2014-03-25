@@ -17,19 +17,17 @@ int mlx_keypressed_hook(void *tmp, int (*funct)(), void *param)
 
 int pressed_key(int key, void *arg)
 {
-  std::map<unsigned int, bool>* mkey;
+  EventHandler* handler;
 
-  mkey = static_cast<std::map<unsigned int, bool>* >(arg);
-  (*mkey)[key] = true;
+  handler = static_cast<EventHandler*>(arg);
   return (0);
 }
 
 int realesed_key(int key, void *arg)
 {
-  std::map<unsigned int, bool>* mkey;
+  EventHandler* handler;
 
-  mkey = static_cast<std::map<unsigned int, bool>* >(arg);
-  (*mkey)[key] = false;
+  handler = static_cast<EventHandler*>(arg);
   return (0);
 }
 
@@ -66,8 +64,6 @@ void Graphique::createWindows(const Point2d<int>& size)
   if (!_screenptr || bpp != 32 || endian)
     throw nFault("mlx: Doesn't handle those type of X buffers", true);
   _linesize = linesize / (32 / 8);
-  mlx_key_hook(_win, reinterpret_cast<int (*)()>(&realesed_key), &_keys);
-  mlx_keypressed_hook(_win, reinterpret_cast<int (*)()>(&pressed_key), &_keys);
 }
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
@@ -100,6 +96,8 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 
 void Graphique::updateEvent(EventHandler& eventHandler)
 {
+  mlx_key_hook(_win, reinterpret_cast<int (*)()>(&realesed_key), &eventHandler);
+  mlx_keypressed_hook(_win, reinterpret_cast<int (*)()>(&pressed_key), &eventHandler);
   mlx_event(_mlx);
 }
 

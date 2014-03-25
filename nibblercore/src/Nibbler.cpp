@@ -1,7 +1,7 @@
 #include "Nibbler.hpp"
 
 Nibbler::Nibbler(const std::vector<std::string>& av)
-  : _win(800, 600), _time(15.0)
+  : _win(1024, 980), _time(15.0)
 {
   std::stringstream ss;
   std::string lib;
@@ -32,6 +32,7 @@ void Nibbler::run()
 {
   IGui* gui;
   HandleSnake* game;
+  Event ev;
 
   if ((gui = _lib->getInstance()) == NULL)
     throw nFault("Could not create the library windows", true);
@@ -44,10 +45,21 @@ void Nibbler::run()
         {
           _time.startFrame();
           gui->updateEvent(_events);
-          //change lib ?
-          //exit
-          //updatewinsize ?? game->updateWinSize();
-          //game->changeDirection(X);
+          while (_events.pollEvent(ev))
+            {
+              if (ev.getKey() == 27)
+                _exit = true;
+              if (!ev.getDown() && ev.getKey() == 'z')
+                game->changeDirection(UP);
+              if (!ev.getDown() && ev.getKey() == 's')
+                game->changeDirection(DOWN);
+              if (!ev.getDown() && ev.getKey() == 'q')
+                game->changeDirection(LEFT);
+              if (!ev.getDown() && ev.getKey() == 'd')
+                game->changeDirection(RIGHT);
+              //change lib ?
+              ////updatewinsize ?? game->updateWinSize();
+            }
           game->update();
           gui->clearScreen();
           game->drawn(gui);

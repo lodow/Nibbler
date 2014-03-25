@@ -25,7 +25,6 @@ public:
 
 private:
   Point2d<int>	_winsize;
-  std::map<unsigned int, bool> _keys;
   void*	_mlx;
   void*	_win;
   void*	_screen;
