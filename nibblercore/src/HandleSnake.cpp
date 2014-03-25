@@ -5,6 +5,7 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
     _snake(Box<int>(start, win / gamesize))
 {
   _lost = false;
+  _dir = UP;
   srand(time(NULL));
   createApple();
 }
@@ -16,7 +17,11 @@ HandleSnake::~HandleSnake()
 
 void HandleSnake::changeDirection(Direction dir)
 {
-  _dir = dir;
+  if ((_dir == UP && dir != DOWN)
+      || (_dir == DOWN && dir != UP)
+      || (_dir == LEFT && dir != RIGHT)
+      || (_dir == RIGHT && dir != LEFT))
+    _dir = dir;
 }
 
 void HandleSnake::update()
@@ -77,11 +82,9 @@ void HandleSnake::drawn(IGui* lib) const
 
 void HandleSnake::createApple()
 {
-  Point2d<int> apple;
+  Point2d<int> random(rand(), rand());
 
-  apple.x() = (rand() / _win.w() * _gamesize.x()) % _win.w();
-  apple.y() = (rand() / _win.h() * _gamesize.y()) % _win.h();
-  _apple = apple;
+  _apple = (random % _gamesize) * (_win / _gamesize);
 }
 
 void HandleSnake::updateWinSize(const Point2d<int>& win)

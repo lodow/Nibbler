@@ -38,8 +38,8 @@ int pressed_key(int key, void *arg)
 
 int realesed_key(int key, void *arg)
 {
-  EventHandler* handler;
   char fkey;
+  EventHandler* handler;
 
   handler = static_cast<EventHandler*>(arg);
   if (key == 65307)

@@ -49,13 +49,13 @@ void Nibbler::run()
             {
               if (ev.getKey() == 27)
                 _exit = true;
-              if (!ev.getDown() && ev.getKey() == 'z')
+              if (ev.getDown() && ev.getKey() == 'z')
                 game->changeDirection(UP);
-              if (!ev.getDown() && ev.getKey() == 's')
+              if (ev.getDown() && ev.getKey() == 's')
                 game->changeDirection(DOWN);
-              if (!ev.getDown() && ev.getKey() == 'q')
+              if (ev.getDown() && ev.getKey() == 'q')
                 game->changeDirection(LEFT);
-              if (!ev.getDown() && ev.getKey() == 'd')
+              if (ev.getDown() && ev.getKey() == 'd')
                 game->changeDirection(RIGHT);
               //change lib ?
               ////updatewinsize ?? game->updateWinSize();

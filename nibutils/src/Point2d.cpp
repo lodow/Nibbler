@@ -1,4 +1,5 @@
 #include "Point2d.hpp"
+#include <cmath>
 
 template<typename T>
 Point2d<T>::Point2d(T x, T y)
@@ -109,6 +110,35 @@ Point2d<T>& Point2d<T>::operator/(T p) const
 {
   Point2d* n = new Point2d(*this);
   *n /= p;
+  return (*n);
+}
+
+template<typename T>
+Point2d<T>& Point2d<T>::operator%=(const Point2d& p)
+{
+  if (p._x == 0.0 || p._y == 0.0)
+    throw nFault("Zero division", true);
+  _x %= p._x;
+  _y %= p._y;
+  return (*this);
+}
+
+template<>
+Point2d<double>& Point2d<double>::operator%=(const Point2d<double>& p)
+{
+  if (p._x == 0.0 || p._y == 0.0)
+    throw nFault("Zero division", true);
+  _x = std::fmod(_x, p._x);
+  _y = std::fmod(_y, p._y);
+  return (*this);
+}
+
+
+template<typename T>
+Point2d<T>& Point2d<T>::operator%(const Point2d& p) const
+{
+  Point2d* n = new Point2d(*this);
+  *n %= p;
   return (*n);
 }
 

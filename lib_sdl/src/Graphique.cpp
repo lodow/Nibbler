@@ -39,4 +39,5 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 
 void Graphique::updateEvent(EventHandler& eventHandler)
 {
+  (void)eventHandler;
 }
