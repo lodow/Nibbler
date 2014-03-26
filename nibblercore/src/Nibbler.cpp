@@ -33,6 +33,7 @@ void Nibbler::run()
   IGui* gui;
   HandleSnake* game;
   Event ev;
+  bool acted;
 
   if ((gui = _lib->getInstance()) == NULL)
     throw nFault("Could not create the library windows", true);
@@ -43,20 +44,33 @@ void Nibbler::run()
       game->changeDirection(UP);
       while ((!game->isOver() && !_exit))
         {
+          acted = false;
           _time.startFrame();
           gui->updateEvent(_events);
           while (_events.pollEvent(ev))
             {
               if (ev.getKey() == 27)
                 _exit = true;
-              if (ev.getDown() && ev.getKey() == 'z')
-                game->changeDirection(UP);
-              if (ev.getDown() && ev.getKey() == 's')
-                game->changeDirection(DOWN);
-              if (ev.getDown() && ev.getKey() == 'q')
-                game->changeDirection(LEFT);
-              if (ev.getDown() && ev.getKey() == 'd')
-                game->changeDirection(RIGHT);
+              if (ev.getDown() && ev.getKey() == 'z' && !acted)
+                {
+                  game->changeDirection(UP);
+                  acted = true;
+                }
+              if (ev.getDown() && ev.getKey() == 's' && !acted)
+                {
+                  game->changeDirection(DOWN);
+                  acted = true;
+                }
+              if (ev.getDown() && ev.getKey() == 'q' && !acted)
+                {
+                  game->changeDirection(LEFT);
+                  acted = true;
+                }
+              if (ev.getDown() && ev.getKey() == 'd' && !acted)
+                {
+                  game->changeDirection(RIGHT);
+                  acted = true;
+                }
               //change lib ?
               ////updatewinsize ?? game->updateWinSize();
             }

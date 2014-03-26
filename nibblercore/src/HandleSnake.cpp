@@ -28,23 +28,10 @@ void HandleSnake::update()
 {
   Box<int> head = _snake.getBox();
 
-  switch(_dir)
-    {
-    case UP:
-      head.getPos().y() = (head.getPos().y() - head.getSize().h());
-      break;
-    case DOWN:
-      head.getPos().y() = (head.getPos().y() + head.getSize().h());
-      break;
-    case LEFT:
-      head.getPos().x() = (head.getPos().x() - head.getSize().w());
-      break;
-    case RIGHT:
-      head.getPos().x() = (head.getPos().x() + head.getSize().w());
-      break;
-    default :
-      break;
-    }
+  head.getPos().y() += ((_dir == UP) * (-head.getSize().h()))
+                       + ((_dir == DOWN) * (head.getSize().h()));
+  head.getPos().x() += ((_dir == LEFT) * (-head.getSize().w()))
+                       + ((_dir == RIGHT) * (head.getSize().w()));
 
   if((head.getPos().x() < 0 || head.getPos().x() > _win.w())
       || (head.getPos().y() < 0 || head.getPos().y() > _win.w()))
