@@ -76,7 +76,11 @@ void HandleSnake::createApple()
 
 void HandleSnake::updateWinSize(const Point2d<int>& win)
 {
+  Box<int> tmp;
+
   _win = win;
-  //update sizeof snakeparts
+  tmp = _snake.getBox();
+  tmp.getSize() = win / _gamesize;
+  _snake.setBox(tmp);
 }
 
