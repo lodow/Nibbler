@@ -7,7 +7,8 @@ Graphique::Graphique()
 
 Graphique::~Graphique()
 {
-
+  SDL_DestroyRenderer(_rend);
+  SDL_DestroyWindow(_win);
 }
 
 void Graphique::createWindows(const Point2d<int>& size)
