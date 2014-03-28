@@ -15,7 +15,7 @@
 class Nibbler
 {
 public:
-  Nibbler(const std::vector<std::string>& av);
+  Nibbler(const std::vector<std::string>& av, const std::vector<std::string>& libs = std::vector<std::string>());
   ~Nibbler();
 
   void run();
@@ -29,6 +29,8 @@ private:
   TimeHandler _time;
   EventHandler _events;
   DLLoader<IGui*>* _lib;
+  unsigned int _libidx;
+  std::vector<std::string> _libsList;
 };
 
 #endif

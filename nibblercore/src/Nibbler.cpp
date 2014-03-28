@@ -1,6 +1,6 @@
 #include "Nibbler.hpp"
 
-Nibbler::Nibbler(const std::vector<std::string>& av)
+Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::string>& libs)
   : _win(1024, 980), _time(15.0)
 {
   std::stringstream ss;
@@ -8,6 +8,8 @@ Nibbler::Nibbler(const std::vector<std::string>& av)
   Point2d<int> gamesize;
   int tmp;
 
+  _libsList = libs;
+  _libidx = 0;
   _exit = false;
   if (av.size() != 4)
     throw nFault(std::string("Usage : ") + av[0] + " <width> <height> <libXXX.so>", false);
@@ -71,9 +73,10 @@ void Nibbler::run()
                   game->changeDirection(RIGHT);
                   acted = true;
                 }
-              if (ev.getKey() == 'o')
+              if (!ev.getDown() && ev.getKey() == 'o' && _libsList.size() > 0)
                 {
-                  gui = changeLib("lib_nibbler_mlx.so", gui);
+                  gui = changeLib(_libsList.at(_libidx % _libsList.size()), gui);
+                  _libidx++;
                 }
             }
           //change lib ?

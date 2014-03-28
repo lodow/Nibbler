@@ -8,14 +8,17 @@
 int main(int argc, char **argv)
 {
   std::vector<std::string> av;
+  std::vector<std::string> libslist;
   Nibbler* nib;
 
   nib = NULL;
   try
     {
+      libslist.push_back("lib_nibbler_mlx.so");
+      libslist.push_back("lib_nibbler_sdl.so");
       for (int i = 0; i < argc; i++)
         av.push_back(std::string(argv[i]));
-      nib = new Nibbler(av);
+      nib = new Nibbler(av, libslist);
       nib->run();
       delete nib;
     }
