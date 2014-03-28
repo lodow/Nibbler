@@ -28,6 +28,10 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
   lib = av[3];
   _gamesize = gamesize;
   _win = _win - _win % _gamesize;
+  if (gamesize.x() / gamesize.y() != 0)
+    _win.y() = _win.x() / (gamesize.x() / gamesize.y());
+  else if (gamesize.y() / gamesize.x() != 0)
+    _win.x() = _win.y() / (gamesize.y() / gamesize.x());
   _lib = new DLLoader<IGui*>(lib);
 }
 
