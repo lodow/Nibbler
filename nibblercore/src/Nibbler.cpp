@@ -27,6 +27,7 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
     throw nFault(av[2] + ": incorrect value", false);
   lib = av[3];
   _gamesize = gamesize;
+  _win = _win - _win % _gamesize;
   _lib = new DLLoader<IGui*>(lib);
 }
 
