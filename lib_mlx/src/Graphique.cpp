@@ -21,6 +21,7 @@ int pressed_key(int key, void *arg)
   EventHandler* handler;
   char fkey;
 
+  fkey = '\0';
   handler = static_cast<EventHandler*>(arg);
   if (key == 65307)
     fkey = 27;
@@ -32,6 +33,8 @@ int pressed_key(int key, void *arg)
     fkey = 'd';
   else if (key == 65361 || key == 113)
     fkey = 'q';
+  else if (key == 111)
+    fkey = 'o';
   handler->addEvent(new Event(true, fkey));
   return (0);
 }
@@ -41,6 +44,7 @@ int realesed_key(int key, void *arg)
   char fkey;
   EventHandler* handler;
 
+  fkey = '\0';
   handler = static_cast<EventHandler*>(arg);
   if (key == 65307)
     fkey = 27;
@@ -52,6 +56,8 @@ int realesed_key(int key, void *arg)
     fkey = 'd';
   else if (key == 65361 || key == 113)
     fkey = 'q';
+  else if (key == 111)
+    fkey = 'o';
   handler->addEvent(new Event(false, fkey));
   return (0);
 }

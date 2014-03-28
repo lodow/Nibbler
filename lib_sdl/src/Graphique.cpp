@@ -16,8 +16,8 @@ void Graphique::createWindows(const Point2d<int>& size)
 
   if ((SDL_Init(SDL_INIT_VIDEO) != 0)
       || ((_win = SDL_CreateWindow("Nibbler", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-				   size.x(), size.y(), SDL_WINDOW_SHOWN)) == NULL)
-      || ((_rend = SDL_CreateRenderer(_win, -1,SDL_RENDERER_ACCELERATED)) == NULL))
+                                   size.x(), size.y(), SDL_WINDOW_SHOWN)) == NULL)
+      || ((_rend = SDL_CreateRenderer(_win, -1, SDL_RENDERER_ACCELERATED)) == NULL))
     {
       error = "Can't Init SDL: ";
       error += SDL_GetError();
@@ -78,21 +78,25 @@ void Graphique::updateEvent(EventHandler& eventHandler)
 
   while (SDL_PollEvent(&event))
     {
+      fkey = '\0';
       if (event.window.event == SDL_WINDOWEVENT_CLOSE ||
-	  (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-	fkey = 27;
+          (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+        fkey = 27;
       else if (event.type == SDL_KEYDOWN &&
-	       (event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_UP))
-	fkey = 'z';
+               (event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_UP))
+        fkey = 'z';
       else if (event.type == SDL_KEYDOWN &&
-	       (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_DOWN))
-	fkey = 's';
+               (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_DOWN))
+        fkey = 's';
       else if (event.type == SDL_KEYDOWN &&
-	       (event.key.keysym.sym == SDLK_q || event.key.keysym.sym == SDLK_LEFT))
-	fkey = 'q';
+               (event.key.keysym.sym == SDLK_q || event.key.keysym.sym == SDLK_LEFT))
+        fkey = 'q';
       else if (event.type == SDL_KEYDOWN &&
-	       (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT))
-	fkey = 'd';
+               (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT))
+        fkey = 'd';
+      else if (event.type == SDL_KEYDOWN &&
+               (event.key.keysym.sym == SDLK_o))
+        fkey = 'o';
       eventHandler.addEvent(new Event(true, fkey));
     }
 }

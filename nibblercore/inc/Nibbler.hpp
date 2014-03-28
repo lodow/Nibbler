@@ -21,6 +21,8 @@ public:
   void run();
 
 private:
+  IGui *changeLib(const std::string& lib, IGui *lastGui);
+
   bool _exit;
   Point2d<int> _win;
   Point2d<int> _gamesize;

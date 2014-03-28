@@ -71,9 +71,13 @@ void Nibbler::run()
                   game->changeDirection(RIGHT);
                   acted = true;
                 }
-              //change lib ?
-              ////updatewinsize ?? game->updateWinSize();
+              if (ev.getKey() == 'o')
+                {
+                  gui = changeLib("lib_nibbler_mlx.so", gui);
+                }
             }
+          //change lib ?
+          ////updatewinsize ?? game->updateWinSize();
           game->update();
           gui->clearScreen();
           game->drawn(gui);
@@ -86,7 +90,37 @@ void Nibbler::run()
   delete gui;
 }
 
+IGui *Nibbler::changeLib(const std::string& nlib, IGui *lastGui)
+{
+  DLLoader<IGui*>* lib;
+  IGui* gui;
+  bool ok;
+
+  lib = NULL;
+  gui = NULL;
+  try
+    {
+      lib = new DLLoader<IGui*>(nlib);
+      if ((gui = lib->getInstance()) == NULL)
+        throw nFault("Could not create the library windows", true);
+      gui->createWindows(_win);
+      ok = true;
+      delete lastGui;
+      delete _lib;
+      _lib = lib;
+    }
+  catch (std::exception& e)
+    {
+      delete gui;
+      delete lib;
+      ok = false;
+      std::cerr << e.what() << std::endl;
+    }
+  return (ok ? gui : lastGui);
+}
+
 Nibbler::~Nibbler()
 {
   delete _lib;
 }
+
