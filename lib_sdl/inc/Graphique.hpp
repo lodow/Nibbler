@@ -1,6 +1,8 @@
 #ifndef GRAPHIQUE_HPP_
 #define GRAPHIQUE_HPP_
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <iostream>
 #include "IGui.hpp"
 
@@ -16,6 +18,10 @@ public:
   virtual void	updateEvent(EventHandler& eventHandler);
   virtual void	clearScreen();
   virtual void	drawScreen();
+private:
+  SDL_Window	*_win;
+  SDL_Renderer	*_rend;
+
 };
 
 #endif
