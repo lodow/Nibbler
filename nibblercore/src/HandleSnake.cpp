@@ -8,6 +8,9 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
   _dir = UP;
   srand(time(NULL));
   createApple();
+  _snake.addPart();
+  _snake.addPart();
+  _snake.addPart();
 }
 
 HandleSnake::~HandleSnake()
@@ -33,10 +36,8 @@ void HandleSnake::update()
   head.getPos().x() += ((_dir == LEFT) * (-head.getSize().w()))
                        + ((_dir == RIGHT) * (head.getSize().w()));
 
-  std::cout << "head.getPos().x() / _gamesize.x()" << head.getPos().y() / _gamesize.y() << "(_win.w() / _gamesize.x())" << (_win.h() / _gamesize.y()) << std::endl;
-
   if((head.getPos().x() < 0 || head.getPos().x() / _gamesize.x() >= (_win.w() / _gamesize.x()))
-     || (head.getPos().y() < 0 || head.getPos().y()  / _gamesize.y() >=  (_win.h() / _gamesize.y())))
+      || (head.getPos().y() < 0 || head.getPos().y()  / _gamesize.y() >=  (_win.h() / _gamesize.y())))
     _lost = true;
 
   _snake.setBox(head);
