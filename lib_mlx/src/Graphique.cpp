@@ -74,10 +74,12 @@ Graphique::Graphique()
 Graphique::~Graphique()
 {
   if (_win)
-    mlx_destroy_window(_mlx, _win);
-  mlx_key_hook(_win, NULL, NULL);
-  mlx_keypressed_hook(_win, NULL, NULL);
-  mlx_event(_mlx);
+    {
+      mlx_destroy_window(_mlx, _win);
+      mlx_key_hook(_win, NULL, NULL);
+      mlx_keypressed_hook(_win, NULL, NULL);
+      mlx_event(_mlx);
+    }
   free(_mlx);
 }
 
