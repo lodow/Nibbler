@@ -33,8 +33,10 @@ void HandleSnake::update()
   head.getPos().x() += ((_dir == LEFT) * (-head.getSize().w()))
                        + ((_dir == RIGHT) * (head.getSize().w()));
 
-  if((head.getPos().x() < 0 || head.getPos().x() > _win.w() - (_win.w() / _gamesize.x()))
-      || (head.getPos().y() < 0 || head.getPos().y() > _win.h() - (_win.h() / _gamesize.y())))
+  std::cout << "head.getPos().x() / _gamesize.x()" << head.getPos().y() / _gamesize.y() << "(_win.w() / _gamesize.x())" << (_win.h() / _gamesize.y()) << std::endl;
+
+  if((head.getPos().x() < 0 || head.getPos().x() / _gamesize.x() >= (_win.w() / _gamesize.x()))
+     || (head.getPos().y() < 0 || head.getPos().y()  / _gamesize.y() >=  (_win.h() / _gamesize.y())))
     _lost = true;
 
   _snake.setBox(head);
@@ -71,7 +73,7 @@ void HandleSnake::createApple()
 {
   Point2d<int> random(rand(), rand());
 
-  _apple = (random % _gamesize) * ((_win - _gamesize) / _gamesize);
+  _apple = (random % _gamesize) * (_win / _gamesize);
 }
 
 void HandleSnake::updateWinSize(const Point2d<int>& win)
@@ -83,4 +85,3 @@ void HandleSnake::updateWinSize(const Point2d<int>& win)
   tmp.getSize() = win / _gamesize;
   _snake.setBox(tmp);
 }
-
