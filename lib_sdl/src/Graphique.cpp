@@ -80,24 +80,23 @@ void Graphique::updateEvent(EventHandler& eventHandler)
   while (SDL_PollEvent(&event))
     {
       fkey = '\0';
-      if (event.window.event == SDL_WINDOWEVENT_CLOSE ||
-          (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-        fkey = 27;
-      else if (event.type == SDL_KEYDOWN &&
-               (event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_UP))
-        fkey = 'z';
-      else if (event.type == SDL_KEYDOWN &&
-               (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_DOWN))
-        fkey = 's';
-      else if (event.type == SDL_KEYDOWN &&
-               (event.key.keysym.sym == SDLK_q || event.key.keysym.sym == SDLK_LEFT))
-        fkey = 'q';
-      else if (event.type == SDL_KEYDOWN &&
-               (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT))
-        fkey = 'd';
-      else if (event.type == SDL_KEYDOWN &&
-               (event.key.keysym.sym == SDLK_o))
-        fkey = 'o';
-      eventHandler.addEvent(new Event(true, fkey));
+      if (event.window.event == SDL_WINDOWEVENT_CLOSE)
+	eventHandler.addEvent(new Event(true, fkey));
+      else if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
+	{
+	  if (event.key.keysym.sym == SDLK_ESCAPE)
+	    fkey = 27;
+	  else if (event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_UP)
+	    fkey = 'z';
+	  else if (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_DOWN)
+	    fkey = 's';
+	  else if (event.key.keysym.sym == SDLK_q || event.key.keysym.sym == SDLK_LEFT)
+	    fkey = 'q';
+	  else if (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT)
+	    fkey = 'd';
+	  else if (event.key.keysym.sym == SDLK_o)
+	    fkey = 'o';
+	  eventHandler.addEvent(new Event((event.type == SDL_KEYDOWN ? true : false), fkey));
+	}
     }
 }
