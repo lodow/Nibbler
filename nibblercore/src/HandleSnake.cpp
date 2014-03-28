@@ -33,8 +33,8 @@ void HandleSnake::update()
   head.getPos().x() += ((_dir == LEFT) * (-head.getSize().w()))
                        + ((_dir == RIGHT) * (head.getSize().w()));
 
-  if((head.getPos().x() < 0 || head.getPos().x() > _win.w() - _gamesize.x())
-      || (head.getPos().y() < 0 || head.getPos().y() > _win.h() - _gamesize.y()))
+  if((head.getPos().x() < 0 || head.getPos().x() > _win.w() - (_win.w() / _gamesize.x()))
+      || (head.getPos().y() < 0 || head.getPos().y() > _win.h() - (_win.h() / _gamesize.y())))
     _lost = true;
 
   _snake.setBox(head);
