@@ -49,15 +49,6 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
 
 void Graphique::clearScreen()
 {
-  static int	nb = 0;
-
-  nb++;
-  /*  if (nb%24 == 0)
-    SDL_SetRenderDrawColor(_rend, 0x00, 0xFF, 0x00, 0x00);
-  else if (nb%24 == 8)
-    SDL_SetRenderDrawColor(_rend, 0x00, 0x00, 0xFF, 0x00);
-  else if (nb%24 == 16)
-  SDL_SetRenderDrawColor(_rend, 0xFF, 0x00, 0x00, 0x00);*/
   SDL_RenderClear(_rend);
 }
 
@@ -75,28 +66,28 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 void Graphique::updateEvent(EventHandler& eventHandler)
 {
   SDL_Event	event;
-  char		fkey;
+  EventType	ev;
 
   while (SDL_PollEvent(&event))
     {
-      fkey = '\0';
+      ev = NONE;
       if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-	eventHandler.addEvent(new Event(true, fkey));
+        eventHandler.addEvent(new Event(true, ev));
       else if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
-	{
-	  if (event.key.keysym.sym == SDLK_ESCAPE)
-	    fkey = 27;
-	  else if (event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_UP)
-	    fkey = 'z';
-	  else if (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_DOWN)
-	    fkey = 's';
-	  else if (event.key.keysym.sym == SDLK_q || event.key.keysym.sym == SDLK_LEFT)
-	    fkey = 'q';
-	  else if (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT)
-	    fkey = 'd';
-	  else if (event.key.keysym.sym == SDLK_o)
-	    fkey = 'o';
-	  eventHandler.addEvent(new Event((event.type == SDL_KEYDOWN ? true : false), fkey));
-	}
+        {
+          if (event.key.keysym.sym == SDLK_ESCAPE)
+            ev = QUIT;
+          else if (event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_UP)
+            ev = UP;
+          else if (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_DOWN)
+            ev = DOWN;
+          else if (event.key.keysym.sym == SDLK_q || event.key.keysym.sym == SDLK_LEFT)
+            ev = LEFT;
+          else if (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT)
+            ev = RIGHT;
+          else if (event.key.keysym.sym == SDLK_o)
+            ev = CHANGELIB;
+          eventHandler.addEvent(new Event((event.type == SDL_KEYDOWN ? true : false), ev));
+        }
     }
 }

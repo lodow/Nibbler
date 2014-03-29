@@ -1,7 +1,7 @@
 #include "EventHandling.hpp"
 
-Event::Event(bool down, char key)
-  : _down(down), _key(key)
+Event::Event(bool down, EventType event)
+  : _down(down), _event(event)
 {
 
 }

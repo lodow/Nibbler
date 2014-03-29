@@ -19,46 +19,46 @@ int mlx_keypressed_hook(void *tmp, int (*funct)(), void *param)
 int pressed_key(int key, void *arg)
 {
   EventHandler* handler;
-  char fkey;
+  EventType ev;
 
-  fkey = '\0';
+  ev = NONE;
   handler = static_cast<EventHandler*>(arg);
   if (key == 65307)
-    fkey = 27;
+    ev = QUIT;
   else if (key == 65362 || key == 122)
-    fkey = 'z';
+    ev = UP;
   else if (key == 65364 || key == 115)
-    fkey = 's';
+    ev = DOWN;
   else if (key == 65363 || key == 100)
-    fkey = 'd';
+    ev = RIGHT;
   else if (key == 65361 || key == 113)
-    fkey = 'q';
+    ev = LEFT;
   else if (key == 111)
-    fkey = 'o';
-  handler->addEvent(new Event(true, fkey));
+    ev = CHANGELIB;
+  handler->addEvent(new Event(true, ev));
   return (0);
 }
 
 int realesed_key(int key, void *arg)
 {
-  char fkey;
+  EventType ev;
   EventHandler* handler;
 
-  fkey = '\0';
+  ev = NONE;
   handler = static_cast<EventHandler*>(arg);
   if (key == 65307)
-    fkey = 27;
+    ev = QUIT;
   else if (key == 65362 || key == 122)
-    fkey = 'z';
+    ev = UP;
   else if (key == 65364 || key == 115)
-    fkey = 's';
+    ev = DOWN;
   else if (key == 65363 || key == 100)
-    fkey = 'd';
+    ev = RIGHT;
   else if (key == 65361 || key == 113)
-    fkey = 'q';
+    ev = LEFT;
   else if (key == 111)
-    fkey = 'o';
-  handler->addEvent(new Event(false, fkey));
+    ev = CHANGELIB;
+  handler->addEvent(new Event(false, ev));
   return (0);
 }
 
@@ -78,7 +78,6 @@ Graphique::~Graphique()
       mlx_key_hook(_win, NULL, NULL);
       mlx_keypressed_hook(_win, NULL, NULL);
       mlx_destroy_window(_mlx, _win);
-
       mlx_event(_mlx);
     }
   free(_mlx);
@@ -105,6 +104,8 @@ void Graphique::createWindows(const Point2d<int>& size)
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
+
+
   (void)type;
   if ((square.getPos().x() >= 0 && square.getPos().x() + square.getSize().w() < _winsize.x())
       && (square.getPos().y() >= 0 && square.getPos().y() + square.getSize().h() < _winsize.y()))

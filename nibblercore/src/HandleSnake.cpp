@@ -18,7 +18,7 @@ HandleSnake::~HandleSnake()
 
 }
 
-void HandleSnake::changeDirection(Direction dir)
+void HandleSnake::changeDirection(EventType dir)
 {
   if ((_dir == UP && dir != DOWN)
       || (_dir == DOWN && dir != UP)

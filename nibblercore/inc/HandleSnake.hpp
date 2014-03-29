@@ -8,8 +8,6 @@
 #include "Box.hpp"
 #include "IGui.hpp"
 
-typedef enum {UP, DOWN, RIGHT, LEFT} Direction;
-
 class HandleSnake
 {
 public:
@@ -17,7 +15,7 @@ public:
   ~HandleSnake();
 
   void updateWinSize(const Point2d<int>& win);
-  void changeDirection(Direction dir);
+  void changeDirection(EventType dir);
   void update();
   void drawn(IGui* lib) const;
 
@@ -29,7 +27,7 @@ private:
 
   Point2d<int> _win;
   Point2d<int> _gamesize;
-  Direction _dir;
+  EventType _dir;
   SnakePart _snake;
   Point2d<int> _apple;
   int _score;

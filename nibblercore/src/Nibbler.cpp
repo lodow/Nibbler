@@ -56,35 +56,21 @@ void Nibbler::run()
           gui->updateEvent(_events);
           while (_events.pollEvent(ev))
             {
-              if (ev.getKey() == 27)
+              if (ev.getEvent() == QUIT)
                 _exit = true;
-              if (ev.getDown() && ev.getKey() == 'z' && !acted)
+              else if (ev.getDown() && !acted
+                       && (ev.getEvent() == UP || ev.getEvent() == DOWN
+                           || ev.getEvent() == RIGHT || ev.getEvent() == LEFT))
                 {
-                  game->changeDirection(UP);
+                  game->changeDirection(ev.getEvent());
                   acted = true;
                 }
-              if (ev.getDown() && ev.getKey() == 's' && !acted)
-                {
-                  game->changeDirection(DOWN);
-                  acted = true;
-                }
-              if (ev.getDown() && ev.getKey() == 'q' && !acted)
-                {
-                  game->changeDirection(LEFT);
-                  acted = true;
-                }
-              if (ev.getDown() && ev.getKey() == 'd' && !acted)
-                {
-                  game->changeDirection(RIGHT);
-                  acted = true;
-                }
-              if (!ev.getDown() && ev.getKey() == 'o' && _libsList.size() > 0)
+              else if (!ev.getDown() && ev.getEvent() == CHANGELIB && _libsList.size() > 0)
                 {
                   gui = changeLib(_libsList.at(_libidx % _libsList.size()), gui);
                   _libidx++;
                 }
             }
-          //change lib ?
           ////updatewinsize ?? game->updateWinSize();
           game->update();
           gui->clearScreen();
