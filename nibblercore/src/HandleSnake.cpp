@@ -79,10 +79,24 @@ void HandleSnake::drawn(IGui* lib) const
 
 void HandleSnake::createApple()
 {
+  bool tryAgain;
   Point2d<int> random(rand(), rand());
   Box<int> apple(_snake.getBox());
 
-  apple.getPos() = (random % _gamesize) * (_win / _gamesize);
+  tryAgain = true;
+  while (tryAgain)
+    {
+      tryAgain = false;
+      apple.getPos() = (random % _gamesize) * (_win / _gamesize);
+      for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
+        {
+          if ((*it)->getBox() == apple)
+            {
+              tryAgain = true;
+              break;
+            }
+        }
+    }
   _ents.push_back(new Entity(apple, APPLE));
 }
 
@@ -95,4 +109,3 @@ void HandleSnake::updateWinSize(const Point2d<int>& win)
   tmp.getSize() = win / _gamesize;
   _snake.setBox(tmp);
 }
-
