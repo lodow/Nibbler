@@ -85,6 +85,10 @@ Graphique::Graphique()
   _colorMap[WALL].push_back(0);
   _colorMap[WALL].push_back(0);
 
+  _colorMap[TELEP].push_back(255);
+  _colorMap[TELEP].push_back(0);
+  _colorMap[TELEP].push_back(255);
+
   _colorMap[EMPTY].push_back(0);
   _colorMap[EMPTY].push_back(0);
   _colorMap[EMPTY].push_back(0);

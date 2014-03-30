@@ -4,7 +4,7 @@
 #include "Point2d.hpp"
 #include "Box.hpp"
 
-typedef enum {APPLE, HEAD, SNAKE, WALL, EMPTY} blockType;
+typedef enum {APPLE, HEAD, SNAKE, WALL, TELEP, EMPTY} blockType;
 
 class Entity
 {
@@ -16,7 +16,7 @@ public:
   const Box<int>& getBox() const {return _box;};
   virtual void setBox(const Box<int>& b) {_box = b;};
 
-  bool operator==(const Entity& ent) {return (_box == ent.getBox());};
+  bool operator==(Entity& ent) {return (_box == ent.getBox());};
 protected:
   Box<int> _box;
   blockType _type;

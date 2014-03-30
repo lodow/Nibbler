@@ -10,6 +10,7 @@
 #include "Point2d.hpp"
 #include "Box.hpp"
 #include "IGui.hpp"
+#include "Teleporter.hpp"
 
 class HandleSnake
 {
