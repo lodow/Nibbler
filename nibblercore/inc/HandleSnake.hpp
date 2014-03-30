@@ -2,6 +2,9 @@
 #define HANDLESNAKE_HPP_INCLUDED
 
 #include <cstdlib>
+#include <deque>
+#include <algorithm>
+#include <iterator>
 
 #include "Snake.hpp"
 #include "Point2d.hpp"
@@ -25,11 +28,11 @@ public:
 private:
   void createApple();
 
+  std::deque<Entity*> _ents;
   Point2d<int> _win;
   Point2d<int> _gamesize;
   EventType _dir;
   SnakePart _snake;
-  Point2d<int> _apple;
   int _score;
   bool _lost;
 };

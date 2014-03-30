@@ -1,5 +1,10 @@
 #include "HandleSnake.hpp"
 
+void deleteEntity(Entity* ent)
+{
+  delete ent;
+}
+
 HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize)
   : _win(win), _gamesize(gamesize),
     _snake(Box<int>(start, win / gamesize), true)
@@ -15,7 +20,7 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
 
 HandleSnake::~HandleSnake()
 {
-
+  std::for_each(_ents.begin(), _ents.end(), &deleteEntity);
 }
 
 void HandleSnake::changeDirection(EventType dir)
@@ -45,27 +50,29 @@ void HandleSnake::update()
   if(_snake.collisionItself())
     _lost = true;
 
-  if (_snake.getBox() == _apple)
+  for (std::deque<Entity*>::iterator it = _ents.begin(); it != _ents.end(); ++it)
     {
-      _score += 1;
-      _snake.addPart();
-      createApple();
+      if ((_snake == *(*it)) && ((*it)->getType() == APPLE))
+        {
+          delete (*it);
+          ++it;
+          _score += 1;
+          _snake.addPart();
+          createApple();
+        }
     }
 }
 
 void HandleSnake::drawn(IGui* lib) const
 {
   const SnakePart* tmp;
-  Box<int> tmpb;
 
+  for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
+    lib->drawSquare((*it)->getBox(), (*it)->getType());
   tmp = &_snake;
-  tmpb = tmp->getBox();
-  tmpb.getPos() = _apple;
-  lib->drawSquare(tmpb, APPLE);
   while (tmp)
     {
-      tmpb = tmp->getBox();
-      lib->drawSquare(tmpb, tmp->getType());
+      lib->drawSquare(tmp->getBox(), tmp->getType());
       tmp = tmp->getNext();
     }
 }
@@ -73,8 +80,10 @@ void HandleSnake::drawn(IGui* lib) const
 void HandleSnake::createApple()
 {
   Point2d<int> random(rand(), rand());
+  Box<int> apple(_snake.getBox());
 
-  _apple = (random % _gamesize) * (_win / _gamesize);
+  apple.getPos() = (random % _gamesize) * (_win / _gamesize);
+  _ents.push_back(new Entity(apple, APPLE));
 }
 
 void HandleSnake::updateWinSize(const Point2d<int>& win)
@@ -86,3 +95,4 @@ void HandleSnake::updateWinSize(const Point2d<int>& win)
   tmp.getSize() = win / _gamesize;
   _snake.setBox(tmp);
 }
+
