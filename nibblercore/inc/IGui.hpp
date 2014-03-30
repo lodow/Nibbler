@@ -5,11 +5,10 @@
 #include <sstream>
 #include <string>
 
+#include "Entity.hpp"
 #include "Box.hpp"
 #include "Point2d.hpp"
 #include "EventHandling.hpp"
-
-typedef enum {APPLE, SNAKE, WALL, EMPTY} blockType;
 
 class IGui
 {

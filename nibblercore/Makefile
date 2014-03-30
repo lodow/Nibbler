@@ -11,6 +11,7 @@
 SRC		=	main.cpp \
 			Nibbler.cpp \
 			HandleSnake.cpp \
+			Entity.cpp \
 			Snake.cpp
 
 CC		=	g++
