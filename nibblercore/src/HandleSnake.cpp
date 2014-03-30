@@ -55,7 +55,7 @@ void HandleSnake::update()
       if ((_snake == *(*it)) && ((*it)->getType() == APPLE))
         {
           delete (*it);
-          ++it;
+          _ents.erase(it);
           _score += 1;
           _snake.addPart();
           createApple();
