@@ -1,7 +1,7 @@
 #include "Snake.hpp"
 
-SnakePart::SnakePart(const Box<int>& b)
-  : Entity(b, SNAKE)
+SnakePart::SnakePart(const Box<int>& b, bool isHead)
+  : Entity(b, isHead ? HEAD : SNAKE)
 {
   _next = NULL;
 }

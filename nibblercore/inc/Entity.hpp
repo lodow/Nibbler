@@ -4,7 +4,7 @@
 #include "Point2d.hpp"
 #include "Box.hpp"
 
-typedef enum {APPLE, SNAKE, WALL, EMPTY} blockType;
+typedef enum {APPLE, HEAD, SNAKE, WALL, EMPTY} blockType;
 
 class Entity
 {

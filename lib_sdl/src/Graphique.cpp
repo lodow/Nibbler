@@ -18,6 +18,10 @@ Graphique::Graphique()
   _colorMap[SNAKE].push_back(128);
   _colorMap[SNAKE].push_back(0);
 
+  _colorMap[HEAD].push_back(128);
+  _colorMap[HEAD].push_back(0);
+  _colorMap[HEAD].push_back(128);
+
   _colorMap[WALL].push_back(255);
   _colorMap[WALL].push_back(0);
   _colorMap[WALL].push_back(0);

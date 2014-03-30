@@ -2,7 +2,7 @@
 
 HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize)
   : _win(win), _gamesize(gamesize),
-    _snake(Box<int>(start, win / gamesize))
+    _snake(Box<int>(start, win / gamesize), true)
 {
   _lost = false;
   _dir = UP;
@@ -65,7 +65,7 @@ void HandleSnake::drawn(IGui* lib) const
   while (tmp)
     {
       tmpb = tmp->getBox();
-      lib->drawSquare(tmpb, SNAKE);
+      lib->drawSquare(tmpb, tmp->getType());
       tmp = tmp->getNext();
     }
 }

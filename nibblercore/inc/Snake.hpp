@@ -7,7 +7,7 @@
 class SnakePart : public Entity
 {
 public:
-  SnakePart(const Box<int>& b);
+  SnakePart(const Box<int>& b, bool isHead = false);
   virtual ~SnakePart();
 
   virtual void setBox(const Box<int>& b);
