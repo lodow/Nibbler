@@ -1,16 +1,16 @@
 #ifndef SNAKE_HPP_INCLUDED
 #define SNAKE_HPP_INCLUDED
 
+#include "Entity.hpp"
 #include "Box.hpp"
 
-class SnakePart
+class SnakePart : public Entity
 {
 public:
-  SnakePart(const Box<int>& b);
-  ~SnakePart();
+  SnakePart(const Box<int>& b, bool isHead = false);
+  virtual ~SnakePart();
 
-  const Box<int>& getBox() const {return _box;};
-  void setBox(const Box<int>& b);
+  virtual void setBox(const Box<int>& b);
 
   void addPart();
 
@@ -18,7 +18,6 @@ public:
   SnakePart* getNext() const {return _next;};
 
 private:
-  Box<int> _box;
   SnakePart* _next;
 };
 

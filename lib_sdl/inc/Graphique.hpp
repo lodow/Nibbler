@@ -4,6 +4,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <map>
+#include <vector>
+
 #include "IGui.hpp"
 
 class Graphique : public IGui
@@ -19,6 +22,7 @@ public:
   virtual void	clearScreen();
   virtual void	drawScreen();
 private:
+  std::map<blockType, std::vector<unsigned char> > _colorMap;
   SDL_Window	*_win;
   SDL_Renderer	*_rend;
   SDL_Texture	*_texSnake;

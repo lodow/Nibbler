@@ -3,17 +3,19 @@
 
 #include <list>
 
+typedef enum {NONE, UP, DOWN, RIGHT, LEFT, QUIT, CHANGELIB} EventType;
+
 class Event
 {
 public:
-  Event(bool down = false, char key = '\0');
+  Event(bool down = false, EventType key = NONE);
   ~Event();
 
   bool getDown() const {return _down;};
-  char getKey() const {return _key;};
+  EventType getEvent() const {return _event;};
 private:
   bool _down;
-  char _key;
+  EventType _event;
 };
 
 class EventHandler

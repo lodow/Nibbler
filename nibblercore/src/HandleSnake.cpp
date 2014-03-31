@@ -1,8 +1,13 @@
 #include "HandleSnake.hpp"
 
+void deleteEntity(Entity* ent)
+{
+  delete ent;
+}
+
 HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize)
   : _win(win), _gamesize(gamesize),
-    _snake(Box<int>(start, win / gamesize))
+    _snake(Box<int>(start, win / gamesize), true)
 {
   _lost = false;
   _dir = UP;
@@ -15,10 +20,10 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
 
 HandleSnake::~HandleSnake()
 {
-
+  std::for_each(_ents.begin(), _ents.end(), &deleteEntity);
 }
 
-void HandleSnake::changeDirection(Direction dir)
+void HandleSnake::changeDirection(EventType dir)
 {
   if ((_dir == UP && dir != DOWN)
       || (_dir == DOWN && dir != UP)
@@ -37,7 +42,7 @@ void HandleSnake::update()
                        + ((_dir == RIGHT) * (head.getSize().w()));
 
   if((head.getPos().x() < 0 || head.getPos().x() / _gamesize.x() >= (_win.w() / _gamesize.x()))
-      || (head.getPos().y() < 0 || head.getPos().y()  / _gamesize.y() >=  (_win.h() / _gamesize.y())))
+      || (head.getPos().y() < 0 || head.getPos().y() / _gamesize.y() >= (_win.h() / _gamesize.y())))
     _lost = true;
 
   _snake.setBox(head);
@@ -45,36 +50,54 @@ void HandleSnake::update()
   if(_snake.collisionItself())
     _lost = true;
 
-  if (_snake.getBox() == _apple)
+  for (std::deque<Entity*>::iterator it = _ents.begin(); it != _ents.end(); ++it)
     {
-      _score += 1;
-      _snake.addPart();
-      createApple();
+      if ((_snake == *(*it)) && ((*it)->getType() == APPLE))
+        {
+          delete (*it);
+          _ents.erase(it);
+          _score += 1;
+          _snake.addPart();
+          createApple();
+        }
     }
 }
 
 void HandleSnake::drawn(IGui* lib) const
 {
   const SnakePart* tmp;
-  Box<int> tmpb;
 
+  for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
+    lib->drawSquare((*it)->getBox(), (*it)->getType());
   tmp = &_snake;
-  tmpb = tmp->getBox();
-  tmpb.getPos() = _apple;
-  lib->drawSquare(tmpb, APPLE);
   while (tmp)
     {
-      tmpb = tmp->getBox();
-      lib->drawSquare(tmpb, SNAKE);
+      lib->drawSquare(tmp->getBox(), tmp->getType());
       tmp = tmp->getNext();
     }
 }
 
 void HandleSnake::createApple()
 {
+  bool tryAgain;
   Point2d<int> random(rand(), rand());
+  Box<int> apple(_snake.getBox());
 
-  _apple = (random % _gamesize) * (_win / _gamesize);
+  tryAgain = true;
+  while (tryAgain)
+    {
+      tryAgain = false;
+      apple.getPos() = (random % _gamesize) * (_win / _gamesize);
+      for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
+        {
+          if ((*it)->getBox() == apple)
+            {
+              tryAgain = true;
+              break;
+            }
+        }
+    }
+  _ents.push_back(new Entity(apple, APPLE));
 }
 
 void HandleSnake::updateWinSize(const Point2d<int>& win)

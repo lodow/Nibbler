@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <map>
+#include <vector>
 
 #include "IGui.hpp"
 #include "Fault.hpp"
@@ -24,6 +25,7 @@ public:
   void putPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b);
 
 private:
+  std::map<blockType, std::vector<unsigned char> > _colorMap;
   Point2d<int>	_winsize;
   void*	_mlx;
   void*	_win;
