@@ -25,6 +25,7 @@ private:
   std::map<blockType, std::vector<unsigned char> > _colorMap;
   SDL_Window	*_win;
   SDL_Renderer	*_rend;
+  std::map<blockType, std::vector<SDL_Texture *> > _texMap;
   SDL_Texture	*_texSnake;
   SDL_Texture	*_texApple;
   SDL_Texture	*_texHead;

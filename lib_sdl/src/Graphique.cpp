@@ -44,6 +44,8 @@ Graphique::~Graphique()
 void Graphique::createWindows(const Point2d<int>& size)
 {
   std::string	error;
+  SDL_Texture	*tmp;
+
 
   if (((_win = SDL_CreateWindow("Nibbler", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                 size.x(), size.y(), SDL_WINDOW_SHOWN)) == NULL)
@@ -53,21 +55,30 @@ void Graphique::createWindows(const Point2d<int>& size)
       error += SDL_GetError();
       throw nFault(error, true);
     }
-  _texSnake = IMG_LoadTexture(_rend, "./lib_sdl/res/corp.png");
-  _texApple = IMG_LoadTexture(_rend, "./lib_sdl/res/apple.png");
-  _texHead = IMG_LoadTexture(_rend, "./lib_sdl/res/head.png");
 
-  _texSnake2 = IMG_LoadTexture(_rend, "./lib_sdl/res/_corp.png");
-  _texApple2 = IMG_LoadTexture(_rend, "./lib_sdl/res/_apple.png");
-  _texHead2 = IMG_LoadTexture(_rend, "./lib_sdl/res/_head.png");
+  error = "SDL can't load texture: ";
 
-  if (_texSnake == NULL || _texApple == NULL
-      || _texSnake2 == NULL || _texApple2 == NULL)
-    {
-      error = "Can't load texture: ";
-      error += SDL_GetError();
-      throw nFault(error, true);
-    }
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/corp.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[SNAKE].push_back(tmp);
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/_corp.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[SNAKE].push_back(tmp);
+
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/apple.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[APPLE].push_back(tmp);
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/_apple.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[APPLE].push_back(tmp);
+
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/head.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[HEAD].push_back(tmp);
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/_head.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[HEAD].push_back(tmp);
+
   SDL_RenderClear(_rend);
   SDL_RenderPresent(_rend);
 }
@@ -81,27 +92,8 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
   pos.y = square.getPos().y();
   pos.w = square.getSize().w();
   pos.h = square.getSize().h();
-  if (type == APPLE)
-    {
-      if (_timer > 150)
-	SDL_RenderCopy(_rend, _texApple2, NULL, &pos);
-      else
-	SDL_RenderCopy(_rend, _texApple, NULL, &pos);
-    }
-  else if (type == SNAKE)
-    {
-      if (_timer > 150)
-	SDL_RenderCopy(_rend, _texSnake2, NULL, &pos);
-      else
-	SDL_RenderCopy(_rend, _texSnake, NULL, &pos);
-    }
-  else if (type == HEAD)
-    {
-      if (_timer > 150)
-	SDL_RenderCopy(_rend, _texHead2, NULL, &pos);
-      else
-	SDL_RenderCopy(_rend, _texHead, NULL, &pos);
-    }
+  if (type == APPLE || type == SNAKE || type == HEAD)
+    SDL_RenderCopy(_rend, _texMap[type][(_timer > 150)], NULL, &pos);
   else
     {
       SDL_SetRenderDrawColor(_rend, colors[0], colors[1], colors[2], 0x00);
