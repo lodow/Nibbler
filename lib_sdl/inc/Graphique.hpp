@@ -21,7 +21,14 @@ public:
 private:
   SDL_Window	*_win;
   SDL_Renderer	*_rend;
-
+  SDL_Texture	*_texSnake;
+  SDL_Texture	*_texApple;
+  SDL_Texture	*_texHead;
+  SDL_Texture	*_texSnake2;
+  SDL_Texture	*_texApple2;
+  SDL_Texture	*_texHead2;
+  int		_nb;
+  int		_timer;
 };
 
 #endif

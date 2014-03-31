@@ -24,6 +24,21 @@ void Graphique::createWindows(const Point2d<int>& size)
       error += SDL_GetError();
       throw nFault(error, true);
     }
+  _texSnake = IMG_LoadTexture(_rend, "./lib_sdl/res/corp.png");
+  _texApple = IMG_LoadTexture(_rend, "./lib_sdl/res/apple.png");
+  _texHead = IMG_LoadTexture(_rend, "./lib_sdl/res/head.png");
+
+  _texSnake2 = IMG_LoadTexture(_rend, "./lib_sdl/res/_corp.png");
+  _texApple2 = IMG_LoadTexture(_rend, "./lib_sdl/res/_apple.png");
+  _texHead2 = IMG_LoadTexture(_rend, "./lib_sdl/res/_head.png");
+
+  if (_texSnake == NULL || _texApple == NULL
+      || _texSnake2 == NULL || _texApple2 == NULL)
+    {
+      error = "Can't load texture: ";
+      error += SDL_GetError();
+      throw nFault(error, true);
+    }
   SDL_RenderClear(_rend);
   SDL_RenderPresent(_rend);
 }
@@ -39,25 +54,42 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
   pos.w = square.getSize().w();
   pos.h = square.getSize().h();
   if (type == APPLE)
-    SDL_SetRenderDrawColor(_rend, 0xFF, 0, 0, 0);
-  else if (type == SNAKE)
-    SDL_SetRenderDrawColor(_rend, 0xFF, 0xFF, 0xFF, 0x00);
-  SDL_RenderDrawRect(_rend, &pos);
-  SDL_SetRenderDrawColor(_rend, 0x00, 0x00, 0x00, 0x00);
-
+    {
+      if (_timer > 150)
+	SDL_RenderCopy(_rend, _texApple2, NULL, &pos);
+      else
+	SDL_RenderCopy(_rend, _texApple, NULL, &pos);
+    }
+  else if (type == SNAKE && _nb != 0)
+    {
+      //SDL_SetRenderDrawColor(_rend, 0xFF, 0xFF, 0xFF, 0x00);
+      if (_timer > 150)
+	SDL_RenderCopy(_rend, _texSnake2, NULL, &pos);
+      else
+	SDL_RenderCopy(_rend, _texSnake, NULL, &pos);
+    }
+  else if (type == SNAKE && _nb == 0)
+    {
+      if (_timer > 150)
+	SDL_RenderCopy(_rend, _texHead2, NULL, &pos);
+      else
+	SDL_RenderCopy(_rend, _texHead, NULL, &pos);
+      _nb++;
+    }
+  else
+    {
+      SDL_SetRenderDrawColor(_rend, 0xFF, 0, 0, 0);
+      SDL_RenderDrawRect(_rend, &pos);
+      SDL_SetRenderDrawColor(_rend, 0x00, 0x00, 0x00, 0x00);
+    }
 }
 
 void Graphique::clearScreen()
 {
-  static int	nb = 0;
-
-  nb++;
-  /*  if (nb%24 == 0)
-    SDL_SetRenderDrawColor(_rend, 0x00, 0xFF, 0x00, 0x00);
-  else if (nb%24 == 8)
-    SDL_SetRenderDrawColor(_rend, 0x00, 0x00, 0xFF, 0x00);
-  else if (nb%24 == 16)
-  SDL_SetRenderDrawColor(_rend, 0xFF, 0x00, 0x00, 0x00);*/
+  _nb = 0;
+  _timer++;
+  if (_timer == 300)
+    _timer = 0;
   SDL_RenderClear(_rend);
 }
 
