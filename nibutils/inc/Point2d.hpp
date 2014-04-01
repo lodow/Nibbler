@@ -83,7 +83,7 @@ Point2d<T>::~Point2d()
 template<typename T>
 template<typename U>
 Point2d<T>::Point2d(const Point2d<U>& p)
-  : _x(p._x), _y(p._y)
+  : _x(p.x()), _y(p.y())
 {
 
 }
@@ -92,8 +92,8 @@ template<typename T>
 template<typename U>
 Point2d<T>& Point2d<T>::operator=(const Point2d<U>& p)
 {
-  _x = p._x;
-  _y = p._y;
+  _x = p.x();
+  _y = p.y();
   return (*this);
 }
 
@@ -101,8 +101,8 @@ template<typename T>
 template<typename U>
 Point2d<T>& Point2d<T>::operator+=(const Point2d<U>& p)
 {
-  _x += p._x;
-  _y += p._y;
+  _x += p.x();
+  _y += p.y();
   return (*this);
 }
 
@@ -119,8 +119,8 @@ template<typename T>
 template<typename U>
 Point2d<T>& Point2d<T>::operator-=(const Point2d<U>& p)
 {
-  _x -= p._x;
-  _y -= p._y;
+  _x -= p.x();
+  _y -= p.y();
   return (*this);
 }
 
@@ -137,8 +137,8 @@ template<typename T>
 template<typename U>
 Point2d<T>& Point2d<T>::operator*=(const Point2d<U>& p)
 {
-  _x *= p._x;
-  _y *= p._y;
+  _x *= p.x();
+  _y *= p.y();
   return (*this);
 }
 
@@ -155,10 +155,10 @@ template<typename T>
 template<typename U>
 Point2d<T>& Point2d<T>::operator/=(const Point2d<U>& p)
 {
-  if (p._x == 0 || p._y == 0)
+  if (p.x() == 0 || p.y() == 0)
     throw nFault("Zero division", true);
-  _x /= p._x;
-  _y /= p._y;
+  _x /= p.x();
+  _y /= p.y();
   return (*this);
 }
 
@@ -197,8 +197,8 @@ Point2d<T>& Point2d<T>::operator%=(const Point2d<U>& p)
 {
   if (p._x == 0.0 || p._y == 0.0)
     throw nFault("Zero division", true);
-  _x %= p._x;
-  _y %= p._y;
+  _x %= p.x();
+  _y %= p.y();
   return (*this);
 }
 
@@ -208,8 +208,8 @@ Point2d<double>& Point2d<double>::operator%=(const Point2d<U>& p)
 {
   if (p._x == 0.0 || p._y == 0.0)
     throw nFault("Zero division", true);
-  _x = std::fmod(_x, p._x);
-  _y = std::fmod(_y, p._y);
+  _x = std::fmod(_x, p.x());
+  _y = std::fmod(_y, p.y());
   return (*this);
 }
 

@@ -52,7 +52,7 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
   Box<double>	tmp = square;
 
-  tmp.getPos() = (tmp.getPos() / _win);
+  //tmp.getPos() = (tmp.getPos() / _win);
   glPushMatrix();
   if (type == APPLE)
     glColor3d(0, 181, 96);
@@ -61,7 +61,6 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
   else if (type == HEAD)
     glColor3d(96, 0, 181);
   glTranslatef(((double)square.getPos().x()) / _win.x(), ((double)square.getPos().y()) / _win.y(), 0);
-  glRectf(0.025, 0.025, 0, 0);
   glRectf(tmp.getPos().x(), tmp.getSize().y(),
           tmp.getPos().x() + tmp.getSize().w(),
           tmp.getPos().y() + tmp.getSize().h());
