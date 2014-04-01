@@ -85,21 +85,23 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 
 void Graphique::updateEvent(EventHandler& eventHandler)
 {
+  EventType ev;
+
   glutMainLoopEvent();
   glutPostRedisplay();
   glutKeyboardFunc(pressed_key);
   glutSpecialFunc(pressed_key_arrow);
   if (key == 27)
-    _ev = QUIT;
+    ev = QUIT;
   else if (key == 'z' || key == GLUT_KEY_DOWN)
-    _ev = UP;
+    ev = UP;
   else if (key == 's' || key == GLUT_KEY_UP)
-    _ev = DOWN;
+    ev = DOWN;
   else if (key == 'q' || key == GLUT_KEY_LEFT)
-    _ev = LEFT;
+    ev = LEFT;
   else if (key == 'd' || key == GLUT_KEY_RIGHT)
-    _ev = RIGHT;
+    ev = RIGHT;
   else if (key == 'o')
-    _ev = CHANGELIB;
-  eventHandler.addEvent(new Event(true, _ev));
+    ev = CHANGELIB;
+  eventHandler.addEvent(new Event(true, ev));
 }

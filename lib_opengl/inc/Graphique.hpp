@@ -22,7 +22,6 @@ public:
   virtual void	drawScreen();
 
 private:
-  EventType     _ev;
   Point2d<int>	_win;
 };
 
