@@ -41,7 +41,7 @@ void Graphique::createWindows(const Point2d<int>& size)
 {
   _win = size;
   glutInitWindowSize(size.x(), size.y());
-  glutInitWindowPosition(50,50);
+  glutInitWindowPosition(50, 50);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutCreateWindow("Snake_GL");
   glMatrixMode(GL_MODELVIEW);
@@ -50,9 +50,9 @@ void Graphique::createWindows(const Point2d<int>& size)
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
-  // Box<double>	tmp = square;
+  Box<double>	tmp = square;
 
-  // tmp.getPos() = (tmp.getPos() / _win);
+  tmp.getPos() = (tmp.getPos() / _win);
   glPushMatrix();
   if (type == APPLE)
     glColor3d(0, 181, 96);
@@ -62,9 +62,9 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
     glColor3d(96, 0, 181);
   glTranslatef(((double)square.getPos().x()) / _win.x(), ((double)square.getPos().y()) / _win.y(), 0);
   glRectf(0.025, 0.025, 0, 0);
-  // glRectf(tmp.getPos().x(), tmp.getSize().y(),
-  // 	  tmp.getPos().x() + tmp.getSize().w(),
-  // 	  tmp.getPos().y() + tmp.getSize().h());
+  glRectf(tmp.getPos().x(), tmp.getSize().y(),
+          tmp.getPos().x() + tmp.getSize().w(),
+          tmp.getPos().y() + tmp.getSize().h());
   glPopMatrix();
 }
 
@@ -101,6 +101,6 @@ void Graphique::updateEvent(EventHandler& eventHandler)
   else if (key == 'd' || key == GLUT_KEY_RIGHT)
     _ev = RIGHT;
   else if (key == 'o')
-    _ev = CHANGELIB; 
+    _ev = CHANGELIB;
   eventHandler.addEvent(new Event(true, _ev));
 }
