@@ -32,6 +32,12 @@ public:
   Point2d<T>& operator-=(const Point2d<U>& p);
 
   template<typename U>
+  Point2d<T>& operator-(U p) const;
+
+  template<typename U>
+  Point2d<T>& operator-=(U p);
+
+  template<typename U>
   Point2d<T>& operator*(const Point2d<U>& p) const;
 
   template<typename U>
@@ -127,6 +133,24 @@ Point2d<T>& Point2d<T>::operator-=(const Point2d<U>& p)
 template<typename T>
 template<typename U>
 Point2d<T>& Point2d<T>::operator-(const Point2d<U>& p) const
+{
+  Point2d* n = new Point2d(*this);
+  *n -= p;
+  return (*n);
+}
+
+template<typename T>
+template<typename U>
+Point2d<T>& Point2d<T>::operator-=(U p)
+{
+  _x -= p;
+  _y -= p;
+  return (*this);
+}
+
+template<typename T>
+template<typename U>
+Point2d<T>& Point2d<T>::operator-(U p) const
 {
   Point2d* n = new Point2d(*this);
   *n -= p;
