@@ -10,15 +10,14 @@
 
 #include "EventHandling.hpp"
 
-int		key = 0;
+int		key = -1;
 
 void		pressed_key(unsigned char k, int x, int y)
 {
   (void)x;
   (void)y;
 
-  if (k)
-    key = k;
+  key = k;
 }
 
 void		pressed_key_arrow(int k, int x, int y)
@@ -26,8 +25,7 @@ void		pressed_key_arrow(int k, int x, int y)
   (void)x;
   (void)y;
 
-  if (k)
-    key = k;
+  key = k;
 }
 
 Graphique::Graphique()
@@ -35,6 +33,17 @@ Graphique::Graphique()
   int		i = 1;
 
   glutInit(&i, NULL);
+  _colors[APPLE].push_back(0);
+  _colors[APPLE].push_back(181);
+  _colors[APPLE].push_back(96);
+
+  _colors[HEAD].push_back(181);
+  _colors[HEAD].push_back(96);
+  _colors[HEAD].push_back(0);
+
+  _colors[SNAKE].push_back(96);
+  _colors[SNAKE].push_back(0);
+  _colors[SNAKE].push_back(181);
 }
 
 Graphique::~Graphique()
@@ -54,16 +63,12 @@ void Graphique::createWindows(const Point2d<int>& size)
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
-  Point2d<double>  tmp = square.getSize();
+  Point2d<double>		tmp = square.getSize();
+  const std::vector<int>&	col = _colors.at(type);
 
   tmp /= (_win / 2.0);
   glPushMatrix();
-  if (type == APPLE)
-    glColor3d(0, 181, 96);
-  else if (type == SNAKE)
-    glColor3d(181, 96, 0);
-  else if (type == HEAD)
-    glColor3d(96, 0, 181);
+  glColor3d(col[0], col[1], col[2]);
   glTranslatef(((static_cast<double>(square.getPos().x())) / _win.x() - 0.5) * 2.0,
 	       (((static_cast<double>(square.getPos().y()))) / _win.y() - 0.5) * 2.0, 0.0);
   glRectf(0, 0, tmp.w(), tmp.h());
@@ -92,9 +97,14 @@ void Graphique::updateEvent(EventHandler& eventHandler)
 
   glutMainLoopEvent();
   glutPostRedisplay();
-  while (1)
+  while (key != 0)
     {
       glutKeyboardUpFunc(pressed_key);
+      if (key == 'o')
+	{
+	  ev = CHANGELIB;
+	  eventHandler.addEvent(new Event(false, ev));
+	}
       glutKeyboardFunc(pressed_key);
       glutSpecialFunc(pressed_key_arrow);
       if (key)
@@ -109,14 +119,10 @@ void Graphique::updateEvent(EventHandler& eventHandler)
 	    ev = LEFT;
 	  else if (key == 'd' || key == GLUT_KEY_RIGHT)
 	    ev = RIGHT;
-	  else if (key == 'o')
-	    {
-	      ev = CHANGELIB;
-	      eventHandler.addEvent(new Event(false, ev));
-	    }
+	  else
+	    ev = NONE;
 	  eventHandler.addEvent(new Event(true, ev));
 	  key = 0;
-	  return ;
 	}
       break;
     }

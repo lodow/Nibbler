@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <map>
+#include <vector>
 
 #include "IGui.hpp"
 #include "Fault.hpp"
@@ -22,7 +23,8 @@ public:
   virtual void	drawScreen();
 
 private:
-  Point2d<int>	_win;
+  Point2d<int>				_win;
+  std::map<int, std::vector<int> >	_colors;
 };
 
 #endif

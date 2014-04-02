@@ -127,7 +127,7 @@ void Graphique::createWindows(const Point2d<int>& size)
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
-  std::vector<unsigned char>& colors = _colorMap.at(type);
+  const std::vector<unsigned char>& colors = _colorMap.at(type);
   if ((square.getPos().x() >= 0 && square.getPos().x() + square.getSize().w() <= _winsize.x())
       && (square.getPos().y() >= 0 && square.getPos().y() + square.getSize().h() <= _winsize.y()))
     for (int j = square.getPos().y(); j < square.getSize().h() + square.getPos().y(); j++)
