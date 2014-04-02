@@ -50,9 +50,9 @@ void Graphique::createWindows(const Point2d<int>& size)
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
 {
-  Box<double>	tmp = square;
+  Point2d<double>  tmp = square.getSize();
 
-  //tmp.getPos() = (tmp.getPos() / _win);
+  tmp /= (_win / 2.0);
   glPushMatrix();
   if (type == APPLE)
     glColor3d(0, 181, 96);
@@ -60,10 +60,9 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
     glColor3d(181, 96, 0);
   else if (type == HEAD)
     glColor3d(96, 0, 181);
-  glTranslatef(((double)square.getPos().x()) / _win.x(), ((double)square.getPos().y()) / _win.y(), 0);
-  glRectf(tmp.getPos().x(), tmp.getSize().y(),
-          tmp.getPos().x() + tmp.getSize().w(),
-          tmp.getPos().y() + tmp.getSize().h());
+  glTranslatef((((double)square.getPos().x()) / _win.x() - 0.5) * 2.0,
+	       (((double)square.getPos().y()) / _win.y() - 0.5) * 2.0, 0.0);
+  glRectf(0, 0, tmp.w(), tmp.h());
   glPopMatrix();
 }
 
@@ -89,6 +88,7 @@ void Graphique::updateEvent(EventHandler& eventHandler)
 
   glutMainLoopEvent();
   glutPostRedisplay();
+  glutKeyboardUpFunc(pressed_key);
   glutKeyboardFunc(pressed_key);
   glutSpecialFunc(pressed_key_arrow);
   if (key == 27)
@@ -102,6 +102,10 @@ void Graphique::updateEvent(EventHandler& eventHandler)
   else if (key == 'd' || key == GLUT_KEY_RIGHT)
     ev = RIGHT;
   else if (key == 'o')
-    ev = CHANGELIB;
+    {
+      ev = CHANGELIB;
+      eventHandler.addEvent(new Event(false, ev));
+      return ;
+    }
   eventHandler.addEvent(new Event(true, ev));
 }
