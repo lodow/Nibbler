@@ -10,20 +10,24 @@
 
 #include "EventHandling.hpp"
 
-int		key;
+int		key = 0;
 
 void		pressed_key(unsigned char k, int x, int y)
 {
   (void)x;
   (void)y;
-  key = k;
+
+  if (k)
+    key = k;
 }
 
 void		pressed_key_arrow(int k, int x, int y)
 {
   (void)x;
   (void)y;
-  key = k;
+
+  if (k)
+    key = k;
 }
 
 Graphique::Graphique()
@@ -88,24 +92,32 @@ void Graphique::updateEvent(EventHandler& eventHandler)
 
   glutMainLoopEvent();
   glutPostRedisplay();
-  glutKeyboardUpFunc(pressed_key);
-  glutKeyboardFunc(pressed_key);
-  glutSpecialFunc(pressed_key_arrow);
-  if (key == 27)
-    ev = QUIT;
-  else if (key == 'z' || key == GLUT_KEY_DOWN)
-    ev = UP;
-  else if (key == 's' || key == GLUT_KEY_UP)
-    ev = DOWN;
-  else if (key == 'q' || key == GLUT_KEY_LEFT)
-    ev = LEFT;
-  else if (key == 'd' || key == GLUT_KEY_RIGHT)
-    ev = RIGHT;
-  else if (key == 'o')
+  while (1)
     {
-      ev = CHANGELIB;
-      eventHandler.addEvent(new Event(false, ev));
-      return ;
+      glutKeyboardUpFunc(pressed_key);
+      glutKeyboardFunc(pressed_key);
+      glutSpecialFunc(pressed_key_arrow);
+      if (key)
+	{
+	  if (key == 27)
+	    ev = QUIT;
+	  else if (key == 'z' || key == GLUT_KEY_DOWN)
+	    ev = UP;
+	  else if (key == 's' || key == GLUT_KEY_UP)
+	    ev = DOWN;
+	  else if (key == 'q' || key == GLUT_KEY_LEFT)
+	    ev = LEFT;
+	  else if (key == 'd' || key == GLUT_KEY_RIGHT)
+	    ev = RIGHT;
+	  else if (key == 'o')
+	    {
+	      ev = CHANGELIB;
+	      eventHandler.addEvent(new Event(false, ev));
+	    }
+	  eventHandler.addEvent(new Event(true, ev));
+	  key = 0;
+	  return ;
+	}
+      break;
     }
-  eventHandler.addEvent(new Event(true, ev));
 }
