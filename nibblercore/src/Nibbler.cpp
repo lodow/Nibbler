@@ -74,7 +74,7 @@ void Nibbler::run()
                 }
             }
           ////updatewinsize ?? game->updateWinSize();
-          game->update();
+          game->update(_time);
           gui->clearScreen();
           game->drawn(gui);
           gui->drawScreen();

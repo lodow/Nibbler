@@ -11,6 +11,8 @@
 #include "Box.hpp"
 #include "IGui.hpp"
 #include "Teleporter.hpp"
+#include "TimeHandling.hpp"
+
 
 class HandleSnake
 {
@@ -20,7 +22,7 @@ public:
 
   void updateWinSize(const Point2d<int>& win);
   void changeDirection(EventType dir);
-  void update();
+  void update(TimeHandler &time);
   void drawn(IGui* lib) const;
 
   int getScore() const {return _score;};
@@ -36,6 +38,7 @@ private:
   SnakePart _snake;
   int _score;
   bool _lost;
+
 };
 
 #endif // HANDLESNAKE_HPP_INCLUDED

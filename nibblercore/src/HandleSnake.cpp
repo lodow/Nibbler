@@ -11,6 +11,7 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
 {
   _lost = false;
   _dir = UP;
+  _score = 0;
   srand(time(NULL));
   createApple();
   _snake.addPart();
@@ -32,7 +33,7 @@ void HandleSnake::changeDirection(EventType dir)
     _dir = dir;
 }
 
-void HandleSnake::update()
+void HandleSnake::update(TimeHandler &time)
 {
   Box<int> head = _snake.getBox();
 
@@ -57,9 +58,16 @@ void HandleSnake::update()
           delete (*it);
           _ents.erase(it);
           _score += 1;
+
+	  time.setFps(time.getFps() + 4);
           _snake.addPart();
           createApple();
         }
+    }
+  if (_lost)
+    {
+      time.setFps(time.getFps() - _score * 4);
+      _score = 0;
     }
 }
 
