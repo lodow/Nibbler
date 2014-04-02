@@ -16,6 +16,7 @@ int main(int argc, char **argv)
     {
       libslist.push_back("lib_nibbler_mlx.so");
       libslist.push_back("lib_nibbler_sdl.so");
+      libslist.push_back("lib_nibbler_opengl.so");
       for (int i = 0; i < argc; i++)
         av.push_back(std::string(argv[i]));
       nib = new Nibbler(av, libslist);

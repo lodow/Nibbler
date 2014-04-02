@@ -60,8 +60,8 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
     glColor3d(181, 96, 0);
   else if (type == HEAD)
     glColor3d(96, 0, 181);
-  glTranslatef((((double)square.getPos().x()) / _win.x() - 0.5) * 2.0,
-	       (((double)square.getPos().y()) / _win.y() - 0.5) * 2.0, 0.0);
+  glTranslatef(((static_cast<double>(square.getPos().x())) / _win.x() - 0.5) * 2.0,
+	       (((static_cast<double>(square.getPos().y()))) / _win.y() - 0.5) * 2.0, 0.0);
   glRectf(0, 0, tmp.w(), tmp.h());
   glPopMatrix();
 }
