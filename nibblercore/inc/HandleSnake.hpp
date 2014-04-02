@@ -22,7 +22,7 @@ public:
 
   void updateWinSize(const Point2d<int>& win);
   void changeDirection(EventType dir);
-  void update(TimeHandler &time);
+  void update(TimeHandler &time, float add);
   void drawn(IGui* lib) const;
 
   int getScore() const {return _score;};

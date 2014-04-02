@@ -33,7 +33,7 @@ void HandleSnake::changeDirection(EventType dir)
     _dir = dir;
 }
 
-void HandleSnake::update(TimeHandler &time)
+void HandleSnake::update(TimeHandler &time, const float add)
 {
   Box<int> head = _snake.getBox();
 
@@ -59,14 +59,14 @@ void HandleSnake::update(TimeHandler &time)
           _ents.erase(it);
           _score += 1;
 
-	  time.setFps(time.getFps() + 4);
+	  time.setFps(time.getFps() + add);
           _snake.addPart();
           createApple();
         }
     }
   if (_lost)
     {
-      time.setFps(time.getFps() - _score * 4);
+      time.setFps(time.getFps() - _score * add);
       _score = 0;
     }
 }
