@@ -32,6 +32,7 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
     _win.y() = _win.x() / (gamesize.x() / gamesize.y());
   else if (gamesize.y() / gamesize.x() != 0)
     _win.x() = _win.y() / (gamesize.y() / gamesize.x());
+  _time.setFps((((float)gamesize.x()) + ((float)gamesize.y())) * ((float)15) / (((float)50) + ((float)(50))));
   _lib = new DLLoader<IGui*>(lib);
 }
 
@@ -41,6 +42,9 @@ void Nibbler::run()
   HandleSnake* game;
   Event ev;
   bool acted;
+  float add;
+
+  add = ((((float)_gamesize.x()) + ((float)_gamesize.y())) * ((float)4) / (((float)50) + ((float)(50))));
 
   if ((gui = _lib->getInstance()) == NULL)
     throw nFault("Could not create the library windows", true);
@@ -74,7 +78,7 @@ void Nibbler::run()
                 }
             }
           ////updatewinsize ?? game->updateWinSize();
-          game->update();
+          game->update(_time, add);
           gui->clearScreen();
           game->drawn(gui);
           gui->drawScreen();
