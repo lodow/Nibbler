@@ -13,14 +13,16 @@ Box<T>::~Box()
 }
 
 template<typename T>
-Box<T>::Box(const Box<T>& b)
+template<typename U>
+Box<T>::Box(const Box<U>& b)
 {
   _pos = b._pos;
   _size = b._size;
 }
 
 template<typename T>
-Box<T>& Box<T>::operator=(const Box<T>& b)
+template<typename U>
+Box<T>& Box<T>::operator=(const Box<U>& b)
 {
   _pos = b._pos;
   _size = b._size;
