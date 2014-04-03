@@ -42,3 +42,16 @@ bool SnakePart::collisionItself() const
     }
   return false;
 }
+
+bool SnakePart::collisionIt(const Box<int>& b) const
+{
+  const SnakePart* tmp = this;
+
+  while(tmp != NULL)
+    {
+      if (tmp->getBox() == b)
+        return true;
+      tmp = tmp->getNext();
+    }
+  return false;
+}

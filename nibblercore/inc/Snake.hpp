@@ -15,8 +15,9 @@ public:
   void addPart();
 
   bool collisionItself() const;
-  SnakePart* getNext() const {return _next;};
+  bool collisionIt(const Box<int>& b) const;
 
+  SnakePart* getNext() const {return _next;};
 private:
   SnakePart* _next;
 };

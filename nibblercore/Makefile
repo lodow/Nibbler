@@ -12,6 +12,7 @@ SRC		=	main.cpp \
 			Nibbler.cpp \
 			HandleSnake.cpp \
 			Entity.cpp \
+			Wall.cpp \
 			Teleporter.cpp \
 			Snake.cpp
 

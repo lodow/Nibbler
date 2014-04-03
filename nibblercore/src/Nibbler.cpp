@@ -26,6 +26,8 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
   if (tmp < 4 || tmp > 300)
     throw nFault(av[2] + ": incorrect value", false);
   lib = av[3];
+  for (_libidx = 0; _libidx < libs.size() && libs[_libidx] != lib; _libidx++);
+  _libidx++;
   _gamesize = gamesize;
   _win = _win - _win % _gamesize;
   if (gamesize.x() / gamesize.y() != 0)
@@ -76,7 +78,6 @@ void Nibbler::run()
                   _libidx++;
                 }
             }
-          ////updatewinsize ?? game->updateWinSize();
           game->update(_time);
           gui->clearScreen();
           game->drawn(gui);
@@ -97,6 +98,7 @@ IGui *Nibbler::changeLib(const std::string& nlib, IGui *lastGui)
 
   lib = NULL;
   gui = NULL;
+  ok = false;
   try
     {
       lib = new DLLoader<IGui*>(nlib);
@@ -112,7 +114,6 @@ IGui *Nibbler::changeLib(const std::string& nlib, IGui *lastGui)
     {
       delete gui;
       delete lib;
-      ok = false;
       std::cerr << e.what() << std::endl;
     }
   return (ok ? gui : lastGui);

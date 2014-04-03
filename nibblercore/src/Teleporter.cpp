@@ -18,4 +18,3 @@ bool Teleporter::operator==(Entity& ent)
     ent.setBox(_dest * _box.getSize());
   return (res);
 }
-

@@ -57,10 +57,9 @@ void HandleSnake::update(TimeHandler &time)
       if ((_snake == *(*it)) && ((*it)->getType() == APPLE))
         {
           delete (*it);
-          _ents.erase(it);
+          it = _ents.erase(it);
           _score += 1;
-
-	  time.setFps(time.getFps() + _acceleration);
+          time.setFps(time.getFps() + _acceleration);
           _snake.addPart();
           createApple();
         }
@@ -89,22 +88,27 @@ void HandleSnake::drawn(IGui* lib) const
 void HandleSnake::createApple()
 {
   bool tryAgain;
-  Point2d<int> random(rand(), rand());
+  size_t count = 0;
+  Point2d<int> random;
   Box<int> apple(_snake.getBox());
 
   tryAgain = true;
-  while (tryAgain)
+  while (tryAgain && count < 750)
     {
       tryAgain = false;
+      random.x() = rand();
+      random.y() = rand();
       apple.getPos() = (random % _gamesize) * (_win / _gamesize);
-      for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
-        {
+      if (_snake.collisionIt(apple))
+        tryAgain = true;
+      else
+        for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
           if ((*it)->getBox() == apple)
             {
               tryAgain = true;
               break;
             }
-        }
+      count++;
     }
   _ents.push_back(new Entity(apple, APPLE));
 }
