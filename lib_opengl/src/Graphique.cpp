@@ -39,7 +39,8 @@ void		up_pressed_key(unsigned char k, int x, int y)
   (void)x;
   (void)y;
 
-  pressedkey = k;
+  if (k != 13)
+    pressedkey = k;
 }
 
 Graphique::Graphique()
@@ -66,7 +67,6 @@ Graphique::Graphique()
   _keys['D'] = RIGHT;
   _keys['Z'] = UP;
   _keys[27] = QUIT;
-
 }
 
 Graphique::~Graphique()
@@ -82,6 +82,9 @@ void Graphique::createWindows(const Point2d<int>& size)
   glutCreateWindow("Snake_GL");
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
+  glutKeyboardUpFunc(up_pressed_key);
+  glutKeyboardFunc(pressed_key);
+  glutSpecialFunc(arrow_key);
   // glEnable(GL_LIGHTING);
   // glEnable(GL_LIGHT0);
   // GLfloat lightpos[] = {.5, 1., 1., 0.};
@@ -126,20 +129,17 @@ void Graphique::updateEvent(EventHandler& eventHandler)
 
   glutMainLoopEvent();
   glutPostRedisplay();
-  while (key != 0 && pressedkey != 0)
+  while (1)
     {
-      glutKeyboardUpFunc(up_pressed_key);
-      if (pressedkey == 'o')
+      if (pressedkey == 111)
 	{
 	  ev = CHANGELIB;
 	  eventHandler.addEvent(new Event(false, ev));
 	  pressedkey = 0;
-	  return;
+	  return ;
 	}
       else if (key)
 	{
-	  glutKeyboardFunc(pressed_key);
-	  glutSpecialFunc(arrow_key);
 	  ev = _keys[key];
 	  eventHandler.addEvent(new Event(true, ev));
 	  key = 0;
