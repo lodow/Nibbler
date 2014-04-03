@@ -19,6 +19,7 @@ public:
   ~Nibbler();
 
   void run();
+  void hud(const HandleSnake* game, IGui* gui) const;
 
 private:
   IGui *changeLib(const std::string& lib, IGui *lastGui);

@@ -17,13 +17,13 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
   ss.str(av[1]);
   ss >> tmp;
   gamesize.x() = tmp;
-  if (tmp < 4 || tmp > 300)
+  if (tmp < 5 || tmp > 100)
     throw nFault(av[1] + ": incorrect value", false);
   ss.clear();
   ss.str(av[2]);
   ss >> tmp;
   gamesize.y() = tmp;
-  if (tmp < 4 || tmp > 300)
+  if (tmp < 5 || tmp > 10)
     throw nFault(av[2] + ": incorrect value", false);
   lib = av[3];
   for (_libidx = 0; _libidx < libs.size() && libs[_libidx] != lib; _libidx++);
@@ -36,6 +36,14 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
     _win.x() = _win.y() / (gamesize.y() / gamesize.x());
   _time.setFps((gamesize.x() + gamesize.y()) * 15.0f / (50.0f + 50.0f));
   _lib = new DLLoader<IGui*>(lib);
+}
+
+void Nibbler::hud(const HandleSnake* game, IGui* gui) const
+{
+  std::stringstream score;
+
+  score << game->getScore() << std::endl;
+  gui->affText(Point2d<int>(5, 5), score);
 }
 
 void Nibbler::run()
@@ -81,6 +89,7 @@ void Nibbler::run()
           game->update(_time);
           gui->clearScreen();
           game->drawn(gui);
+          hud(game, gui);
           gui->drawScreen();
           _time.endFrame();
           _time.alignOnFps();

@@ -6,8 +6,8 @@
 class Wall : public Entity
 {
 public:
-  Wall();
-  ~Wall();
+  Wall(const Box<int>& b);
+  virtual ~Wall();
 private:
 };
 
