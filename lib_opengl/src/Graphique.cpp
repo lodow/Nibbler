@@ -70,8 +70,8 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
   glPushMatrix();
   glColor3d(col[0], col[1], col[2]);
   glTranslatef(((static_cast<double>(square.getPos().x())) / _win.x() - 0.5) * 2.0,
-	       (((static_cast<double>(square.getPos().y()))) / _win.y() - 0.5) * 2.0, 0.0);
-  glRectf(0, 0, tmp.w(), tmp.h());
+	       (((static_cast<double>(_win.y() - square.getPos().y()))) / _win.y() - 0.5) * 2.0, 0.0);
+  glRectf(0, 0, tmp.w(), -tmp.h());
   glPopMatrix();
 }
 
@@ -111,9 +111,9 @@ void Graphique::updateEvent(EventHandler& eventHandler)
 	{
 	  if (key == 27)
 	    ev = QUIT;
-	  else if (key == 'z' || key == GLUT_KEY_DOWN)
+	  else if (key == 'z' || key == GLUT_KEY_UP)
 	    ev = UP;
-	  else if (key == 's' || key == GLUT_KEY_UP)
+	  else if (key == 's' || key == GLUT_KEY_DOWN)
 	    ev = DOWN;
 	  else if (key == 'q' || key == GLUT_KEY_LEFT)
 	    ev = LEFT;
