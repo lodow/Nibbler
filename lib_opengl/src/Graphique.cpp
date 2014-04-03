@@ -21,7 +21,7 @@ void		pressed_key(unsigned char k, int x, int y)
 
   if (key == -1 || key == 0)
     key = k;
-  if (key != 27)
+  if (key != 27 && key != 13)
     key -= 32;
 }
 
@@ -67,6 +67,7 @@ Graphique::Graphique()
   _keys['D'] = RIGHT;
   _keys['Z'] = UP;
   _keys['P'] = PAUSE;
+  _keys[13] = ENTER;
   _keys[27] = QUIT;
 }
 
