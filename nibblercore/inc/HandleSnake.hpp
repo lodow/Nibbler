@@ -17,12 +17,12 @@
 class HandleSnake
 {
 public:
-  HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize);
+  HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize, float acceleration);
   ~HandleSnake();
 
   void updateWinSize(const Point2d<int>& win);
   void changeDirection(EventType dir);
-  void update(TimeHandler &time, float add);
+  void update(TimeHandler &time);
   void drawn(IGui* lib) const;
 
   int getScore() const {return _score;};
@@ -38,7 +38,7 @@ private:
   SnakePart _snake;
   int _score;
   bool _lost;
-
+  float _acceleration;
 };
 
 #endif // HANDLESNAKE_HPP_INCLUDED
