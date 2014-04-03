@@ -44,16 +44,15 @@ void Nibbler::run()
   bool acted;
   float add;
 
-  add = ((_gamesize.x() + _gamesize.y()) * 4.0f / (50.0f + 50.0f));
-
   if ((gui = _lib->getInstance()) == NULL)
     throw nFault("Could not create the library windows", true);
   gui->createWindows(_win);
   while (!_exit)
     {
+      add = ((_gamesize.x() + _gamesize.y()) * 2.0f / (50.0f + 50.0f));
       game = new HandleSnake(Point2d<int>((_gamesize.x() / 2) * (_win.x() / _gamesize.x()),
                                           (_gamesize.y() / 2) * (_win.y() / _gamesize.y())),
-                             _win, _gamesize);
+                             _win, _gamesize, add);
       game->changeDirection(UP);
       while ((!game->isOver() && !_exit))
         {
@@ -78,7 +77,7 @@ void Nibbler::run()
                 }
             }
           ////updatewinsize ?? game->updateWinSize();
-          game->update(_time, add);
+          game->update(_time);
           gui->clearScreen();
           game->drawn(gui);
           gui->drawScreen();
