@@ -33,8 +33,10 @@ private:
   SDL_Texture	*_texSnake2;
   SDL_Texture	*_texApple2;
   SDL_Texture	*_texHead2;
+  TTF_Font      *_font;
   int		_nb;
   int		_timer;
+  bool		_textureInit;
 };
 
 #endif

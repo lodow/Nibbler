@@ -10,6 +10,19 @@ Graphique::Graphique()
       error += SDL_GetError();
       throw nFault(error, true);
     }
+  if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == -1)
+    throw nFault(IMG_GetError(), true);
+  if (TTF_Init() == -1)
+    throw nFault(IMG_GetError(), true);
+
+  _textureInit = false;
+
+  error = "Font error :";
+  if (!(_font = TTF_OpenFont("./lib_sdl/res/frenchy.ttf", 100)))
+    {
+    throw nFault(error + TTF_GetError(), true);
+    }
+
   _colorMap[APPLE].push_back(0);
   _colorMap[APPLE].push_back(255);
   _colorMap[APPLE].push_back(0);
@@ -37,8 +50,18 @@ Graphique::Graphique()
 
 Graphique::~Graphique()
 {
-  SDL_DestroyRenderer(_rend);
-  SDL_DestroyWindow(_win);
+  if (_textureInit)
+    {
+      SDL_DestroyTexture(_texMap[SNAKE][0]);
+      SDL_DestroyTexture(_texMap[SNAKE][1]);
+      SDL_DestroyTexture(_texMap[APPLE][0]);
+      SDL_DestroyTexture(_texMap[APPLE][1]);
+      SDL_DestroyTexture(_texMap[HEAD][0]);
+      SDL_DestroyTexture(_texMap[HEAD][1]);
+      SDL_DestroyRenderer(_rend);
+      SDL_DestroyWindow(_win);
+    }
+  TTF_CloseFont(_font);
   TTF_Quit();
   SDL_Quit();
 }
@@ -48,7 +71,6 @@ void Graphique::createWindows(const Point2d<int>& size)
   std::string	error;
   SDL_Texture	*tmp;
 
-
   if (((_win = SDL_CreateWindow("Nibbler", 0, 0,
                                 size.x(), size.y(), SDL_WINDOW_SHOWN)) == NULL)
       || ((_rend = SDL_CreateRenderer(_win, -1, SDL_RENDERER_ACCELERATED)) == NULL))
@@ -57,10 +79,6 @@ void Graphique::createWindows(const Point2d<int>& size)
       error += SDL_GetError();
       throw nFault(error, true);
     }
-  if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == -1)
-    throw nFault(IMG_GetError(), true);
-  if (TTF_Init() == -1)
-    throw nFault(IMG_GetError(), true);
 
   error = "SDL can't load texture: ";
 
@@ -84,6 +102,7 @@ void Graphique::createWindows(const Point2d<int>& size)
   if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/_head.png")) == NULL)
     throw nFault(error + SDL_GetError(), true);
   _texMap[HEAD].push_back(tmp);
+  _textureInit = true;
 
   SDL_RenderClear(_rend);
   SDL_RenderPresent(_rend);
@@ -131,7 +150,6 @@ void Graphique::drawScreen()
 
 void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 {
-  TTF_Font      *font;
   std::string	error;
   SDL_Color     color;
   SDL_Texture   *texture;
@@ -143,22 +161,19 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
   color.r = 0xFF;
   color.g = 0xFF;
   color.b = 0xFF;
-  if (!(font = TTF_OpenFont("./lib_sdl/res/frenchy.ttf", 100)))
-    {
-    throw nFault(TTF_GetError(), true);
-    }
-  if (!(text_surface = TTF_RenderText_Blended(font, text.str().c_str(), color)))
+  if (!(text_surface = TTF_RenderText_Blended(_font, text.str().c_str(), color)))
     throw nFault(error + TTF_GetError(), true);
   if (!(texture = SDL_CreateTextureFromSurface(_rend, text_surface)))
     throw nFault(error + TTF_GetError(), true);
   SDL_FreeSurface(text_surface);
-  TTF_CloseFont(font);
   rec.x = pos.x();
   rec.y = pos.y();
+  w = h = 1;
   SDL_QueryTexture(texture, NULL, NULL, &w, &h);
   rec.w = w;
   rec.h = h;
   SDL_RenderCopy(_rend, texture, NULL, &rec);
+  SDL_DestroyTexture(texture);
 }
 
 void Graphique::updateEvent(EventHandler& eventHandler)
