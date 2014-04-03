@@ -53,6 +53,7 @@ void Nibbler::run()
   Event ev;
   bool acted;
   float add;
+  bool pause = false;
 
   if ((gui = _lib->getInstance()) == NULL)
     throw nFault("Could not create the library windows", true);
@@ -71,7 +72,9 @@ void Nibbler::run()
           gui->updateEvent(_events);
           while (_events.pollEvent(ev))
             {
-              if (ev.getEvent() == QUIT)
+              if (ev.getEvent() == PAUSE && ev.getDown())
+		pause = !pause;
+              else if (ev.getEvent() == QUIT)
                 _exit = true;
               else if (ev.getDown() && !acted
                        && (ev.getEvent() == UP || ev.getEvent() == DOWN
@@ -86,7 +89,8 @@ void Nibbler::run()
                   _libidx++;
                 }
             }
-          game->update(_time);
+	  if (!pause)
+	    game->update(_time);
           gui->clearScreen();
           game->drawn(gui);
           hud(game, gui);
