@@ -66,6 +66,7 @@ Graphique::Graphique()
   _keys[GLUT_KEY_UP] = UP;
   _keys['D'] = RIGHT;
   _keys['Z'] = UP;
+  _keys['P'] = PAUSE;
   _keys[27] = QUIT;
 }
 
@@ -85,12 +86,6 @@ void Graphique::createWindows(const Point2d<int>& size)
   glutKeyboardUpFunc(up_pressed_key);
   glutKeyboardFunc(pressed_key);
   glutSpecialFunc(arrow_key);
-  // glEnable(GL_LIGHTING);
-  // glEnable(GL_LIGHT0);
-  // GLfloat lightpos[] = {.5, 1., 1., 0.};
-  // glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
-  // GLfloat cyan[] = {0.f, .8f, .8f, 1.f};
-  // glMaterialfv(GL_FRONT, GL_DIFFUSE, cyan);
 }
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)

@@ -35,6 +35,8 @@ int pressed_key(int key, void *arg)
     ev = LEFT;
   else if (key == 111)
     ev = CHANGELIB;
+  else if (key == 112)
+    ev = PAUSE;
   handler->addEvent(new Event(true, ev));
   return (0);
 }
@@ -58,6 +60,8 @@ int realesed_key(int key, void *arg)
     ev = LEFT;
   else if (key == 111)
     ev = CHANGELIB;
+  else if (key == 112)
+    ev = PAUSE;
   handler->addEvent(new Event(false, ev));
   return (0);
 }
