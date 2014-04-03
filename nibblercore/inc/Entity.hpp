@@ -4,6 +4,8 @@
 #include "Point2d.hpp"
 #include "Box.hpp"
 
+class HandleSnake;
+
 typedef enum {APPLE, HEAD, SNAKE, WALL, TELEP, EMPTY} blockType;
 
 class Entity
@@ -16,7 +18,10 @@ public:
   const Box<int>& getBox() const {return _box;};
   virtual void setBox(const Box<int>& b) {_box = b;};
 
-  bool operator==(Entity& ent) {return (_box == ent.getBox());};
+  bool operator==(const Entity& ent) {return (_box == ent.getBox());};
+
+  virtual bool action(HandleSnake& game, Entity* collider);
+
 protected:
   Box<int> _box;
   blockType _type;

@@ -8,6 +8,9 @@ class Wall : public Entity
 public:
   Wall(const Box<int>& b);
   virtual ~Wall();
+
+  virtual bool action(HandleSnake& game, Entity* collider);
+
 private:
 };
 

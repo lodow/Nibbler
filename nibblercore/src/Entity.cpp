@@ -9,3 +9,10 @@ Entity::Entity(const Box<int>& b, blockType type)
 Entity::~Entity()
 {
 }
+
+bool Entity::action(HandleSnake& game, Entity* collider)
+{
+  (void)game;
+  (void)collider;
+  return (false);
+}

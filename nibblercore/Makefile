@@ -13,6 +13,7 @@ SRC		=	main.cpp \
 			HandleSnake.cpp \
 			Entity.cpp \
 			Wall.cpp \
+			Apple.cpp \
 			Teleporter.cpp \
 			Snake.cpp
 

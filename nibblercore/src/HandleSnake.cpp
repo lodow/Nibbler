@@ -54,15 +54,14 @@ void HandleSnake::update(TimeHandler &time)
 
   for (std::deque<Entity*>::iterator it = _ents.begin(); it != _ents.end(); ++it)
     {
-      if ((_snake == *(*it)) && ((*it)->getType() == APPLE))
-        {
-          delete (*it);
-          it = _ents.erase(it);
-          _score += 1;
-          time.setFps(time.getFps() + _acceleration);
-          _snake.addPart();
-          createApple();
-        }
+      if (_snake == *(*it))
+        if ((*it)->action(*this, &_snake))
+          {
+            delete (*it);
+            it = _ents.erase(it);
+            if ((*it)->getType() == APPLE)
+              time.setFps(time.getFps() + _acceleration);
+          }
     }
   if (_lost)
     {
@@ -110,15 +109,5 @@ void HandleSnake::createApple()
             }
       count++;
     }
-  _ents.push_back(new Entity(apple, APPLE));
-}
-
-void HandleSnake::updateWinSize(const Point2d<int>& win)
-{
-  Box<int> tmp;
-
-  _win = win;
-  tmp = _snake.getBox();
-  tmp.getSize() = win / _gamesize;
-  _snake.setBox(tmp);
+  _ents.push_back(new Apple(apple));
 }

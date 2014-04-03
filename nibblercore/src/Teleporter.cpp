@@ -1,7 +1,8 @@
 #include "Teleporter.hpp"
+#include "HandleSnake.hpp"
 
-Teleporter::Teleporter(const Box<int>& b, const Point2d<int>& dest)
-  : Entity(b, TELEP), _dest(dest)
+Teleporter::Teleporter(const Box<int>& b, const Point2d<int>& dest, EventType dir)
+  : Entity(b, TELEP), _dest(dest), _dir(dir)
 {
 }
 
@@ -9,12 +10,14 @@ Teleporter::~Teleporter()
 {
 }
 
-bool Teleporter::operator==(Entity& ent)
+bool Teleporter::operator==(const Entity& ent)
 {
-  bool res;
+  return (Entity::operator==(ent));
+}
 
-  res = Entity::operator==(ent);
-  if (res)
-    ent.setBox(_dest * _box.getSize());
-  return (res);
+bool Teleporter::action(HandleSnake& game, Entity* collider)
+{
+  game.changeDirection(_dir);
+  collider->setBox(_dest * _box.getSize());
+  return (false);
 }
