@@ -3,7 +3,7 @@
 
 #include <list>
 
-typedef enum {NONE, UP, DOWN, RIGHT, LEFT, QUIT, CHANGELIB} EventType;
+typedef enum {NONE, UP, DOWN, RIGHT, LEFT, QUIT, CHANGELIB, PAUSE} EventType;
 
 class Event
 {
