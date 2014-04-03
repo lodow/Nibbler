@@ -59,7 +59,7 @@ void HandleSnake::update(TimeHandler &time, const float add)
           _ents.erase(it);
           _score += 1;
 
-	  time.setFps(time.getFps() + add);
+          time.setFps(time.getFps() + add);
           _snake.addPart();
           createApple();
         }
