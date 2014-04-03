@@ -78,7 +78,7 @@ void Graphique::createWindows(const Point2d<int>& size)
 {
   _win = size;
   glutInitWindowSize(size.x(), size.y());
-  glutInitWindowPosition(50, 50);
+  glutInitWindowPosition(0, 0);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutCreateWindow("Snake_GL");
   glMatrixMode(GL_MODELVIEW);
