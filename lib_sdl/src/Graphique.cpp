@@ -40,6 +40,7 @@ Graphique::~Graphique()
   SDL_DestroyRenderer(_rend);
   SDL_DestroyWindow(_win);
   TTF_Quit();
+  SDL_Quit();
 }
 
 void Graphique::createWindows(const Point2d<int>& size)
@@ -48,7 +49,7 @@ void Graphique::createWindows(const Point2d<int>& size)
   SDL_Texture	*tmp;
 
 
-  if (((_win = SDL_CreateWindow("Nibbler", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+  if (((_win = SDL_CreateWindow("Nibbler", 0, 0,
                                 size.x(), size.y(), SDL_WINDOW_SHOWN)) == NULL)
       || ((_rend = SDL_CreateRenderer(_win, -1, SDL_RENDERER_ACCELERATED)) == NULL))
     {
