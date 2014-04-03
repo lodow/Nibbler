@@ -77,7 +77,6 @@ void Nibbler::run()
                   _libidx++;
                 }
             }
-          ////updatewinsize ?? game->updateWinSize();
           game->update(_time, add);
           gui->clearScreen();
           game->drawn(gui);
