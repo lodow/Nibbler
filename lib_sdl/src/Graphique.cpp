@@ -58,10 +58,8 @@ void Graphique::createWindows(const Point2d<int>& size)
     }
   if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == -1)
     throw nFault(IMG_GetError(), true);
-  std::cout << "0.2" << std::endl;
   if (TTF_Init() == -1)
     throw nFault(IMG_GetError(), true);
-  std::cout << "0.8" << std::endl;
 
   error = "SDL can't load texture: ";
 
@@ -119,14 +117,14 @@ void Graphique::clearScreen()
 
 void Graphique::drawScreen()
 {
-  Point2d<int> pos;
+  /*Point2d<int> pos;
   std::stringstream t;
 
-  t << "coucou";
-  pos.x() = 1;
-  pos.y() = 1;
+    t << "5";
+  pos.x() = 5;
+  pos.y() = 5;
   this->affText(pos, t);
-  SDL_RenderPresent(_rend);
+  */ SDL_RenderPresent(_rend);
 
 }
 
@@ -138,35 +136,28 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
   SDL_Texture   *texture;
   SDL_Surface   *text_surface;
   SDL_Rect      rec;
+  int w, h;
 
   error = "Font error :";
   color.r = 0xFF;
   color.g = 0xFF;
   color.b = 0xFF;
-  std::cout << "1" << std::endl;
-  if (!(font = TTF_OpenFont("./lib_sdl/res/frenchy.ttf", 30)))
+  if (!(font = TTF_OpenFont("./lib_sdl/res/frenchy.ttf", 100)))
     {
-  std::cout << "1.5" << std::endl;
-    throw nFault(SDL_GetError(), true);
+    throw nFault(TTF_GetError(), true);
     }
-  std::cout << "2" << std::endl;
   if (!(text_surface = TTF_RenderText_Blended(font, text.str().c_str(), color)))
-    throw nFault(error + SDL_GetError(), true);
-  std::cout << "3" << std::endl;
+    throw nFault(error + TTF_GetError(), true);
   if (!(texture = SDL_CreateTextureFromSurface(_rend, text_surface)))
-    throw nFault(error + SDL_GetError(), true);
-  std::cout << "4" << std::endl;
+    throw nFault(error + TTF_GetError(), true);
   SDL_FreeSurface(text_surface);
-  std::cout << "5" << std::endl;
   TTF_CloseFont(font);
-  std::cout << "6" << std::endl;
   rec.x = pos.x();
   rec.y = pos.y();
-  rec.w = 50;
-  rec.h = 50;
-  std::cout << "7" << std::endl;
+  SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+  rec.w = w;
+  rec.h = h;
   SDL_RenderCopy(_rend, texture, NULL, &rec);
-  std::cout << "8" << std::endl;
 }
 
 void Graphique::updateEvent(EventHandler& eventHandler)
