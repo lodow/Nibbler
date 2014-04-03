@@ -74,14 +74,14 @@ void Nibbler::run()
           gui->updateEvent(_events);
           while (_events.pollEvent(ev))
             {
-	      if (ev.getEvent() == ENTER && aff_menu)
-		aff_menu = !aff_menu;
+              if (ev.getEvent() == ENTER && aff_menu)
+                aff_menu = !aff_menu;
               else if (ev.getEvent() == PAUSE && ev.getDown())
-		pause = !pause;
+                pause = !pause;
               else if (ev.getEvent() == QUIT && aff_menu && ev.getDown())
-		_exit = true;
+                _exit = true;
               else if (ev.getEvent() == QUIT && !aff_menu && ev.getDown())
-		aff_menu = true;
+                aff_menu = true;
               else if (ev.getDown() && !acted
                        && (ev.getEvent() == UP || ev.getEvent() == DOWN
                            || ev.getEvent() == RIGHT || ev.getEvent() == LEFT))
@@ -95,19 +95,19 @@ void Nibbler::run()
                   _libidx++;
                 }
             }
-	  if (!aff_menu)
-	    {
-	      if (!pause)
-		game->update(_time);
-	      gui->clearScreen();
-	      game->drawn(gui);
-	      hud(game, gui);
-	    }
-	  else
-	    menu.Show(gui);
-	  gui->drawScreen();
-	  _time.endFrame();
-	  _time.alignOnFps();
+          if (!aff_menu)
+            {
+              if (!pause)
+                game->update(_time);
+              gui->clearScreen();
+              game->drawn(gui);
+              hud(game, gui);
+            }
+          else
+            menu.Show(gui);
+          gui->drawScreen();
+          _time.endFrame();
+          _time.alignOnFps();
         }
       delete game;
     }

@@ -35,6 +35,10 @@ int pressed_key(int key, void *arg)
     ev = LEFT;
   else if (key == 111)
     ev = CHANGELIB;
+  else if (key == 112)
+    ev = PAUSE;
+  else if (key == 65293)
+    ev = ENTER;
   handler->addEvent(new Event(true, ev));
   return (0);
 }
@@ -58,6 +62,10 @@ int realesed_key(int key, void *arg)
     ev = LEFT;
   else if (key == 111)
     ev = CHANGELIB;
+  else if (key == 112)
+    ev = PAUSE;
+  else if (key == 65293)
+    ev = ENTER;
   handler->addEvent(new Event(false, ev));
   return (0);
 }
@@ -147,8 +155,7 @@ void Graphique::drawScreen()
 
 void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 {
-  (void)pos;
-  (void)text;
+  mlx_string_put(_mlx, _win, pos.x(), pos.y(), 0x00FFFFFF, const_cast<char*>(text.str().c_str()));
 }
 
 void Graphique::updateEvent(EventHandler& eventHandler)
@@ -166,4 +173,3 @@ void Graphique::putPixel(int x, int y, unsigned char r, unsigned char g, unsigne
   color = mlx_get_color_value(_mlx, color);
   _screenptr[y * _linesize + x] = color;
 }
-
