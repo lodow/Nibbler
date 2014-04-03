@@ -7,25 +7,39 @@
 #include <iomanip>
 #include <iostream>
 #include <GL/freeglut_ext.h>
+#include <cmath>
 
 #include "EventHandling.hpp"
 
 int		key = -1;
+int		pressedkey = -1;
 
 void		pressed_key(unsigned char k, int x, int y)
 {
   (void)x;
   (void)y;
 
-  key = k;
+  if (key == -1 || key == 0)
+    key = k;
+  if (key != 27)
+    key -= 32;
 }
 
-void		pressed_key_arrow(int k, int x, int y)
+void		arrow_key(int k, int x, int y)
 {
   (void)x;
   (void)y;
 
-  key = k;
+  if (key == -1 || key == 0)
+    key = k;
+}
+
+void		up_pressed_key(unsigned char k, int x, int y)
+{
+  (void)x;
+  (void)y;
+
+  pressedkey = k;
 }
 
 Graphique::Graphique()
@@ -36,14 +50,23 @@ Graphique::Graphique()
   _colors[APPLE].push_back(0);
   _colors[APPLE].push_back(181);
   _colors[APPLE].push_back(96);
-
   _colors[HEAD].push_back(181);
   _colors[HEAD].push_back(96);
   _colors[HEAD].push_back(0);
-
   _colors[SNAKE].push_back(96);
   _colors[SNAKE].push_back(0);
   _colors[SNAKE].push_back(181);
+
+  _keys['Q'] = LEFT;
+  _keys[GLUT_KEY_LEFT] = LEFT;
+  _keys['S'] = DOWN;
+  _keys[GLUT_KEY_RIGHT] = RIGHT;
+  _keys[GLUT_KEY_DOWN] = DOWN;
+  _keys[GLUT_KEY_UP] = UP;
+  _keys['D'] = RIGHT;
+  _keys['Z'] = UP;
+  _keys[27] = QUIT;
+
 }
 
 Graphique::~Graphique()
@@ -59,6 +82,12 @@ void Graphique::createWindows(const Point2d<int>& size)
   glutCreateWindow("Snake_GL");
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
+  // glEnable(GL_LIGHTING);
+  // glEnable(GL_LIGHT0);
+  // GLfloat lightpos[] = {.5, 1., 1., 0.};
+  // glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
+  // GLfloat cyan[] = {0.f, .8f, .8f, 1.f};
+  // glMaterialfv(GL_FRONT, GL_DIFFUSE, cyan);
 }
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
@@ -97,32 +126,24 @@ void Graphique::updateEvent(EventHandler& eventHandler)
 
   glutMainLoopEvent();
   glutPostRedisplay();
-  while (key != 0)
+  while (key != 0 && pressedkey != 0)
     {
-      glutKeyboardUpFunc(pressed_key);
-      if (key == 'o')
+      glutKeyboardUpFunc(up_pressed_key);
+      if (pressedkey == 'o')
 	{
 	  ev = CHANGELIB;
 	  eventHandler.addEvent(new Event(false, ev));
+	  pressedkey = 0;
+	  return;
 	}
-      glutKeyboardFunc(pressed_key);
-      glutSpecialFunc(pressed_key_arrow);
-      if (key)
+      else if (key)
 	{
-	  if (key == 27)
-	    ev = QUIT;
-	  else if (key == 'z' || key == GLUT_KEY_UP)
-	    ev = UP;
-	  else if (key == 's' || key == GLUT_KEY_DOWN)
-	    ev = DOWN;
-	  else if (key == 'q' || key == GLUT_KEY_LEFT)
-	    ev = LEFT;
-	  else if (key == 'd' || key == GLUT_KEY_RIGHT)
-	    ev = RIGHT;
-	  else
-	    ev = NONE;
+	  glutKeyboardFunc(pressed_key);
+	  glutSpecialFunc(arrow_key);
+	  ev = _keys[key];
 	  eventHandler.addEvent(new Event(true, ev));
 	  key = 0;
+	  return ;
 	}
       break;
     }

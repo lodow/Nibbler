@@ -25,6 +25,7 @@ public:
 private:
   Point2d<int>				_win;
   std::map<int, std::vector<int> >	_colors;
+  std::map<int, EventType>		_keys;
 };
 
 #endif
