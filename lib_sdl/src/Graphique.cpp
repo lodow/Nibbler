@@ -186,6 +186,8 @@ void Graphique::updateEvent(EventHandler& eventHandler)
             ev = CHANGELIB;
           else if (event.key.keysym.sym == SDLK_p)
             ev = PAUSE;
+          else if (event.key.keysym.sym == SDLK_RETURN)
+            ev = ENTER;
           eventHandler.addEvent(new Event((event.type == SDL_KEYDOWN ? true : false), ev));
         }
     }

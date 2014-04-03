@@ -11,6 +11,7 @@
 #include "TimeHandling.hpp"
 #include "EventHandling.hpp"
 #include "HandleSnake.hpp"
+#include "Menu.hpp"
 
 class Nibbler
 {

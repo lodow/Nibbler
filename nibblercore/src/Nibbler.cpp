@@ -54,6 +54,8 @@ void Nibbler::run()
   bool acted;
   float add;
   bool pause = false;
+  bool aff_menu = true;
+  Menu menu(_win);
 
   if ((gui = _lib->getInstance()) == NULL)
     throw nFault("Could not create the library windows", true);
@@ -72,10 +74,14 @@ void Nibbler::run()
           gui->updateEvent(_events);
           while (_events.pollEvent(ev))
             {
-              if (ev.getEvent() == PAUSE && ev.getDown())
+	      if (ev.getEvent() == ENTER && aff_menu)
+		aff_menu = !aff_menu;
+              else if (ev.getEvent() == PAUSE && ev.getDown())
 		pause = !pause;
-              else if (ev.getEvent() == QUIT)
-                _exit = true;
+              else if (ev.getEvent() == QUIT && aff_menu && ev.getDown())
+		_exit = true;
+              else if (ev.getEvent() == QUIT && !aff_menu && ev.getDown())
+		aff_menu = true;
               else if (ev.getDown() && !acted
                        && (ev.getEvent() == UP || ev.getEvent() == DOWN
                            || ev.getEvent() == RIGHT || ev.getEvent() == LEFT))
@@ -89,14 +95,19 @@ void Nibbler::run()
                   _libidx++;
                 }
             }
-	  if (!pause)
-	    game->update(_time);
-          gui->clearScreen();
-          game->drawn(gui);
-          hud(game, gui);
-          gui->drawScreen();
-          _time.endFrame();
-          _time.alignOnFps();
+	  if (!aff_menu)
+	    {
+	      if (!pause)
+		game->update(_time);
+	      gui->clearScreen();
+	      game->drawn(gui);
+	      hud(game, gui);
+	    }
+	  else
+	    menu.Show(gui);
+	  gui->drawScreen();
+	  _time.endFrame();
+	  _time.alignOnFps();
         }
       delete game;
     }

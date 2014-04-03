@@ -5,7 +5,7 @@
 ## Login   <moriss_h@epitech.net>
 ##
 ## Started on  Sun Jun  9 03:35:24 2013 Hugues
-## Last update Fri Mar 28 18:13:50 2014 Hugues
+## Last update Thu Apr  3 22:54:34 2014 Maxime
 ##
 
 SRC		=	main.cpp \
@@ -15,6 +15,7 @@ SRC		=	main.cpp \
 			Wall.cpp \
 			Apple.cpp \
 			Teleporter.cpp \
+			Menu.cpp \
 			Snake.cpp
 
 CC		=	g++
