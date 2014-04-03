@@ -23,7 +23,7 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
   ss.str(av[2]);
   ss >> tmp;
   gamesize.y() = tmp;
-  if (tmp < 5 || tmp > 10)
+  if (tmp < 5 || tmp > 100)
     throw nFault(av[2] + ": incorrect value", false);
   lib = av[3];
   for (_libidx = 0; _libidx < libs.size() && libs[_libidx] != lib; _libidx++);
