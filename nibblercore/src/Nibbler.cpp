@@ -60,9 +60,8 @@ void Nibbler::run()
   gui->createWindows(_win);
   while (!_exit)
     {
-      game = new HandleSnake(Point2d<int>((_gamesize.x() / 2) * (_win.x() / _gamesize.x()),
-                                          (_gamesize.y() / 2) * (_win.y() / _gamesize.y())),
-                             _win, _gamesize, _time, (_gamesize.x() + _gamesize.y()) * 15.0f / (50.0f + 50.0f));
+      game = new HandleSnake(gameToWinSize(_gamesize / 2, _gamesize, _win), _win,
+                             _gamesize, _time, (_gamesize.x() + _gamesize.y()) * 15.0f / (50.0f + 50.0f));
       game->changeDirection(UP);
       while ((!game->isOver() && !_exit))
         {

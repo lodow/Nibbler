@@ -8,6 +8,12 @@ class HandleSnake;
 
 typedef enum {APPLE, HEAD, SNAKE, WALL, TELEP, EMPTY} blockType;
 
+Box<int> gameToWinSize(const Box<int>& b, const Point2d<int>& gamesize,
+                       const Point2d<int>& win);
+
+Point2d<int> gameToWinSize(const Point2d<int>& b, const Point2d<int>& gamesize,
+                           const Point2d<int>& win);
+
 class Entity
 {
 public:
