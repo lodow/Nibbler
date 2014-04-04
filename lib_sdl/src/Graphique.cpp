@@ -23,6 +23,7 @@ Graphique::Graphique()
     throw nFault(error + TTF_GetError(), true);
     }
 
+  _timer = 0;
   _colorMap[APPLE].push_back(0);
   _colorMap[APPLE].push_back(255);
   _colorMap[APPLE].push_back(0);
