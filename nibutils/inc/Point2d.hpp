@@ -20,47 +20,47 @@ public:
   Point2d<T>& operator=(const Point2d<U>& p);
 
   template<typename U>
-  Point2d<T>& operator+(const Point2d<U>& p) const;
+  Point2d<T> operator+(const Point2d<U>& p) const;
 
   template<typename U>
   Point2d<T>& operator+=(const Point2d<U>& p);
 
   template<typename U>
-  Point2d<T>& operator-(const Point2d<U>& p) const;
+  Point2d<T> operator-(const Point2d<U>& p) const;
 
   template<typename U>
   Point2d<T>& operator-=(const Point2d<U>& p);
 
   template<typename U>
-  Point2d<T>& operator-(U p) const;
+  Point2d<T> operator-(U p) const;
 
   template<typename U>
   Point2d<T>& operator-=(U p);
 
   template<typename U>
-  Point2d<T>& operator*(const Point2d<U>& p) const;
+  Point2d<T> operator*(const Point2d<U>& p) const;
 
   template<typename U>
   Point2d<T>& operator*=(const Point2d<U>& p);
 
   template<typename U>
-  Point2d<T>& operator*(U p) const;
+  Point2d<T> operator*(U p) const;
 
   template<typename U>
   Point2d<T>& operator*=(U p);
 
   template<typename U>
-  Point2d<T>& operator/(const Point2d<U>& p) const;
+  Point2d<T> operator/(const Point2d<U>& p) const;
   template<typename U>
   Point2d<T>& operator/=(const Point2d<U>& p);
 
   template<typename U>
-  Point2d<T>& operator%(const Point2d<U>& p) const;
+  Point2d<T> operator%(const Point2d<U>& p) const;
   template<typename U>
   Point2d<T>& operator%=(const Point2d<U>& p);
 
   template<typename U>
-  Point2d<T>& operator/(U p) const;
+  Point2d<T> operator/(U p) const;
 
   template<typename U>
   Point2d<T>& operator/=(U p);
@@ -120,11 +120,11 @@ Point2d<T>& Point2d<T>::operator+=(const Point2d<U>& p)
 
 template<typename T>
 template<typename U>
-Point2d<T>& Point2d<T>::operator+(const Point2d<U>& p) const
+Point2d<T> Point2d<T>::operator+(const Point2d<U>& p) const
 {
-  Point2d* n = new Point2d(*this);
-  *n += p;
-  return (*n);
+  Point2d n(*this);
+  n += p;
+  return (n);
 }
 
 template<typename T>
@@ -138,11 +138,11 @@ Point2d<T>& Point2d<T>::operator-=(const Point2d<U>& p)
 
 template<typename T>
 template<typename U>
-Point2d<T>& Point2d<T>::operator-(const Point2d<U>& p) const
+Point2d<T> Point2d<T>::operator-(const Point2d<U>& p) const
 {
-  Point2d* n = new Point2d(*this);
-  *n -= p;
-  return (*n);
+  Point2d n(*this);
+  n -= p;
+  return (n);
 }
 
 template<typename T>
@@ -156,11 +156,11 @@ Point2d<T>& Point2d<T>::operator-=(U p)
 
 template<typename T>
 template<typename U>
-Point2d<T>& Point2d<T>::operator-(U p) const
+Point2d<T> Point2d<T>::operator-(U p) const
 {
-  Point2d* n = new Point2d(*this);
-  *n -= p;
-  return (*n);
+  Point2d n(*this);
+  n -= p;
+  return (n);
 }
 
 template<typename T>
@@ -174,11 +174,11 @@ Point2d<T>& Point2d<T>::operator*=(const Point2d<U>& p)
 
 template<typename T>
 template<typename U>
-Point2d<T>& Point2d<T>::operator*(const Point2d<U>& p) const
+Point2d<T> Point2d<T>::operator*(const Point2d<U>& p) const
 {
-  Point2d* n = new Point2d(*this);
-  *n *= p;
-  return (*n);
+  Point2d n(*this);
+  n *= p;
+  return (n);
 }
 
 template<typename T>
@@ -192,11 +192,11 @@ Point2d<T>& Point2d<T>::operator*=(U p)
 
 template<typename T>
 template<typename U>
-Point2d<T>& Point2d<T>::operator*(U p) const
+Point2d<T> Point2d<T>::operator*(U p) const
 {
-  Point2d* n = new Point2d(*this);
-  *n *= p;
-  return (*n);
+  Point2d n(*this);
+  n *= p;
+  return (n);
 }
 
 template<typename T>
@@ -212,11 +212,11 @@ Point2d<T>& Point2d<T>::operator/=(const Point2d<U>& p)
 
 template<typename T>
 template<typename U>
-Point2d<T>& Point2d<T>::operator/(const Point2d<U>& p) const
+Point2d<T> Point2d<T>::operator/(const Point2d<U>& p) const
 {
-  Point2d* n = new Point2d(*this);
-  *n /= p;
-  return (*n);
+  Point2d n(*this);
+  n /= p;
+  return (n);
 }
 
 template<typename T>
@@ -232,11 +232,11 @@ Point2d<T>& Point2d<T>::operator/=(U p)
 
 template<typename T>
 template<typename U>
-Point2d<T>& Point2d<T>::operator/(U p) const
+Point2d<T> Point2d<T>::operator/(U p) const
 {
-  Point2d* n = new Point2d(*this);
-  *n /= p;
-  return (*n);
+  Point2d n(*this);
+  n /= p;
+  return (n);
 }
 
 template<typename T>
@@ -261,14 +261,14 @@ Point2d<double>& Point2d<double>::operator%=(const Point2d<U>& p)
   return (*this);
 }
 
-
+#include <iostream>
 template<typename T>
 template<typename U>
-Point2d<T>& Point2d<T>::operator%(const Point2d<U>& p) const
+Point2d<T> Point2d<T>::operator%(const Point2d<U>& p) const
 {
-  Point2d* n = new Point2d(*this);
-  *n %= p;
-  return (*n);
+  Point2d n(*this);
+  n %= p;
+  return (n);
 }
 
 #endif // POINT2D_HPP_INCLUDED

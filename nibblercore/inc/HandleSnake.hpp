@@ -15,7 +15,6 @@
 #include "Apple.hpp"
 #include "TimeHandling.hpp"
 
-
 class HandleSnake
 {
 public:
