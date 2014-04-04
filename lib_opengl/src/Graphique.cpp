@@ -51,12 +51,26 @@ Graphique::Graphique()
   _colors[APPLE].push_back(0);
   _colors[APPLE].push_back(181);
   _colors[APPLE].push_back(96);
+
   _colors[HEAD].push_back(181);
   _colors[HEAD].push_back(96);
   _colors[HEAD].push_back(0);
+
   _colors[SNAKE].push_back(96);
   _colors[SNAKE].push_back(0);
   _colors[SNAKE].push_back(181);
+
+  _colors[WALL].push_back(255);
+  _colors[WALL].push_back(0);
+  _colors[WALL].push_back(0);
+
+  _colors[TELEP].push_back(0);
+  _colors[TELEP].push_back(0);
+  _colors[TELEP].push_back(204);
+
+  _colors[EMPTY].push_back(0);
+  _colors[EMPTY].push_back(0);
+  _colors[EMPTY].push_back(0);
 
   _keys['Q'] = LEFT;
   _keys[GLUT_KEY_LEFT] = LEFT;
