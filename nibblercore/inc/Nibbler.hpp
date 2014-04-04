@@ -12,6 +12,7 @@
 #include "EventHandling.hpp"
 #include "HandleSnake.hpp"
 #include "Menu.hpp"
+#include "Map.hpp"
 
 class Nibbler
 {
@@ -19,6 +20,7 @@ public:
   Nibbler(const std::vector<std::string>& av, const std::vector<std::string>& libs = std::vector<std::string>());
   ~Nibbler();
 
+  HandleSnake* initGame();
   void run();
   void hud(const HandleSnake* game, IGui* gui) const;
 
@@ -33,6 +35,7 @@ private:
   DLLoader<IGui*>* _lib;
   unsigned int _libidx;
   std::vector<std::string> _libsList;
+  Map* _map;
 };
 
 #endif

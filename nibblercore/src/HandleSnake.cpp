@@ -7,8 +7,8 @@ void deleteEntity(Entity* ent)
 
 HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize,
                          TimeHandler& time, float basefps)
-  : _win(win), _gamesize(gamesize),
-    _snake(Box<int>(start, win / gamesize), true), _time(time), _baseFps(basefps)
+  : _win(win), _gamesize(gamesize), _snake(Box<int>(start, win / gamesize), true),
+    _time(time), _baseFps(basefps)
 {
   _lost = false;
   _dir = UP;
@@ -19,6 +19,22 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
   _snake.addPart();
   _time.setFps(basefps);
   _acceleration = ((_gamesize.x() + _gamesize.y()) * 2.0f / (50.0f + 50.0f));
+}
+
+HandleSnake::HandleSnake(const Map& map, TimeHandler& time, const Point2d<int>& win)
+  : _win(win), _gamesize(map.getGamesize()), _snake(Box<int>(gameToWinSize(map.getStart(), _gamesize, _win), _win / _gamesize), true),
+    _time(time), _baseFps(map.getFps())
+{
+  _lost = false;
+  _dir = UP;
+  _score = 0;
+  createApple();
+  _snake.addPart();
+  _snake.addPart();
+  _snake.addPart();
+  _time.setFps(_baseFps);
+  _acceleration = map.getAccel();
+  map.getEntities(_ents);
 }
 
 HandleSnake::~HandleSnake()
@@ -72,7 +88,7 @@ void HandleSnake::drawn(IGui* lib) const
 {
   const SnakePart* tmp;
 
-  for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
+  for (std::deque<Entity*>::const_iterator it = _ents.begin(), end = _ents.end(); it != end; ++it)
     lib->drawSquare((*it)->getBox(), (*it)->getType());
   tmp = &_snake;
   while (tmp)

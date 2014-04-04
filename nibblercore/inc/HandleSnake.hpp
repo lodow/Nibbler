@@ -10,6 +10,7 @@
 #include "Point2d.hpp"
 #include "Box.hpp"
 #include "IGui.hpp"
+#include "Map.hpp"
 #include "Teleporter.hpp"
 #include "Wall.hpp"
 #include "Apple.hpp"
@@ -20,6 +21,8 @@ class HandleSnake
 public:
   HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize,
               TimeHandler& time, float basefps);
+  HandleSnake(const Map& map, TimeHandler& time, const Point2d<int>& win);
+
   ~HandleSnake();
 
   void changeDirection(EventType dir);

@@ -11,7 +11,7 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
   _libsList = libs;
   _libidx = 0;
   _exit = false;
-  if (av.size() != 4)
+  if (av.size() < 4 || av.size() > 5)
     throw nFault(std::string("Usage : ") + av[0] + " <width> <height> <libXXX.so>", false);
 
   ss.str(av[1]);
@@ -25,16 +25,23 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
   gamesize.y() = tmp;
   if (tmp < 5 || tmp > 100)
     throw nFault(av[2] + ": incorrect value", false);
+
   lib = av[3];
   for (_libidx = 0; _libidx < libs.size() && libs[_libidx] != lib; _libidx++);
   _libidx++;
+
   _gamesize = gamesize;
   _win = _win - _win % _gamesize;
   if (gamesize.x() / gamesize.y() != 0)
     _win.y() = _win.x() / (gamesize.x() / gamesize.y());
   else if (gamesize.y() / gamesize.x() != 0)
     _win.x() = _win.y() / (gamesize.y() / gamesize.x());
+
   _lib = new DLLoader<IGui*>(lib);
+
+  _map = NULL;
+  if (av.size() > 4)
+    _map = new Map(av[4]);
 }
 
 void Nibbler::hud(const HandleSnake* game, IGui* gui) const
@@ -43,6 +50,18 @@ void Nibbler::hud(const HandleSnake* game, IGui* gui) const
 
   score << game->getScore() << std::endl;
   gui->affText(Point2d<int>(5, 5), score);
+}
+
+HandleSnake* Nibbler::initGame()
+{
+  HandleSnake* res;
+
+  if (_map)
+    res =  new HandleSnake(*_map, _time, _win);
+  else
+    res = new HandleSnake(gameToWinSize(_gamesize / 2, _gamesize, _win), _win,
+                          _gamesize, _time, (_gamesize.x() + _gamesize.y()) * 15.0f / (50.0f + 50.0f));
+  return (res);
 }
 
 void Nibbler::run()
@@ -60,8 +79,7 @@ void Nibbler::run()
   gui->createWindows(_win);
   while (!_exit)
     {
-      game = new HandleSnake(gameToWinSize(_gamesize / 2, _gamesize, _win), _win,
-                             _gamesize, _time, (_gamesize.x() + _gamesize.y()) * 15.0f / (50.0f + 50.0f));
+      game = initGame();
       game->changeDirection(UP);
       while ((!game->isOver() && !_exit))
         {

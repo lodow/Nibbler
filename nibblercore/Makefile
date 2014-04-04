@@ -14,6 +14,7 @@ SRC		=	main.cpp \
 			Entity.cpp \
 			Wall.cpp \
 			Apple.cpp \
+			Map.cpp \
 			Teleporter.cpp \
 			Menu.cpp \
 			Snake.cpp
