@@ -19,6 +19,7 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
   _snake.addPart();
   _time.setFps(basefps);
   _acceleration = ((_gamesize.x() + _gamesize.y()) * 2.0f / (50.0f + 50.0f));
+  _ents.push_back(new Wall(gameToWinSize(Box<int>(Point2d<int>(0, 0), Point2d<int>(1, 1)), _gamesize, _win)));
 }
 
 HandleSnake::~HandleSnake()

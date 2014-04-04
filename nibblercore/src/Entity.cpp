@@ -3,12 +3,12 @@
 Box<int> gameToWinSize(const Box<int>& b, const Point2d<int>& gamesize,
                        const Point2d<int>& win)
 {
-  return (Box<int>(b.getPos() * (win.x() / gamesize.x()),
-                   b.getSize() * (win / gamesize)));
+  return (Box<int>(gameToWinSize(b.getPos(), gamesize, win),
+                   gameToWinSize(b.getSize(), gamesize, win)));
 }
 
 Point2d<int> gameToWinSize(const Point2d<int>& b, const Point2d<int>& gamesize,
-                       const Point2d<int>& win)
+                           const Point2d<int>& win)
 {
   return (Point2d<int>(b * (win.x() / gamesize.x())));
 }
