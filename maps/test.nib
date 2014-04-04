@@ -3,3 +3,5 @@ start: 10 10
 fps: 20
 accel: -2
 entity: Apple: 15 15 2 6
+entity: Wall: 45 0 2 9
+entity: Teleporter: 10 20 1 1 20 30 4

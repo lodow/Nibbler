@@ -3,9 +3,7 @@
 #include "Teleporter.hpp"
 #include "Wall.hpp"
 #include "Apple.hpp"
-
-//_ents.push_back(new Wall(gameToWinSize(Box<int>(Point2d<int>(0, 0), Point2d<int>(1, 1)), _gamesize, _win)));
-//_ents.push_back(new Teleporter(gameToWinSize(Box<int>(Point2d<int>(5, 5), Point2d<int>(1, 1)), _gamesize, _win), gameToWinSize(Point2d<int>(10, 10), _gamesize, _win), UP));
+#include "EventHandling.hpp"
 
 Map::Map(const std::string& filename)
 {
@@ -75,6 +73,9 @@ void Map::getEntities(std::deque<Entity*>& ents, const Point2d<int>& gamesize, c
   int y;
   int w;
   int h;
+  int d1;
+  int d2;
+  int dir;
 
   for (std::vector<std::string>::const_iterator it = _filedata.begin(), end =  _filedata.end(); it != end; ++it)
     {
@@ -101,6 +102,16 @@ void Map::getEntities(std::deque<Entity*>& ents, const Point2d<int>& gamesize, c
                     {
                       ss >> x >> y >> w >> h;
                       ents.push_back(new Apple(gameToWinSize(Box<int>(Point2d<int>(x, y), Point2d<int>(w, h)), gamesize, win)));
+                    }
+                  else if (!EntityName.compare("Wall"))
+                    {
+                      ss >> x >> y >> w >> h;
+                      ents.push_back(new Wall(gameToWinSize(Box<int>(Point2d<int>(x, y), Point2d<int>(w, h)), gamesize, win)));
+                    }
+                  else if (!EntityName.compare("Teleporter"))
+                    {
+                      ss >> x >> y >> w >> h >> d1 >> d2 >> dir;
+                      ents.push_back(new Teleporter(gameToWinSize(Box<int>(Point2d<int>(x, y), Point2d<int>(w, h)), gamesize, win), gameToWinSize(Point2d<int>(d1, d2), gamesize, win), static_cast<EventType>(dir)));
                     }
                 }
             }
