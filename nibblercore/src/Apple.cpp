@@ -16,5 +16,6 @@ bool Apple::action(HandleSnake& game, Entity* collider)
   game.setScore(game.getScore() + 1);
   game.getHead()->addPart();
   game.createApple();
+  game.getTime().setFps(game.getTime().getFps() + game.getAcceleration());
   return (true);
 }

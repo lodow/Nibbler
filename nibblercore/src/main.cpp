@@ -14,6 +14,7 @@ int main(int argc, char **argv)
   nib = NULL;
   try
     {
+      srand(time(NULL));
       libslist.push_back("lib_nibbler_mlx.so");
       libslist.push_back("lib_nibbler_sdl.so");
       libslist.push_back("lib_nibbler_opengl.so");

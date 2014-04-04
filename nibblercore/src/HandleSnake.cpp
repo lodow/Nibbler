@@ -5,19 +5,19 @@ void deleteEntity(Entity* ent)
   delete ent;
 }
 
-HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize, const float acceleration)
+HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, const Point2d<int>& gamesize,
+                         TimeHandler& time, float basefps)
   : _win(win), _gamesize(gamesize),
-    _snake(Box<int>(start, win / gamesize), true)
+    _snake(Box<int>(start, win / gamesize), true), _time(time), _baseFps(basefps)
 {
   _lost = false;
   _dir = UP;
   _score = 0;
-  srand(time(NULL));
   createApple();
   _snake.addPart();
   _snake.addPart();
   _snake.addPart();
-  _acceleration = acceleration;
+  _acceleration = ((_gamesize.x() + _gamesize.y()) * 2.0f / (50.0f + 50.0f));
 }
 
 HandleSnake::~HandleSnake()
@@ -34,7 +34,7 @@ void HandleSnake::changeDirection(EventType dir)
     _dir = dir;
 }
 
-void HandleSnake::update(TimeHandler &time)
+void HandleSnake::update()
 {
   Box<int> head = _snake.getBox();
 
@@ -59,13 +59,11 @@ void HandleSnake::update(TimeHandler &time)
           {
             delete (*it);
             it = _ents.erase(it);
-            if ((*it)->getType() == APPLE)
-              time.setFps(time.getFps() + _acceleration);
           }
     }
   if (_lost)
     {
-      time.setFps(time.getFps() - _score * _acceleration);
+      _time.setFps(_baseFps);
       _score = 0;
     }
 }

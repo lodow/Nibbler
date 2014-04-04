@@ -34,7 +34,6 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
     _win.y() = _win.x() / (gamesize.x() / gamesize.y());
   else if (gamesize.y() / gamesize.x() != 0)
     _win.x() = _win.y() / (gamesize.y() / gamesize.x());
-  _time.setFps((gamesize.x() + gamesize.y()) * 15.0f / (50.0f + 50.0f));
   _lib = new DLLoader<IGui*>(lib);
 }
 
@@ -52,7 +51,6 @@ void Nibbler::run()
   HandleSnake* game;
   Event ev;
   bool acted;
-  float add;
   bool pause = false;
   bool aff_menu = true;
   Menu menu(_win);
@@ -62,10 +60,9 @@ void Nibbler::run()
   gui->createWindows(_win);
   while (!_exit)
     {
-      add = ((_gamesize.x() + _gamesize.y()) * 2.0f / (50.0f + 50.0f));
       game = new HandleSnake(Point2d<int>((_gamesize.x() / 2) * (_win.x() / _gamesize.x()),
                                           (_gamesize.y() / 2) * (_win.y() / _gamesize.y())),
-                             _win, _gamesize, add);
+                             _win, _gamesize, _time, (_gamesize.x() + _gamesize.y()) * 15.0f / (50.0f + 50.0f));
       game->changeDirection(UP);
       while ((!game->isOver() && !_exit))
         {
@@ -98,7 +95,7 @@ void Nibbler::run()
           if (!aff_menu)
             {
               if (!pause)
-                game->update(_time);
+                game->update();
               gui->clearScreen();
               game->drawn(gui);
               hud(game, gui);
