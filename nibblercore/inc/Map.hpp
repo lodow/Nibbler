@@ -24,7 +24,7 @@ public:
   double getFps() const {return _fps;};
   double getAccel() const {return _accel;};
   const Point2d<int>& getStart() const {return _start;};
-  void getEntities(std::deque<Entity*>& ents) const;
+  void getEntities(std::deque<Entity*>& ents, const Point2d<int>& gamesize, const Point2d<int>& win) const;
 private:
   std::vector<std::string> _filedata;
   Point2d<int> _gamesize;

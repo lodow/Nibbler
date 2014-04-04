@@ -34,7 +34,7 @@ HandleSnake::HandleSnake(const Map& map, TimeHandler& time, const Point2d<int>& 
   _snake.addPart();
   _time.setFps(_baseFps);
   _acceleration = map.getAccel();
-  map.getEntities(_ents);
+  map.getEntities(_ents, _gamesize, _win);
 }
 
 HandleSnake::~HandleSnake()
