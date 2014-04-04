@@ -20,6 +20,7 @@ HandleSnake::HandleSnake(const Point2d<int>& start, const Point2d<int>& win, con
   _time.setFps(basefps);
   _acceleration = ((_gamesize.x() + _gamesize.y()) * 2.0f / (50.0f + 50.0f));
   _ents.push_back(new Wall(gameToWinSize(Box<int>(Point2d<int>(0, 0), Point2d<int>(1, 1)), _gamesize, _win)));
+  _ents.push_back(new Teleporter(gameToWinSize(Box<int>(Point2d<int>(5, 5), Point2d<int>(1, 1)), _gamesize, _win), gameToWinSize(Point2d<int>(10, 10), _gamesize, _win), UP));
 }
 
 HandleSnake::~HandleSnake()
@@ -104,6 +105,7 @@ void HandleSnake::createApple()
         for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
           if ((*it)->getBox() == apple)
             {
+              std::cout << "collison" << std::endl;
               tryAgain = true;
               break;
             }
