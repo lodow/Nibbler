@@ -111,21 +111,22 @@ void Nibbler::run()
                   _libidx++;
                 }
             }
-          if (!aff_menu)
-            {
-              if (!pause)
-                game->update();
-              gui->clearScreen();
-              game->drawn(gui);
-              hud(game, gui);
-            }
-          else
+	  if (!aff_menu && !pause)
+	    {
+	      menu.updateScore(game->getScore());
+	      game->update();
+	    }
+	  gui->clearScreen();
+          if (aff_menu || pause)
             menu.Show(gui);
+	  game->drawn(gui);
+	  hud(game, gui);
           gui->drawScreen();
           _time.endFrame();
           _time.alignOnFps();
         }
       delete game;
+      aff_menu = true;
     }
   delete gui;
 }
