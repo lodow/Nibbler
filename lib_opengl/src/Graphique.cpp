@@ -47,13 +47,6 @@ void		up_pressed_key(unsigned char k, int x, int y)
     pressedkey = k;
 }
 
-double aspect_ratio = 0;
-void reshape(int w, int h)
-{
-  aspect_ratio = (double)w / (double)h;
-  glViewport(0, 0, w, h);
-}
-
 Graphique::Graphique()
 {
   int		i = 1;
@@ -113,7 +106,6 @@ void Graphique::createWindows(const Point2d<int>& size)
   glutKeyboardUpFunc(up_pressed_key);
   glutKeyboardFunc(pressed_key);
   glutSpecialFunc(arrow_key);
-  // glutReshapeFunc(reshape);
 }
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
@@ -144,7 +136,7 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  glOrtho(-10*aspect_ratio, 10*aspect_ratio, -10, 10, -1, 1);
+  glOrtho(0, 0, -10, 10, -1, 1);
 
   glColor3ub(255,0,0);
   glPushMatrix();
@@ -156,7 +148,6 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
       glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, *p);
     }
   glPopMatrix();
-  // glutSwapBuffers();
 }
 
 void Graphique::updateEvent(EventHandler& eventHandler)
