@@ -9,7 +9,11 @@
 #include <GL/freeglut_ext.h>
 #include <cmath>
 
-#include "EventHandling.hpp"
+#include <ft2build.h>
+#include <freetype2/freetype/freetype.h>
+#include <freetype2/freetype/ftglyph.h>
+#include <freetype2/freetype/ftoutln.h>
+#include <freetype2/freetype/fttrigon.h>
 
 int		key = -1;
 int		pressedkey = -1;
@@ -43,6 +47,13 @@ void		up_pressed_key(unsigned char k, int x, int y)
     pressedkey = k;
 }
 
+double aspect_ratio = 0;
+void reshape(int w, int h)
+{
+  aspect_ratio = (double)w / (double)h;
+  glViewport(0, 0, w, h);
+}
+
 Graphique::Graphique()
 {
   int		i = 1;
@@ -73,14 +84,14 @@ Graphique::Graphique()
   _colors[EMPTY].push_back(0);
 
   _keys['Q'] = LEFT;
-  _keys[GLUT_KEY_LEFT] = LEFT;
+  _keys['D'] = RIGHT;
+  _keys['Z'] = UP;
   _keys['S'] = DOWN;
+  _keys['P'] = PAUSE;
+  _keys[GLUT_KEY_LEFT] = LEFT;
   _keys[GLUT_KEY_RIGHT] = RIGHT;
   _keys[GLUT_KEY_DOWN] = DOWN;
   _keys[GLUT_KEY_UP] = UP;
-  _keys['D'] = RIGHT;
-  _keys['Z'] = UP;
-  _keys['P'] = PAUSE;
   _keys[13] = ENTER;
   _keys[27] = QUIT;
 }
@@ -94,13 +105,15 @@ void Graphique::createWindows(const Point2d<int>& size)
   _win = size;
   glutInitWindowSize(size.x(), size.y());
   glutInitWindowPosition(0, 0);
-  glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
   glutCreateWindow("Snake_GL");
+
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   glutKeyboardUpFunc(up_pressed_key);
   glutKeyboardFunc(pressed_key);
   glutSpecialFunc(arrow_key);
+  // glutReshapeFunc(reshape);
 }
 
 void Graphique::drawSquare(const Box<int>& square, blockType type)
@@ -129,8 +142,21 @@ void Graphique::drawScreen()
 
 void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 {
-  (void)pos;
-  (void)text;
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  glOrtho(-10*aspect_ratio, 10*aspect_ratio, -10, 10, -1, 1);
+
+  glColor3ub(255,0,0);
+  glPushMatrix();
+  glTranslatef(((static_cast<double>(pos.x())) / _win.x() - 0.5) * 2.0,
+	       (((static_cast<double>(_win.y() - pos.y()))) / _win.y() - 0.5) * 1.9, 0);
+  glScalef(1/3552.38, 1/2552.38, 0);
+  for( const char* p = text.str().c_str(); *p; p++)
+    {
+      glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, *p);
+    }
+  glPopMatrix();
+  // glutSwapBuffers();
 }
 
 void Graphique::updateEvent(EventHandler& eventHandler)
