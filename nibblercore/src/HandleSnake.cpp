@@ -28,13 +28,13 @@ HandleSnake::HandleSnake(const Map& map, TimeHandler& time, const Point2d<int>& 
   _lost = false;
   _dir = UP;
   _score = 0;
-  createApple();
   _snake.addPart();
   _snake.addPart();
   _snake.addPart();
   _time.setFps(_baseFps);
   _acceleration = map.getAccel();
   map.getEntities(_ents, _gamesize, _win);
+  createApple();
 }
 
 HandleSnake::~HandleSnake()
@@ -115,7 +115,7 @@ void HandleSnake::createApple()
       if (_snake.collisionIt(apple))
         tryAgain = true;
       else
-        for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
+        for (std::deque<Entity*>::const_iterator it = _ents.begin(), end = _ents.end(); it != end; ++it)
           if ((*it)->getBox() == apple)
             {
               tryAgain = true;
