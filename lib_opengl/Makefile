@@ -5,7 +5,7 @@
 ## Login   <moriss_h@epitech.net>
 ##
 ## Started on  Sun Jun  9 03:35:24 2013 Hugues
-## Last update Thu Apr  3 17:38:53 2014 jonathan.collinet
+## Last update Sat Apr  5 16:23:10 2014 Hugues
 ##
 
 SRC		=	Graphique.cpp \
@@ -25,7 +25,6 @@ CFLAGS		+=	-I$(INCDIR) -I../nibblercore/inc/ -I../nibutils/inc/
 CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 CFLAGS		+=	-fPIC
-CFLAGS		+=	-lGL -lglut
 
 LDFLAGS		+=	-Wl,-O1
 LDFLAGS		+=	-shared
