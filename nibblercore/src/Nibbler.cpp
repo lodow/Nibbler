@@ -115,10 +115,10 @@ void Nibbler::run()
 	      game->update();
 	    }
 	  gui->clearScreen();
-          if (aff_menu)
-            menu.Show(gui);
 	  game->drawn(gui);
 	  hud(game, gui);
+          if (aff_menu)
+            menu.Show(gui);
           gui->drawScreen();
           _time.endFrame();
           _time.alignOnFps();
