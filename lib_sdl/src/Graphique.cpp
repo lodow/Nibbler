@@ -59,6 +59,10 @@ Graphique::~Graphique()
       SDL_DestroyTexture(_texMap[APPLE][1]);
       SDL_DestroyTexture(_texMap[HEAD][0]);
       SDL_DestroyTexture(_texMap[HEAD][1]);
+      SDL_DestroyTexture(_texMap[WALL][0]);
+      SDL_DestroyTexture(_texMap[WALL][1]);
+      SDL_DestroyTexture(_texMap[TELEP][0]);
+      SDL_DestroyTexture(_texMap[TELEP][1]);
       SDL_DestroyRenderer(_rend);
       SDL_DestroyWindow(_win);
     }
@@ -103,6 +107,21 @@ void Graphique::createWindows(const Point2d<int>& size)
   if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/_head.png")) == NULL)
     throw nFault(error + SDL_GetError(), true);
   _texMap[HEAD].push_back(tmp);
+
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/mur.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[WALL].push_back(tmp);
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/_mur.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[WALL].push_back(tmp);
+
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/telep.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[TELEP].push_back(tmp);
+  if ((tmp = IMG_LoadTexture(_rend, "./lib_sdl/res/_telep.png")) == NULL)
+    throw nFault(error + SDL_GetError(), true);
+  _texMap[TELEP].push_back(tmp);
+
   _textureInit = true;
 
   SDL_RenderClear(_rend);
@@ -118,7 +137,7 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
   pos.y = square.getPos().y();
   pos.w = square.getSize().w();
   pos.h = square.getSize().h();
-  if (type == APPLE || type == SNAKE || type == HEAD)
+  if (type == APPLE || type == SNAKE || type == HEAD || type == WALL || type == TELEP)
     SDL_RenderCopy(_rend, _texMap[type][(_timer > 150)], NULL, &pos);
   else
     {
@@ -138,15 +157,7 @@ void Graphique::clearScreen()
 
 void Graphique::drawScreen()
 {
-  /*Point2d<int> pos;
-  std::stringstream t;
-
-    t << "5";
-  pos.x() = 5;
-  pos.y() = 5;
-  this->affText(pos, t);
-  */ SDL_RenderPresent(_rend);
-
+  SDL_RenderPresent(_rend);
 }
 
 void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
