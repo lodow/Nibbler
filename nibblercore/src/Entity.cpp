@@ -10,7 +10,7 @@ Box<int> gameToWinSize(const Box<int>& b, const Point2d<int>& gamesize,
 Point2d<int> gameToWinSize(const Point2d<int>& b, const Point2d<int>& gamesize,
                            const Point2d<int>& win)
 {
-  return (Point2d<int>(b * (win.x() / gamesize.x())));
+  return (b * (win / gamesize));
 }
 
 Entity::Entity(const Box<int>& b, blockType type)
