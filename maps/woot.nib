@@ -1,0 +1,51 @@
+size: 30 30
+fps: 40
+accel: 0
+start: 25 25
+entity: Teleporter: 25 24 1 1 20 20 4
+entity: Apple: 18 20 1 1
+entity: Teleporter: 12 20 1 1 25 25 2
+entity: Apple: 25 26 1 1
+entity: Teleporter: 25 27 1 1 20 20 3
+entity: Apple: 19 20 1 1
+entity: Apple: 21 20 1 1
+entity: Apple: 22 20 1 1
+entity: Apple: 23 20 1 1
+entity: Apple: 23 20 1 1
+entity: Apple: 23 20 1 1
+entity: Apple: 24 20 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Apple: 21 21 1 1
+entity: Teleporter: 25 20 1 1 20 20 1
+entity: Teleporter: 20 18 1 1 20 21 3
+entity: Teleporter: 22 21 1 1 20 21 2
+entity: Teleporter: 20 26 1 1 10 10 2
+entity: Teleporter: 10 20 1 1 26 24 4
