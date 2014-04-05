@@ -18,7 +18,7 @@ Graphique::Graphique()
   _textureInit = false;
 
   error = "Font error :";
-  if (!(_font = TTF_OpenFont("./lib_sdl/res/frenchy.ttf", 100)))
+  if (!(_font = TTF_OpenFont("./lib_sdl/res/frenchy.ttf", 60)))
     {
     throw nFault(error + TTF_GetError(), true);
     }
