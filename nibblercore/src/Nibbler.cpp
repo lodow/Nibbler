@@ -30,7 +30,14 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
   for (_libidx = 0; _libidx < libs.size() && libs[_libidx] != lib; _libidx++);
   _libidx++;
 
+  _map = NULL;
+  if (av.size() > 4)
+    _map = new Map(av[4]);
+
+  if (_map)
+    gamesize = _map->getGamesize();
   _gamesize = gamesize;
+  std::cout << "game size: " << _gamesize.x() << " " << _gamesize.y() << std::endl;
   _win = _win - _win % _gamesize;
   if (gamesize.x() / gamesize.y() != 0)
     _win.y() = _win.x() / (gamesize.x() / gamesize.y());
@@ -38,10 +45,6 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
     _win.x() = _win.y() / (gamesize.y() / gamesize.x());
 
   _lib = new DLLoader<IGui*>(lib);
-
-  _map = NULL;
-  if (av.size() > 4)
-    _map = new Map(av[4]);
 }
 
 void Nibbler::hud(const HandleSnake* game, IGui* gui) const
