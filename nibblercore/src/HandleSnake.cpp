@@ -118,7 +118,6 @@ void HandleSnake::createApple()
         for (std::deque<Entity*>::const_iterator it = _ents.begin(); it != _ents.end(); ++it)
           if ((*it)->getBox() == apple)
             {
-              std::cout << "collison" << std::endl;
               tryAgain = true;
               break;
             }

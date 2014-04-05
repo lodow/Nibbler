@@ -13,7 +13,7 @@ Apple::~Apple()
 bool Apple::action(HandleSnake& game, Entity* collider)
 {
   (void)collider;
-  game.setScore(game.getScore() + 1);
+  game.setScore(game.getScore() + _box.getSize().x());
   game.getHead()->addPart();
   game.createApple();
   game.getTime().setFps(game.getTime().getFps() + game.getAcceleration());

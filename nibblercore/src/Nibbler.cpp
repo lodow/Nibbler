@@ -37,7 +37,6 @@ Nibbler::Nibbler(const std::vector<std::string>& av, const std::vector<std::stri
   if (_map)
     gamesize = _map->getGamesize();
   _gamesize = gamesize;
-  std::cout << "game size: " << _gamesize.x() << " " << _gamesize.y() << std::endl;
   _win = _win - _win % _gamesize;
   if (gamesize.x() / gamesize.y() != 0)
     _win.y() = _win.x() / (gamesize.x() / gamesize.y());

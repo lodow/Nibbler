@@ -1,0 +1,9 @@
+size: 50 50
+start: 10 10
+fps: 10
+accel: 2
+entity: Apple: 15 15 6 6
+entity: Wall: 20 20 10 10
+entity: Teleporter: 10 20 3 3 20 30 4
+entity: Teleporter: 20 10 6 6 30 20 3
+entity: Teleporter: 5 5 1 1 49 49 2

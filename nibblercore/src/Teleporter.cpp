@@ -18,6 +18,6 @@ bool Teleporter::operator==(const Entity& ent)
 bool Teleporter::action(HandleSnake& game, Entity* collider)
 {
   game.changeDirection(_dir);
-  collider->setBox(Box<int>(_dest, collider->getBox().getSize()));
+  collider->setBox(Box<int>(_dest, _box.getSize()));
   return (false);
 }
