@@ -72,7 +72,6 @@ void Nibbler::run()
   HandleSnake* game;
   Event ev;
   bool acted;
-  bool pause = false;
   bool aff_menu = true;
   Menu menu(_win);
 
@@ -92,11 +91,10 @@ void Nibbler::run()
             {
               if (ev.getEvent() == ENTER && aff_menu)
                 aff_menu = !aff_menu;
-              else if (ev.getEvent() == PAUSE && ev.getDown())
-                pause = !pause;
               else if (ev.getEvent() == QUIT && aff_menu && ev.getDown())
                 _exit = true;
-              else if (ev.getEvent() == QUIT && !aff_menu && ev.getDown())
+              else if ((ev.getEvent() == QUIT || ev.getEvent() == PAUSE)
+                       && !aff_menu && ev.getDown())
                 aff_menu = true;
               else if (ev.getDown() && !acted
                        && (ev.getEvent() == UP || ev.getEvent() == DOWN
@@ -112,15 +110,15 @@ void Nibbler::run()
                 }
             }
           if (!aff_menu)
-            {
-              if (!pause)
-                game->update();
-              gui->clearScreen();
-              game->drawn(gui);
-              hud(game, gui);
-            }
-          else
+            game->update();
+
+          gui->clearScreen();
+          game->drawn(gui);
+          hud(game, gui);
+
+          if (aff_menu)
             menu.Show(gui);
+
           gui->drawScreen();
           _time.endFrame();
           _time.alignOnFps();
