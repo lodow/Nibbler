@@ -9,12 +9,6 @@
 #include <GL/freeglut_ext.h>
 #include <cmath>
 
-#include <ft2build.h>
-#include <freetype2/freetype/freetype.h>
-#include <freetype2/freetype/ftglyph.h>
-#include <freetype2/freetype/ftoutln.h>
-#include <freetype2/freetype/fttrigon.h>
-
 int		key = -1;
 int		pressedkey = -1;
 
