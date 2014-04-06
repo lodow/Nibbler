@@ -113,6 +113,8 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
   glTranslatef(((static_cast<double>(square.getPos().x())) / _win.x() - 0.5) * 2.0,
 	       (((static_cast<double>(_win.y() - square.getPos().y()))) / _win.y() - 0.5) * 2.0, 0.0);
   glRectf(0, 0, tmp.w(), -tmp.h());
+  if (type == HEAD || type == SNAKE)
+    glutWireCube(0.2);
   glPopMatrix();
 }
 
