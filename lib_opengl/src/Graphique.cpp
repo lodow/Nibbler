@@ -58,9 +58,9 @@ Graphique::Graphique()
   _colors[SNAKE].push_back(0);
   _colors[SNAKE].push_back(181);
 
-  _colors[WALL].push_back(255);
-  _colors[WALL].push_back(0);
-  _colors[WALL].push_back(0);
+  _colors[WALL].push_back(42);
+  _colors[WALL].push_back(42);
+  _colors[WALL].push_back(42);
 
   _colors[TELEP].push_back(0);
   _colors[TELEP].push_back(0);
@@ -109,7 +109,7 @@ void Graphique::drawSquare(const Box<int>& square, blockType type)
 
   tmp /= (_win / 2.0);
   glPushMatrix();
-  glColor3d(col[0], col[1], col[2]);
+  glColor3d(static_cast<double>(col[0]) / 255, static_cast<double>(col[1]) / 255, static_cast<double>(col[2]) / 255);
   glTranslatef(((static_cast<double>(square.getPos().x())) / _win.x() - 0.5) * 2.0,
 	       (((static_cast<double>(_win.y() - square.getPos().y()))) / _win.y() - 0.5) * 2.0, 0.0);
   glRectf(0, 0, tmp.w(), -tmp.h());
@@ -128,19 +128,18 @@ void Graphique::drawScreen()
 
 void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
 {
+  std::string		p = text.str();
+
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   glOrtho(0, 0, -10, 10, -1, 1);
-
   glColor3ub(255,255,255);
   glPushMatrix();
   glTranslatef(((static_cast<double>(pos.x())) / _win.x() - 0.5) * 2.0,
 	       (((static_cast<double>(_win.y() - pos.y()))) / _win.y() - 0.5) * 1.9, 0);
   glScalef(1/3552.38, 1/2552.38, 0);
-  for( const char* p = text.str().c_str(); *p; p++)
-    {
-      glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, *p);
-    }
+  for(std::string::const_iterator it = p.begin(), end = p.end(); it != end; ++it)
+    glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, *it);
   glPopMatrix();
 }
 
