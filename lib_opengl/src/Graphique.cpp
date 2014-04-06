@@ -132,7 +132,7 @@ void Graphique::affText(const Point2d<int>& pos, const std::stringstream& text)
   glLoadIdentity();
   glOrtho(0, 0, -10, 10, -1, 1);
 
-  glColor3ub(255,0,0);
+  glColor3ub(255,255,255);
   glPushMatrix();
   glTranslatef(((static_cast<double>(pos.x())) / _win.x() - 0.5) * 2.0,
 	       (((static_cast<double>(_win.y() - pos.y()))) / _win.y() - 0.5) * 1.9, 0);
