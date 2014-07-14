@@ -5,7 +5,7 @@
 ## Login   <moriss_h@epitech.net>
 ##
 ## Started on  Sun Jun  9 03:35:24 2013 Hugues
-## Last update Sun Apr  6 13:07:19 2014 Hugues
+## Last update Sun Apr  6 22:25:56 2014 jonathan.collinet
 ##
 
 SRC		=	Graphique.cpp \
@@ -28,7 +28,7 @@ CFLAGS		+=	-fPIC
 
 LDFLAGS		+=	-Wl,-O1
 LDFLAGS		+=	-shared
-LDFLAGS		+=	-lGL -lglut
+LDFLAGS		+=	-lGL -lglut -lGLU
 
 OBJ		=	$(patsubst %.cpp,${OBJDIR}%.o, $(SRC))
 
